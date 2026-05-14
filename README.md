@@ -117,7 +117,7 @@ berisi `ANTHROPIC_API_KEY`.
 ielts-app/
 ├── main.js                       # Electron main process + Claude API handler (desktop)
 ├── preload.js                    # Secure bridge ke renderer (desktop)
-├── vercel.json                   # Config deploy web: routing + maxDuration
+├── vercel.json                   # Config deploy web: output dir + clean URLs + maxDuration
 ├── package.json
 ├── .env.example                  # Template API key
 ├── api/

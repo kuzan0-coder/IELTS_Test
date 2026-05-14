@@ -1,12 +1,10 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
+  "outputDirectory": "src",
+  "cleanUrls": true,
   "functions": {
     "api/ai/feedback.js": {
       "maxDuration": 60
     }
-  },
-  "rewrites": [
-    { "source": "/", "destination": "/src/index.html" },
-    { "source": "/((?!api/).*)", "destination": "/src/$1" }
-  ]
+  }
 }
