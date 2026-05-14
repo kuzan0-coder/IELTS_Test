@@ -1,0 +1,205 @@
+{
+  "part1": [
+    {
+      "id": "p1-hometown",
+      "topic": "Hometown",
+      "questions": [
+        "Where is your hometown?",
+        "What do you like most about your hometown?",
+        "Has your hometown changed much since you were a child?",
+        "Would you recommend your hometown as a place to visit? Why?"
+      ]
+    },
+    {
+      "id": "p1-work",
+      "topic": "Work / Study",
+      "questions": [
+        "Do you work or are you a student?",
+        "What do you enjoy most about your work?",
+        "Is your job stressful? Why or why not?",
+        "What would you like to change about your job in the future?"
+      ]
+    },
+    {
+      "id": "p1-hobbies",
+      "topic": "Hobbies",
+      "questions": [
+        "What hobbies do you have?",
+        "How did you become interested in this hobby?",
+        "Do you think hobbies are important? Why?",
+        "Have your hobbies changed over the years?"
+      ]
+    },
+    {
+      "id": "p1-food",
+      "topic": "Food and Cooking",
+      "questions": [
+        "What kind of food do you like to eat?",
+        "Do you prefer eating at home or in restaurants?",
+        "Have your eating habits changed since you were a child?",
+        "Do you think traditional food in your country is healthy?"
+      ]
+    },
+    {
+      "id": "p1-music",
+      "topic": "Music",
+      "questions": [
+        "What kind of music do you like to listen to?",
+        "When do you usually listen to music?",
+        "Have you ever learned to play a musical instrument?",
+        "Do you think music is important in people's lives?"
+      ]
+    },
+    {
+      "id": "p1-technology",
+      "topic": "Technology",
+      "questions": [
+        "How often do you use a smartphone?",
+        "What apps do you use most frequently?",
+        "Do you think people rely too much on technology nowadays?",
+        "How has technology changed your daily life in the past five years?"
+      ]
+    }
+  ],
+  "part2": [
+    {
+      "id": "p2-skill",
+      "title": "Describe a skill you would like to learn",
+      "duration": 120,
+      "bullets": [
+        "what the skill is",
+        "why you want to learn it",
+        "how you would learn it",
+        "and explain how learning this skill would benefit you"
+      ]
+    },
+    {
+      "id": "p2-place",
+      "title": "Describe a place you want to visit in the future",
+      "duration": 120,
+      "bullets": [
+        "where the place is",
+        "how you first heard about it",
+        "what you would do there",
+        "and explain why you want to visit this place"
+      ]
+    },
+    {
+      "id": "p2-person",
+      "title": "Describe a person who has influenced you",
+      "duration": 120,
+      "bullets": [
+        "who this person is",
+        "how you know them",
+        "what they have done that influenced you",
+        "and explain why their influence has been important"
+      ]
+    },
+    {
+      "id": "p2-decision",
+      "title": "Describe an important decision you have made",
+      "duration": 120,
+      "bullets": [
+        "what the decision was",
+        "when you made it",
+        "why it was important",
+        "and explain how you feel about the decision now"
+      ]
+    },
+    {
+      "id": "p2-book",
+      "title": "Describe a book that influenced you",
+      "duration": 120,
+      "bullets": [
+        "what the book is",
+        "when you read it",
+        "what it is about",
+        "and explain how it influenced you"
+      ]
+    },
+    {
+      "id": "p2-journey",
+      "title": "Describe a memorable journey you have taken",
+      "duration": 120,
+      "bullets": [
+        "where you went",
+        "who you went with",
+        "what you did during the journey",
+        "and explain why this journey was memorable"
+      ]
+    },
+    {
+      "id": "p2-gift",
+      "title": "Describe a gift you received that you really liked",
+      "duration": 120,
+      "bullets": [
+        "what the gift was",
+        "who gave it to you",
+        "when you received it",
+        "and explain why you liked it so much"
+      ]
+    }
+  ],
+  "part3": [
+    {
+      "id": "p3-skill",
+      "topic": "Learning and Skills",
+      "questions": [
+        "What skills do you think are most important for young people today?",
+        "Should schools teach more practical skills, or focus on academic subjects?",
+        "How has technology changed the way people learn new skills?",
+        "Do you think it's better to learn from books or from experience?"
+      ]
+    },
+    {
+      "id": "p3-travel",
+      "topic": "Travel and Culture",
+      "questions": [
+        "Why do you think people enjoy travelling to other countries?",
+        "What are the benefits of experiencing different cultures?",
+        "How has tourism affected local communities in your country?",
+        "Do you think virtual travel could replace real travel in the future?"
+      ]
+    },
+    {
+      "id": "p3-decisions",
+      "topic": "Decision Making",
+      "questions": [
+        "What factors should people consider before making important decisions?",
+        "Is it better to make decisions quickly or take time to think?",
+        "How can young people improve their decision-making skills?",
+        "Should parents make important decisions for their children?"
+      ]
+    },
+    {
+      "id": "p3-music",
+      "topic": "Music in Society",
+      "questions": [
+        "How important is music in people's daily lives today?",
+        "Has the way people listen to music changed in recent years?",
+        "Should traditional music be preserved? Why?",
+        "Do you think live concerts will still be popular in the future?"
+      ]
+    },
+    {
+      "id": "p3-technology-society",
+      "topic": "Technology and Society",
+      "questions": [
+        "How has technology changed the way families communicate?",
+        "Do you think social media has more positive or negative effects on young people?",
+        "Will artificial intelligence replace many jobs in the future?",
+        "What can governments do to make sure technology benefits everyone?"
+      ]
+    },
+    {
+      "id": "p3-traditions",
+      "topic": "Traditions and Customs",
+      "questions": [
+        "Why is it important to preserve cultural traditions?",
+        "Do you think modern lifestyles are erasing traditional customs?",
+        "What role should schools play in teaching cultural heritage?",
+        "How do traditions in your country differ from those in other countries?"
+      ]
+    }
+  ]
+}

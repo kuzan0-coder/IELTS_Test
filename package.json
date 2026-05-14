@@ -1,0 +1,20 @@
+{
+  "name": "ielts-prep",
+  "version": "0.1.0",
+  "description": "IELTS preparation desktop app with AI feedback — built for Fauzan",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "dev": "electron . --dev",
+    "dev:web": "vercel dev"
+  },
+  "author": "Fauzan",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^28.3.3"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.30.0",
+    "dotenv": "^16.4.5"
+  }
+}

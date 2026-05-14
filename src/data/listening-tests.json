@@ -1,0 +1,826 @@
+[
+  {
+    "id": "lt1",
+    "title": "Listening Test 1",
+    "sections": [
+      {
+        "section": 1,
+        "context": "Phone enquiry: a customer calling Sunshine Bike Rental to book a city tour.",
+        "script": [
+          { "voice": "female", "text": "Good morning, Sunshine Bike Rental. How can I help you?" },
+          { "voice": "male", "text": "Hi, I'd like to book a bicycle tour for next week if possible." },
+          { "voice": "female", "text": "Certainly. Can I take your name, please?" },
+          { "voice": "male", "text": "Yes, it's Marcus Pereira. That's P-E-R-E-I-R-A." },
+          { "voice": "female", "text": "Thank you. And which tour are you interested in?" },
+          { "voice": "male", "text": "I saw the Harbour Heritage tour online. Is that the one that includes lunch?" },
+          { "voice": "female", "text": "Yes, that's right. It runs every Tuesday and Friday. Which day suits you?" },
+          { "voice": "male", "text": "Friday would be ideal. The fourteenth, if it's available." },
+          { "voice": "female", "text": "Yes, we have spaces. The tour starts at nine thirty in the morning and finishes around three. The price is sixty-five dollars per person, which includes the bike, helmet, lunch, and a local guide." },
+          { "voice": "male", "text": "And how many people are usually in a group?" },
+          { "voice": "female", "text": "Groups are limited to twelve people. We currently have seven booked, so plenty of room. Will it be just yourself?" },
+          { "voice": "male", "text": "No, there will be two of us. My partner is coming too." },
+          { "voice": "female", "text": "Lovely. Now, a few details. Have either of you cycled in the past year?" },
+          { "voice": "male", "text": "I cycle to work most days, but my partner hasn't ridden since last summer." },
+          { "voice": "female", "text": "That's fine, the tour is suitable for beginners. We'll need their shoe size for the cycling shoes, and an emergency contact." },
+          { "voice": "male", "text": "Her shoe size is thirty-eight, European. The emergency contact is my brother, James, on zero four one two, six seven nine, eight three five." },
+          { "voice": "female", "text": "Thank you. Lastly, lunch is included as I mentioned. Do you have any dietary requirements?" },
+          { "voice": "male", "text": "My partner is vegetarian. No allergies for either of us." },
+          { "voice": "female", "text": "Noted. The meeting point is at Wharf Three of Darling Harbour, beside the maritime museum. Please arrive by nine fifteen. The total comes to one hundred and thirty dollars, payable on the day by card." }
+        ],
+        "questions": [
+          {
+            "num": 1,
+            "type": "GAP",
+            "text": "Customer's name: Marcus ___________",
+            "answer": "Pereira",
+            "explanation": "Customer eja namanya P-E-R-E-I-R-A."
+          },
+          {
+            "num": 2,
+            "type": "GAP",
+            "text": "Tour name: ___________ Heritage tour",
+            "answer": "Harbour",
+            "altAnswers": ["Harbor"],
+            "explanation": "Disebut 'Harbour Heritage tour'."
+          },
+          {
+            "num": 3,
+            "type": "GAP",
+            "text": "Tour date: Friday the ___________",
+            "answer": "14th",
+            "altAnswers": ["fourteenth", "14"],
+            "explanation": "'The fourteenth'."
+          },
+          {
+            "num": 4,
+            "type": "GAP",
+            "text": "Start time: ___________ am",
+            "answer": "9:30",
+            "altAnswers": ["9.30", "nine thirty", "0930"],
+            "explanation": "'Starts at nine thirty in the morning'."
+          },
+          {
+            "num": 5,
+            "type": "GAP",
+            "text": "Price per person: $___________",
+            "answer": "65",
+            "altAnswers": ["sixty-five", "sixty five"],
+            "explanation": "'Sixty-five dollars per person'."
+          },
+          {
+            "num": 6,
+            "type": "GAP",
+            "text": "Max group size: ___________ people",
+            "answer": "12",
+            "altAnswers": ["twelve"],
+            "explanation": "'Limited to twelve people'."
+          },
+          {
+            "num": 7,
+            "type": "GAP",
+            "text": "Partner's shoe size: ___________",
+            "answer": "38",
+            "altAnswers": ["thirty-eight"],
+            "explanation": "'Thirty-eight, European'."
+          },
+          {
+            "num": 8,
+            "type": "GAP",
+            "text": "Emergency contact phone: ___________",
+            "answer": "0412 679 835",
+            "altAnswers": ["0412679835", "0412-679-835"],
+            "explanation": "'Zero four one two, six seven nine, eight three five'."
+          },
+          {
+            "num": 9,
+            "type": "GAP",
+            "text": "Dietary requirement: partner is ___________",
+            "answer": "vegetarian",
+            "explanation": "'My partner is vegetarian'."
+          },
+          {
+            "num": 10,
+            "type": "GAP",
+            "text": "Meeting point: Wharf ___________ of Darling Harbour",
+            "answer": "3",
+            "altAnswers": ["three", "Three"],
+            "explanation": "'Wharf Three of Darling Harbour'."
+          }
+        ]
+      },
+      {
+        "section": 2,
+        "context": "Tour guide monologue: introducing visitors to Greenwood Botanical Garden.",
+        "script": [
+          { "voice": "female", "text": "Welcome everyone to Greenwood Botanical Garden. My name is Sarah, and I'll be your guide today. Before we start the walk, let me give you a brief overview." },
+          { "voice": "female", "text": "Greenwood was established in 1882 by botanist William Greenwood, who collected plants on his travels through South America. Today, the garden covers forty hectares and contains over six thousand plant species." },
+          { "voice": "female", "text": "Our walk today will take about ninety minutes and cover four main areas. We'll start at the rose garden, which is to your left. Then we'll head north to the tropical greenhouse — the large glass building you can see in the distance. After that, we'll cross the small wooden bridge to reach the bamboo grove, and finally we'll finish at the herb garden, near the café." },
+          { "voice": "female", "text": "A few important things to note. Please stay on the marked paths at all times — many of our plants are rare or sensitive to disturbance. Photography is welcome, but please do not use flash inside the greenhouse, as it can stress the orchid collection. There are toilets near the café and also next to the children's playground. Lastly, the garden shop closes at four thirty, half an hour earlier than the main gate." }
+        ],
+        "questions": [
+          {
+            "num": 11,
+            "type": "GAP",
+            "text": "Garden established in: ___________",
+            "answer": "1882",
+            "explanation": "'Established in 1882'."
+          },
+          {
+            "num": 12,
+            "type": "GAP",
+            "text": "Total area: ___________ hectares",
+            "answer": "40",
+            "altAnswers": ["forty"],
+            "explanation": "'Covers forty hectares'."
+          },
+          {
+            "num": 13,
+            "type": "GAP",
+            "text": "Number of plant species: over ___________",
+            "answer": "6000",
+            "altAnswers": ["six thousand", "6,000"],
+            "explanation": "'Over six thousand plant species'."
+          },
+          {
+            "num": 14,
+            "type": "GAP",
+            "text": "Walk duration: ___________ minutes",
+            "answer": "90",
+            "altAnswers": ["ninety"],
+            "explanation": "'Take about ninety minutes'."
+          },
+          {
+            "num": 15,
+            "type": "MCQ",
+            "text": "Which area will the tour visit FIRST?",
+            "options": ["Tropical greenhouse", "Rose garden", "Bamboo grove", "Herb garden"],
+            "answer": "B",
+            "explanation": "'We'll start at the rose garden'."
+          },
+          {
+            "num": 16,
+            "type": "MCQ",
+            "text": "How do visitors reach the bamboo grove?",
+            "options": ["By following a marked stone path", "Through the tropical greenhouse", "By crossing a wooden bridge", "Via the herb garden"],
+            "answer": "C",
+            "explanation": "'Cross the small wooden bridge to reach the bamboo grove'."
+          },
+          {
+            "num": 17,
+            "type": "MCQ",
+            "text": "Why is flash photography forbidden in the greenhouse?",
+            "options": ["It disturbs other visitors", "It damages the camera", "It stresses the orchids", "It is against the law"],
+            "answer": "C",
+            "explanation": "'Can stress the orchid collection'."
+          },
+          {
+            "num": 18,
+            "type": "GAP",
+            "text": "Toilets are located near the café and the ___________",
+            "answer": "children's playground",
+            "altAnswers": ["childrens playground", "playground"],
+            "explanation": "'Near the café and also next to the children's playground'."
+          },
+          {
+            "num": 19,
+            "type": "GAP",
+            "text": "Garden shop closes at: ___________",
+            "answer": "4:30",
+            "altAnswers": ["4.30", "four thirty", "16:30"],
+            "explanation": "'Closes at four thirty'."
+          },
+          {
+            "num": 20,
+            "type": "GAP",
+            "text": "The shop closes ___________ minutes earlier than the main gate.",
+            "answer": "30",
+            "altAnswers": ["thirty", "half an hour"],
+            "explanation": "'Half an hour earlier than the main gate' = 30 minutes."
+          }
+        ]
+      },
+      {
+        "section": 3,
+        "context": "Two students discuss their psychology research project with their tutor.",
+        "script": [
+          { "voice": "male", "text": "Good morning, Dr Klein. Lena and I wanted to run our project idea past you before we start writing it up." },
+          { "voice": "female", "text": "Of course, Tom. What have you decided to focus on?" },
+          { "voice": "female", "text": "We're interested in whether short breaks during studying actually improve memory, or if they just feel good." },
+          { "voice": "male", "text": "Specifically, we want to compare two types of breaks: short walks outside versus checking social media." },
+          { "voice": "female", "text": "Interesting. What's your hypothesis?" },
+          { "voice": "female", "text": "We predict that walking breaks will lead to better memory recall than social media breaks, even if both are the same length." },
+          { "voice": "male", "text": "Our reasoning is that walking gives the brain a genuine rest, while social media keeps it stimulated and may interfere with consolidation." },
+          { "voice": "female", "text": "That's a reasonable hypothesis, though I'd encourage you to also consider a control group with no break at all. Otherwise, you can't be sure the breaks themselves are helping, regardless of type." },
+          { "voice": "male", "text": "Good point. We'll add that. How many participants do you recommend?" },
+          { "voice": "female", "text": "For three conditions, you'll want at least sixty participants — twenty per group — to have any chance of finding a statistically significant result." },
+          { "voice": "female", "text": "We were thinking of recruiting from the first-year psychology cohort. Is that okay?" },
+          { "voice": "female", "text": "It's convenient, but be careful: psychology students may already know about memory research and unconsciously try to perform well. Consider recruiting from another department, like engineering or business, to reduce that bias." },
+          { "voice": "male", "text": "That makes sense. One more question — what statistical test should we use?" },
+          { "voice": "female", "text": "With three groups and one dependent variable, the standard choice is a one-way ANOVA. If you find a significant difference overall, follow up with post-hoc tests like Tukey's HSD." },
+          { "voice": "female", "text": "Thank you, Dr Klein. We'll send you the revised proposal by Friday." },
+          { "voice": "female", "text": "Excellent. Make sure your ethics application is also submitted by then, since data collection can't begin without approval." }
+        ],
+        "questions": [
+          {
+            "num": 21,
+            "type": "MCQ",
+            "text": "The students' research compares two types of breaks: walking outside and:",
+            "options": ["Talking to friends", "Checking social media", "Drinking coffee", "Listening to music"],
+            "answer": "B",
+            "explanation": "'Short walks outside versus checking social media'."
+          },
+          {
+            "num": 22,
+            "type": "MCQ",
+            "text": "The students hypothesise that walking breaks will:",
+            "options": ["Reduce study time needed", "Improve memory recall more than social media", "Be more enjoyable than social media", "Make participants more focused"],
+            "answer": "B",
+            "explanation": "'Walking breaks will lead to better memory recall than social media breaks'."
+          },
+          {
+            "num": 23,
+            "type": "MCQ",
+            "text": "What does Dr Klein suggest the students add to their design?",
+            "options": ["A longer break duration", "A pre-test of memory ability", "A control group with no break", "A follow-up survey"],
+            "answer": "C",
+            "explanation": "'I'd encourage you to also consider a control group with no break at all'."
+          },
+          {
+            "num": 24,
+            "type": "MCQ",
+            "text": "Minimum participants recommended:",
+            "options": ["20 total", "30 total", "60 total", "100 total"],
+            "answer": "C",
+            "explanation": "'At least sixty participants'."
+          },
+          {
+            "num": 25,
+            "type": "MCQ",
+            "text": "Why does Dr Klein suggest not recruiting psychology students?",
+            "options": ["They are too busy", "They may know about memory research and bias the results", "They have already participated in too many studies", "They are difficult to schedule"],
+            "answer": "B",
+            "explanation": "'Psychology students may already know about memory research and unconsciously try to perform well'."
+          },
+          {
+            "num": 26,
+            "type": "GAP",
+            "text": "Recommended statistical test: one-way ___________",
+            "answer": "ANOVA",
+            "altAnswers": ["anova"],
+            "explanation": "'The standard choice is a one-way ANOVA'."
+          },
+          {
+            "num": 27,
+            "type": "GAP",
+            "text": "Post-hoc test mentioned: ___________ HSD",
+            "answer": "Tukey's",
+            "altAnswers": ["Tukey", "Tukeys"],
+            "explanation": "'Tukey's HSD'."
+          },
+          {
+            "num": 28,
+            "type": "GAP",
+            "text": "Revised proposal due by: ___________",
+            "answer": "Friday",
+            "explanation": "'Send you the revised proposal by Friday'."
+          },
+          {
+            "num": 29,
+            "type": "GAP",
+            "text": "Must also submit an ___________ application by then.",
+            "answer": "ethics",
+            "explanation": "'Your ethics application is also submitted by then'."
+          },
+          {
+            "num": 30,
+            "type": "MCQ",
+            "text": "Data collection can begin once:",
+            "options": ["Participants are recruited", "The proposal is submitted", "Ethics approval is granted", "The ANOVA is calculated"],
+            "answer": "C",
+            "explanation": "'Data collection can't begin without approval'."
+          }
+        ]
+      },
+      {
+        "section": 4,
+        "context": "Lecture excerpt on the discovery of penicillin and its impact on modern medicine.",
+        "script": [
+          { "voice": "male", "text": "Today I want to talk about one of the most consequential accidents in the history of medicine: the discovery of penicillin." },
+          { "voice": "male", "text": "The story begins in September 1928, in a small laboratory at St Mary's Hospital in London. Alexander Fleming, a Scottish bacteriologist, returned from a two-week holiday to find his workbench in disarray." },
+          { "voice": "male", "text": "Among his unwashed petri dishes was one growing the bacterium staphylococcus, the cause of many serious infections. On this dish, Fleming noticed a clear ring around a spot of mould, where no bacteria were growing." },
+          { "voice": "male", "text": "The mould turned out to be a species called Penicillium notatum. Whatever it was producing was killing the bacteria around it. Fleming named the substance penicillin and published his findings the following year." },
+          { "voice": "male", "text": "However, Fleming himself struggled to extract penicillin in a useful form. The work was extremely difficult and his lab was poorly equipped for chemistry. For the next decade, penicillin remained a scientific curiosity rather than a medicine." },
+          { "voice": "male", "text": "The breakthrough came in 1940 at Oxford University, when a team led by Howard Florey and Ernst Chain succeeded in producing purified penicillin in large enough quantities to test on animals, and shortly after, on humans." },
+          { "voice": "male", "text": "The first human patient was a policeman named Albert Alexander, who had developed a fatal infection after scratching his face on a rose thorn. After receiving penicillin, his condition improved dramatically — but the supply ran out before he could be fully cured, and he died several weeks later." },
+          { "voice": "male", "text": "Despite this tragic outcome, the demonstration was clear. With the United States entering World War Two, mass production of penicillin became a national priority. By 1944, enough penicillin was being produced to treat every wounded Allied soldier. It is estimated that penicillin saved up to two hundred thousand lives during the war alone." },
+          { "voice": "male", "text": "Today, penicillin and its derivatives remain among the most prescribed medicines in the world. However, the rise of antibiotic-resistant bacteria — driven partly by overuse — threatens to undo much of what was achieved. According to the World Health Organisation, drug-resistant infections kill at least one point two million people each year, and the figure is rising." }
+        ],
+        "questions": [
+          {
+            "num": 31,
+            "type": "GAP",
+            "text": "Penicillin was discovered in: ___________",
+            "answer": "1928",
+            "explanation": "'September 1928'."
+          },
+          {
+            "num": 32,
+            "type": "GAP",
+            "text": "Place of discovery: ___________ Hospital, London",
+            "answer": "St Mary's",
+            "altAnswers": ["St Marys", "Saint Mary's", "St. Mary's"],
+            "explanation": "'A small laboratory at St Mary's Hospital'."
+          },
+          {
+            "num": 33,
+            "type": "GAP",
+            "text": "Fleming had just returned from a ___________-week holiday",
+            "answer": "two",
+            "altAnswers": ["2"],
+            "explanation": "'A two-week holiday'."
+          },
+          {
+            "num": 34,
+            "type": "GAP",
+            "text": "Bacteria affected on the dish: ___________",
+            "answer": "staphylococcus",
+            "altAnswers": ["Staphylococcus"],
+            "explanation": "'The bacterium staphylococcus'."
+          },
+          {
+            "num": 35,
+            "type": "GAP",
+            "text": "Mould species: Penicillium ___________",
+            "answer": "notatum",
+            "altAnswers": ["Notatum"],
+            "explanation": "'A species called Penicillium notatum'."
+          },
+          {
+            "num": 36,
+            "type": "GAP",
+            "text": "Breakthrough at ___________ University, 1940",
+            "answer": "Oxford",
+            "explanation": "'In 1940 at Oxford University'."
+          },
+          {
+            "num": 37,
+            "type": "GAP",
+            "text": "Team leaders at Oxford: Howard ___________ and Ernst Chain",
+            "answer": "Florey",
+            "explanation": "'A team led by Howard Florey and Ernst Chain'."
+          },
+          {
+            "num": 38,
+            "type": "GAP",
+            "text": "First patient: Albert ___________, a policeman",
+            "answer": "Alexander",
+            "explanation": "'A policeman named Albert Alexander'."
+          },
+          {
+            "num": 39,
+            "type": "MCQ",
+            "text": "What happened to the first human patient?",
+            "options": ["He was completely cured", "He improved but died after supply ran out", "He had a severe allergic reaction", "He recovered after several months"],
+            "answer": "B",
+            "explanation": "'His condition improved dramatically — but the supply ran out before he could be fully cured, and he died several weeks later'."
+          },
+          {
+            "num": 40,
+            "type": "GAP",
+            "text": "Drug-resistant infections kill at least ___________ million people each year.",
+            "answer": "1.2",
+            "altAnswers": ["one point two", "1.2 million"],
+            "explanation": "'At least one point two million people each year'."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "lt2",
+    "title": "Listening Test 2",
+    "sections": [
+      {
+        "section": 1,
+        "context": "Phone call: a new tenant calls a real-estate agent to enquire about an apartment for rent.",
+        "script": [
+          { "voice": "male", "text": "Good afternoon, Riverside Properties. This is Daniel speaking. How can I help you?" },
+          { "voice": "female", "text": "Hi Daniel. I'm calling about the two-bedroom apartment you have listed on Maple Street. Is it still available?" },
+          { "voice": "male", "text": "Yes, it is. Can I take your name, please?" },
+          { "voice": "female", "text": "Of course. It's Anna Kowalski. K-O-W-A-L-S-K-I." },
+          { "voice": "male", "text": "Thank you, Anna. The apartment is on the fourth floor of a six-storey building. It has two bedrooms, one bathroom, and a separate kitchen." },
+          { "voice": "female", "text": "What's the monthly rent?" },
+          { "voice": "male", "text": "It's one thousand four hundred and fifty dollars per month, including water but not electricity or internet." },
+          { "voice": "female", "text": "And the security deposit?" },
+          { "voice": "male", "text": "Two months of rent, refundable on departure." },
+          { "voice": "female", "text": "When is it available from?" },
+          { "voice": "male", "text": "From the first of June. The current tenant moves out on the twenty-eighth of May, and we need three days to clean and inspect." },
+          { "voice": "female", "text": "That works for me. What appliances are included?" },
+          { "voice": "male", "text": "The kitchen has a fridge, an oven, and a dishwasher. There's also a washing machine in the bathroom. The owner does not provide a microwave." },
+          { "voice": "female", "text": "Is parking available?" },
+          { "voice": "male", "text": "Yes, there's one underground parking space included in the rent. Visitor parking is on the street." },
+          { "voice": "female", "text": "Are pets allowed?" },
+          { "voice": "male", "text": "Cats are fine, but no dogs. The building has a no-dogs policy. Are you bringing a pet?" },
+          { "voice": "female", "text": "Yes, I have one cat. Her name is Pepper." },
+          { "voice": "male", "text": "That's no problem. To proceed, I'll need a copy of your passport, your last three pay slips, and a reference from your current landlord. You can email them to bookings at riverside dot com." },
+          { "voice": "female", "text": "Perfect. When can I view the apartment?" },
+          { "voice": "male", "text": "I have an open viewing this Saturday at eleven thirty. Will that work?" },
+          { "voice": "female", "text": "Yes, I'll be there. Thank you, Daniel." }
+        ],
+        "questions": [
+          {
+            "num": 1,
+            "type": "GAP",
+            "text": "Caller's surname: ___________",
+            "answer": "Kowalski",
+            "explanation": "Dia eja K-O-W-A-L-S-K-I."
+          },
+          {
+            "num": 2,
+            "type": "GAP",
+            "text": "Apartment is on the ___________ floor",
+            "answer": "4th",
+            "altAnswers": ["fourth", "4"],
+            "explanation": "'On the fourth floor'."
+          },
+          {
+            "num": 3,
+            "type": "GAP",
+            "text": "Number of bedrooms: ___________",
+            "answer": "2",
+            "altAnswers": ["two"],
+            "explanation": "'Two-bedroom apartment'."
+          },
+          {
+            "num": 4,
+            "type": "GAP",
+            "text": "Monthly rent: $___________",
+            "answer": "1450",
+            "altAnswers": ["1,450", "one thousand four hundred and fifty"],
+            "explanation": "'One thousand four hundred and fifty dollars per month'."
+          },
+          {
+            "num": 5,
+            "type": "GAP",
+            "text": "Security deposit: ___________ months of rent",
+            "answer": "2",
+            "altAnswers": ["two"],
+            "explanation": "'Two months of rent'."
+          },
+          {
+            "num": 6,
+            "type": "GAP",
+            "text": "Available from: ___________ June",
+            "answer": "1st",
+            "altAnswers": ["first", "1"],
+            "explanation": "'From the first of June'."
+          },
+          {
+            "num": 7,
+            "type": "MCQ",
+            "text": "Which appliance is NOT included?",
+            "options": ["Fridge", "Dishwasher", "Microwave", "Washing machine"],
+            "answer": "C",
+            "explanation": "'The owner does not provide a microwave'."
+          },
+          {
+            "num": 8,
+            "type": "GAP",
+            "text": "Pet allowed: ___________",
+            "answer": "cat",
+            "altAnswers": ["cats"],
+            "explanation": "'Cats are fine, but no dogs'."
+          },
+          {
+            "num": 9,
+            "type": "GAP",
+            "text": "Documents required: passport, pay slips, and a ___________",
+            "answer": "reference",
+            "explanation": "'A reference from your current landlord'."
+          },
+          {
+            "num": 10,
+            "type": "GAP",
+            "text": "Viewing time: Saturday at ___________",
+            "answer": "11:30",
+            "altAnswers": ["11.30", "eleven thirty", "1130"],
+            "explanation": "'This Saturday at eleven thirty'."
+          }
+        ]
+      },
+      {
+        "section": 2,
+        "context": "Radio announcement: information about an upcoming community arts festival.",
+        "script": [
+          { "voice": "female", "text": "Good morning, listeners. This is the community announcements segment. Today I'm bringing you details of the annual Brightwater Arts Festival, which returns next month for its fifteenth year." },
+          { "voice": "female", "text": "The festival runs for three days, from Friday the twenty-second to Sunday the twenty-fourth of June. All events take place in and around Brightwater Park, which is just a five-minute walk from the central railway station." },
+          { "voice": "female", "text": "This year's festival features over eighty artists, including painters, sculptors, photographers, and craft makers. There will also be live music on the main stage every afternoon from two o'clock until seven o'clock." },
+          { "voice": "female", "text": "Entry to the festival is free for everyone. However, some workshops require advance booking, particularly the pottery sessions, which fill up quickly. Booking opens online on the first of June." },
+          { "voice": "female", "text": "Food and drink will be available from over twenty stalls offering cuisine from around the world. There is also a dedicated children's zone with face painting, puppet shows, and a small playground. The children's zone closes at six pm each day, half an hour earlier than the main festival." },
+          { "voice": "female", "text": "A few important practical notes. Parking near the park is extremely limited, so we strongly encourage visitors to use public transport. There will be no on-site parking provided by the festival itself. Free shuttle buses run every fifteen minutes from the railway station." },
+          { "voice": "female", "text": "Please also note that the festival is not weather-dependent — most events take place under marquees. However, in the unlikely event of severe storms, updates will be posted on the festival website and social media." },
+          { "voice": "female", "text": "For more information, including the full programme and workshop bookings, visit brightwater festival dot org. That's all from me today. Have a wonderful weekend." }
+        ],
+        "questions": [
+          {
+            "num": 11,
+            "type": "GAP",
+            "text": "Festival year number: ___________ year",
+            "answer": "15th",
+            "altAnswers": ["fifteenth", "15"],
+            "explanation": "'Returns next month for its fifteenth year'."
+          },
+          {
+            "num": 12,
+            "type": "GAP",
+            "text": "Festival dates: ___________ to 24th June",
+            "answer": "22nd",
+            "altAnswers": ["twenty-second", "22"],
+            "explanation": "'From Friday the twenty-second to Sunday the twenty-fourth'."
+          },
+          {
+            "num": 13,
+            "type": "GAP",
+            "text": "Location: Brightwater Park, ___________ minutes from the railway station",
+            "answer": "5",
+            "altAnswers": ["five"],
+            "explanation": "'Just a five-minute walk from the central railway station'."
+          },
+          {
+            "num": 14,
+            "type": "GAP",
+            "text": "Number of artists: over ___________",
+            "answer": "80",
+            "altAnswers": ["eighty"],
+            "explanation": "'Over eighty artists'."
+          },
+          {
+            "num": 15,
+            "type": "GAP",
+            "text": "Live music runs until ___________ pm",
+            "answer": "7",
+            "altAnswers": ["seven", "7:00", "7pm"],
+            "explanation": "'From two o'clock until seven o'clock'."
+          },
+          {
+            "num": 16,
+            "type": "MCQ",
+            "text": "Which workshops fill up most quickly?",
+            "options": ["Painting", "Photography", "Pottery", "Sculpture"],
+            "answer": "C",
+            "explanation": "'The pottery sessions, which fill up quickly'."
+          },
+          {
+            "num": 17,
+            "type": "GAP",
+            "text": "Online booking opens on the ___________ of June.",
+            "answer": "1st",
+            "altAnswers": ["first", "1"],
+            "explanation": "'Booking opens online on the first of June'."
+          },
+          {
+            "num": 18,
+            "type": "GAP",
+            "text": "Children's zone closes at ___________ pm",
+            "answer": "6",
+            "altAnswers": ["six", "6:00"],
+            "explanation": "'Closes at six pm each day'."
+          },
+          {
+            "num": 19,
+            "type": "MCQ",
+            "text": "What transport option does the festival offer?",
+            "options": ["On-site parking", "Free shuttle buses from the station", "Discounted train tickets", "Bike hire"],
+            "answer": "B",
+            "explanation": "'Free shuttle buses run every fifteen minutes from the railway station'."
+          },
+          {
+            "num": 20,
+            "type": "GAP",
+            "text": "Most events are held under ___________ in case of bad weather.",
+            "answer": "marquees",
+            "altAnswers": ["marquee", "tents"],
+            "explanation": "'Most events take place under marquees'."
+          }
+        ]
+      },
+      {
+        "section": 3,
+        "context": "Two architecture students discuss their dissertation topics with their supervisor.",
+        "script": [
+          { "voice": "male", "text": "Good morning, Professor Hayes. We were hoping to discuss our dissertation topics with you today." },
+          { "voice": "female", "text": "Of course. Mia, why don't you start? What were you thinking of?" },
+          { "voice": "female", "text": "I've been reading about how cities have responded to extreme heat. I want to investigate cooling strategies in dense urban areas, particularly the use of green roofs and reflective pavements." },
+          { "voice": "female", "text": "An important topic. Are you planning to focus on a single city or compare several?" },
+          { "voice": "female", "text": "I was thinking of comparing Singapore, Phoenix, and Melbourne, since they represent three different climate types." },
+          { "voice": "female", "text": "Three cases is ambitious for a dissertation. I'd suggest narrowing to two — perhaps Singapore and Phoenix, since their climates are most extreme. Melbourne is interesting but the heat data is harder to obtain reliably." },
+          { "voice": "female", "text": "That makes sense. I'll drop Melbourne." },
+          { "voice": "male", "text": "My topic is quite different. I want to look at how disability accessibility is integrated into modern public buildings, specifically museums and libraries." },
+          { "voice": "female", "text": "That's a strong topic, and there's good literature on it. What angle are you taking?" },
+          { "voice": "male", "text": "I'm interested in whether accessibility features are designed in from the start, or added afterwards as compliance with regulations." },
+          { "voice": "female", "text": "Excellent question. Make sure you interview not just architects but also disability advocacy groups. They often have the most informed perspective on what works in practice." },
+          { "voice": "male", "text": "Good point. How many interviews should I aim for?" },
+          { "voice": "female", "text": "For a dissertation at your level, around twelve to fifteen substantial interviews would be sufficient. Mix architects, users, and advocacy representatives." },
+          { "voice": "female", "text": "Professor, for my topic, I was planning to rely mainly on published temperature data from city governments. Is that enough, or should I also do interviews?" },
+          { "voice": "female", "text": "Published data is necessary, but interviews with city planners would strengthen your work significantly. Aim for around six to eight." },
+          { "voice": "male", "text": "When should we submit our research proposals?" },
+          { "voice": "female", "text": "Proposals are due by the fifteenth of November. The final dissertation is due in May of the following year, but I'd encourage you to have a complete first draft by February." },
+          { "voice": "female", "text": "Thank you, Professor. We'll send our revised proposals next week." }
+        ],
+        "questions": [
+          {
+            "num": 21,
+            "type": "MCQ",
+            "text": "Mia's research is about:",
+            "options": ["Sustainable building materials", "Urban cooling strategies for extreme heat", "Energy efficiency in office towers", "Public transport planning"],
+            "answer": "B",
+            "explanation": "'Cooling strategies in dense urban areas'."
+          },
+          {
+            "num": 22,
+            "type": "MCQ",
+            "text": "Why does Professor Hayes suggest dropping Melbourne?",
+            "options": ["The climate is too similar to Singapore", "Heat data is harder to obtain reliably", "Three cases is too many for any dissertation", "Local architects are unavailable for interview"],
+            "answer": "B",
+            "explanation": "'Melbourne is interesting but the heat data is harder to obtain reliably'."
+          },
+          {
+            "num": 23,
+            "type": "MCQ",
+            "text": "What does Tom's dissertation focus on?",
+            "options": [
+              "How museums have changed their exhibits over time",
+              "How libraries promote literacy in deprived areas",
+              "Whether disability accessibility is designed in or added later",
+              "Whether architects are properly trained in modern design"
+            ],
+            "answer": "C",
+            "explanation": "'Whether accessibility features are designed in from the start, or added afterwards as compliance'."
+          },
+          {
+            "num": 24,
+            "type": "MCQ",
+            "text": "Whom does Professor Hayes specifically advise Tom to interview?",
+            "options": [
+              "Government regulators only",
+              "Architects only",
+              "Disability advocacy groups, alongside architects",
+              "Building maintenance staff"
+            ],
+            "answer": "C",
+            "explanation": "'Interview not just architects but also disability advocacy groups'."
+          },
+          {
+            "num": 25,
+            "type": "GAP",
+            "text": "Tom should aim for ___________ to fifteen interviews.",
+            "answer": "twelve",
+            "altAnswers": ["12"],
+            "explanation": "'Around twelve to fifteen substantial interviews'."
+          },
+          {
+            "num": 26,
+            "type": "GAP",
+            "text": "Mia should also interview ___________ to support her data.",
+            "maxWords": 2,
+            "answer": "city planners",
+            "altAnswers": ["urban planners"],
+            "explanation": "'Interviews with city planners would strengthen your work'."
+          },
+          {
+            "num": 27,
+            "type": "GAP",
+            "text": "Mia should aim for around ___________ to eight interviews.",
+            "answer": "six",
+            "altAnswers": ["6"],
+            "explanation": "'Aim for around six to eight'."
+          },
+          {
+            "num": 28,
+            "type": "GAP",
+            "text": "Proposal deadline: ___________ November",
+            "answer": "15th",
+            "altAnswers": ["fifteenth", "15"],
+            "explanation": "'Proposals are due by the fifteenth of November'."
+          },
+          {
+            "num": 29,
+            "type": "GAP",
+            "text": "Final dissertation due: ___________",
+            "answer": "May",
+            "explanation": "'The final dissertation is due in May'."
+          },
+          {
+            "num": 30,
+            "type": "GAP",
+            "text": "Complete first draft recommended by: ___________",
+            "answer": "February",
+            "explanation": "'I'd encourage you to have a complete first draft by February'."
+          }
+        ]
+      },
+      {
+        "section": 4,
+        "context": "Lecture excerpt on the history and future of cycling in cities.",
+        "script": [
+          { "voice": "male", "text": "Today's lecture is on the rise, decline, and rebirth of cycling in modern cities. The story is more complicated than it first appears." },
+          { "voice": "male", "text": "Cycling was first commercialised in the late nineteenth century. The so-called safety bicycle, introduced in 1885 in England, replaced the dangerous high-wheeled designs that preceded it. Within twenty years, it had become a mass-market product across Europe and North America." },
+          { "voice": "male", "text": "Throughout the first three decades of the twentieth century, cycling was a dominant mode of urban transport in many European cities. In the Netherlands, for example, surveys from 1928 estimated that nearly seventy per cent of all urban trips were made by bicycle." },
+          { "voice": "male", "text": "This dominance collapsed quickly after World War Two. Rising incomes, suburbanisation, and government investment in road networks for private cars marginalised the bicycle. By 1965, the share of trips made by bicycle in Dutch cities had fallen to around twenty per cent, and was projected to continue declining." },
+          { "voice": "male", "text": "The turning point came in the early 1970s. A combination of the oil crisis, rising traffic deaths — including a sharply criticised peak of more than four hundred children killed in road accidents in the Netherlands in 1971 — and growing environmental awareness sparked a public movement called Stop de Kindermoord, or Stop the Child Murder." },
+          { "voice": "male", "text": "The movement pressured Dutch governments to fundamentally redesign streets to prioritise cyclists and pedestrians over cars. By the mid-1980s, separated cycle paths, protected intersections, and bicycle-priority neighbourhoods had become standard features of new urban developments." },
+          { "voice": "male", "text": "Today, the Netherlands has more bicycles than people, and roughly twenty-seven per cent of all trips nationwide are made by bicycle. Denmark has reached similar levels, particularly in Copenhagen, where cycling accounts for nearly half of all commuter trips." },
+          { "voice": "male", "text": "Other cities have started to follow. Paris under mayor Anne Hidalgo has invested over two hundred and fifty million euros in cycle infrastructure since 2014, increasing bicycle trips fourfold in less than a decade. Bogota, Colombia, has been a pioneer in lower-income contexts, with its weekly Ciclovia event closing roads to cars and opening them to cyclists since 1974." },
+          { "voice": "male", "text": "Researchers identify three factors that consistently determine whether a city's cycling rate grows. The first is physical infrastructure — particularly protected lanes separated from car traffic. The second is consistent political commitment over decades, not single short-term projects. The third is integration with public transport, so that long trips can combine cycling and trains." },
+          { "voice": "male", "text": "Looking forward, electric bicycles or e-bikes are now expanding the range of cycling, allowing older riders and those facing hills or long commutes to participate. Global e-bike sales overtook regular bicycles in many European countries by 2023, and the trend is accelerating in cities like Seoul, Shanghai, and New York." }
+        ],
+        "questions": [
+          {
+            "num": 31,
+            "type": "GAP",
+            "text": "The safety bicycle was introduced in ___________.",
+            "answer": "1885",
+            "explanation": "'Introduced in 1885 in England'."
+          },
+          {
+            "num": 32,
+            "type": "GAP",
+            "text": "Country where the safety bicycle was introduced: ___________",
+            "answer": "England",
+            "altAnswers": ["UK", "United Kingdom"],
+            "explanation": "'In 1885 in England'."
+          },
+          {
+            "num": 33,
+            "type": "GAP",
+            "text": "In 1928, ___________ per cent of urban trips in the Netherlands were by bike.",
+            "answer": "70",
+            "altAnswers": ["seventy"],
+            "explanation": "'Nearly seventy per cent of all urban trips'."
+          },
+          {
+            "num": 34,
+            "type": "GAP",
+            "text": "By 1965, this had fallen to about ___________ per cent.",
+            "answer": "20",
+            "altAnswers": ["twenty"],
+            "explanation": "'Had fallen to around twenty per cent'."
+          },
+          {
+            "num": 35,
+            "type": "GAP",
+            "text": "1971 Dutch road deaths included over ___________ children.",
+            "answer": "400",
+            "altAnswers": ["four hundred"],
+            "explanation": "'More than four hundred children killed in road accidents'."
+          },
+          {
+            "num": 36,
+            "type": "GAP",
+            "text": "The Dutch protest movement was called Stop de ___________.",
+            "answer": "Kindermoord",
+            "explanation": "'Stop de Kindermoord, or Stop the Child Murder'."
+          },
+          {
+            "num": 37,
+            "type": "GAP",
+            "text": "Today in the Netherlands, ___________ per cent of trips are by bike.",
+            "answer": "27",
+            "altAnswers": ["twenty-seven"],
+            "explanation": "'Roughly twenty-seven per cent of all trips nationwide'."
+          },
+          {
+            "num": 38,
+            "type": "MCQ",
+            "text": "What was Paris's investment in cycle infrastructure since 2014?",
+            "options": ["100 million euros", "150 million euros", "Over 250 million euros", "Over 500 million euros"],
+            "answer": "C",
+            "explanation": "'Over two hundred and fifty million euros in cycle infrastructure since 2014'."
+          },
+          {
+            "num": 39,
+            "type": "MCQ",
+            "text": "Which is NOT mentioned as one of the three factors determining cycling growth?",
+            "options": [
+              "Protected lanes separated from car traffic",
+              "Tax incentives for bicycle purchase",
+              "Consistent political commitment over decades",
+              "Integration with public transport"
+            ],
+            "answer": "B",
+            "explanation": "Lecturer menyebut: infrastructure, political commitment, dan integration with public transport. Tax incentives tidak disebut."
+          },
+          {
+            "num": 40,
+            "type": "GAP",
+            "text": "By 2023, global ___________ sales overtook regular bicycles in many European countries.",
+            "maxWords": 2,
+            "answer": "e-bike",
+            "altAnswers": ["e-bikes", "electric bike", "electric bicycle", "electric bicycles"],
+            "explanation": "'Global e-bike sales overtook regular bicycles in many European countries by 2023'."
+          }
+        ]
+      }
+    ]
+  }
+]

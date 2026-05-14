@@ -1,0 +1,614 @@
+[
+  {
+    "id": "p1-vertical-farming",
+    "title": "The Rise of Vertical Farming",
+    "difficulty": "Band 6–7",
+    "estimatedMinutes": 20,
+    "paragraphs": [
+      "Vertical farming, the practice of growing crops in stacked layers within a controlled indoor environment, has moved from a speculative concept in academic journals to a commercial reality in cities around the world. The earliest large-scale vertical farms appeared in Japan and Singapore in the late 2000s, driven by a combination of dense urban populations, limited arable land, and reliable electricity supplies. Today, facilities operate in over thirty countries, with the largest cluster found in the United States, China, and the United Arab Emirates.",
+      "The appeal of vertical farming rests on several claims. Because crops are grown in sealed environments, they do not require pesticides and use up to ninety-five per cent less water than traditional field farming. Production also runs year-round, immune to droughts, frosts, or unseasonal storms. Proponents argue that this stability, combined with proximity to consumers, could shorten supply chains and reduce the carbon emissions associated with transporting fresh produce across long distances.",
+      "However, the economics of vertical farming remain contested. The dominant cost in any indoor farm is electricity, primarily consumed by the LED lighting systems that replace sunlight. Although LED prices have fallen sharply since 2015, energy costs alone can account for between twenty-five and forty per cent of total operating expenses. As a result, vertical farms have so far concentrated almost exclusively on high-margin crops such as leafy greens, herbs, and microgreens, which grow quickly and command premium retail prices. Staple crops like wheat, rice, and potatoes remain commercially unviable indoors.",
+      "Critics also question the carbon claims made by the industry. While transport emissions are indeed reduced, the energy required to operate climate-controlled facilities can offset those savings, particularly in regions where electricity is generated from fossil fuels. A 2022 analysis by researchers at Cornell University found that lettuce grown in a typical American vertical farm could have a higher overall carbon footprint than the same lettuce grown in California and shipped two thousand kilometres by truck — provided the truck was full and the destination market was not too distant.",
+      "Despite these challenges, technological progress continues to widen the range of viable crops. Strawberries, traditionally too delicate and labour-intensive for indoor production, are now grown profitably in vertical farms in South Korea and the Netherlands. Researchers in Singapore have recently demonstrated that certain rice varieties can complete a full growing cycle in just sixty days under tailored light spectra, compared to the usual one hundred and twenty days in paddy fields. Whether these gains can be scaled commercially remains uncertain.",
+      "The industry has also benefited from rising investor interest, although this enthusiasm has cooled markedly since 2022, when several high-profile vertical farming companies in Europe and North America declared bankruptcy. Industry observers attribute these failures to overly optimistic growth projections and insufficient attention to the operational complexity of running a farm and a factory simultaneously. Surviving firms have generally scaled back ambitions, focusing on profitability per square metre rather than total production volume.",
+      "Looking ahead, the most promising applications of vertical farming may lie not in replacing conventional agriculture but in supplementing it. Remote communities in northern Canada and parts of Alaska have begun using small vertical farms to grow fresh vegetables locally, reducing dependence on flown-in produce that is often expensive and of poor quality on arrival. Similar deployments are being trialled on offshore oil platforms, in Antarctic research stations, and even aboard the International Space Station. In these niche contexts, vertical farming's high costs are justified by the absence of any cheaper alternative.",
+      "Ultimately, whether vertical farming becomes a mainstream pillar of food production or remains a specialised technology will depend less on engineering breakthroughs than on the cost and source of electricity. As renewable energy continues to expand and storage technologies improve, the case for stacking crops indoors becomes incrementally stronger. Yet for the foreseeable future, the open field will continue to feed most of humanity, while vertical farms supply a small but growing share of fresh, premium produce to the world's wealthiest cities."
+    ],
+    "questions": [
+      {
+        "num": 1,
+        "type": "TFNG",
+        "text": "The first commercial vertical farms appeared in Europe.",
+        "answer": "FALSE",
+        "explanation": "Paragraf 1 menyatakan vertical farm besar pertama muncul di Jepang dan Singapura, bukan Eropa.",
+        "relevantPara": 0
+      },
+      {
+        "num": 2,
+        "type": "TFNG",
+        "text": "Vertical farms can operate without using pesticides.",
+        "answer": "TRUE",
+        "explanation": "Paragraf 2: 'they do not require pesticides' — secara eksplisit dinyatakan.",
+        "relevantPara": 1
+      },
+      {
+        "num": 3,
+        "type": "TFNG",
+        "text": "Most vertical farms are now powered by renewable energy.",
+        "answer": "NOT GIVEN",
+        "explanation": "Passage menyebut soal renewable energy hanya di paragraf akhir sebagai prospek masa depan, tidak menyatakan mayoritas farm sekarang sudah pakai renewable.",
+        "relevantPara": 7
+      },
+      {
+        "num": 4,
+        "type": "TFNG",
+        "text": "Electricity costs are the largest expense for most indoor farms.",
+        "answer": "TRUE",
+        "explanation": "Paragraf 3: 'The dominant cost in any indoor farm is electricity'.",
+        "relevantPara": 2
+      },
+      {
+        "num": 5,
+        "type": "TFNG",
+        "text": "Wheat and rice can now be grown profitably in vertical farms.",
+        "answer": "FALSE",
+        "explanation": "Paragraf 3 menyatakan staple crops seperti wheat, rice, dan potatoes 'remain commercially unviable indoors'. Walau rice 60 hari disebut di paragraf 5, masih research, belum komersial.",
+        "relevantPara": 2
+      },
+      {
+        "num": 6,
+        "type": "MCQ",
+        "text": "According to the Cornell University analysis, vertical-farmed lettuce can have a higher carbon footprint than field-grown lettuce when:",
+        "options": [
+          "the lettuce is consumed locally near the farm",
+          "the truck transporting the field-grown lettuce is full and the destination is nearby",
+          "the vertical farm uses renewable electricity",
+          "the field-grown lettuce is shipped across multiple states"
+        ],
+        "answer": "B",
+        "explanation": "Paragraf 4: 'provided the truck was full and the destination market was not too distant'. Kuncinya adalah 'provided' yang berarti syarat.",
+        "relevantPara": 3
+      },
+      {
+        "num": 7,
+        "type": "MCQ",
+        "text": "Why did several vertical farming companies fail after 2022?",
+        "options": [
+          "Energy prices rose too quickly",
+          "Crops could not be grown indoors profitably",
+          "Companies underestimated operational complexity and overestimated growth",
+          "Consumer demand for indoor produce collapsed"
+        ],
+        "answer": "C",
+        "explanation": "Paragraf 6: kegagalan disebabkan 'overly optimistic growth projections and insufficient attention to the operational complexity'.",
+        "relevantPara": 5
+      },
+      {
+        "num": 8,
+        "type": "MCQ",
+        "text": "The author suggests that vertical farming's strongest case is currently in:",
+        "options": [
+          "replacing field agriculture globally",
+          "growing staple crops like wheat and rice",
+          "remote or extreme environments where alternatives are unavailable",
+          "tropical regions with year-round sunshine"
+        ],
+        "answer": "C",
+        "explanation": "Paragraf 7: 'supplementing' bukan replacing, dan disebutkan remote communities, Alaska, offshore platforms, Antarctica — 'In these niche contexts, vertical farming's high costs are justified by the absence of any cheaper alternative.'",
+        "relevantPara": 6
+      },
+      {
+        "num": 9,
+        "type": "GAP",
+        "text": "Indoor farms use up to ___________ less water than field farming.",
+        "maxWords": 2,
+        "answer": "ninety-five per cent",
+        "altAnswers": ["95 per cent", "95%", "ninety-five percent", "95 percent"],
+        "explanation": "Paragraf 2: 'use up to ninety-five per cent less water'. Tulis sesuai passage.",
+        "relevantPara": 1
+      },
+      {
+        "num": 10,
+        "type": "GAP",
+        "text": "Energy costs can account for ____ to forty per cent of total operating expenses.",
+        "maxWords": 2,
+        "answer": "twenty-five per cent",
+        "altAnswers": ["twenty-five", "25 per cent", "25%", "25 percent"],
+        "explanation": "Paragraf 3: 'between twenty-five and forty per cent'.",
+        "relevantPara": 2
+      },
+      {
+        "num": 11,
+        "type": "GAP",
+        "text": "In Singapore, researchers demonstrated rice can grow in just ___________ days under tailored light.",
+        "maxWords": 2,
+        "answer": "sixty",
+        "altAnswers": ["60", "sixty days", "60 days"],
+        "explanation": "Paragraf 5: 'just sixty days'.",
+        "relevantPara": 4
+      },
+      {
+        "num": 12,
+        "type": "GAP",
+        "text": "Small vertical farms have been deployed in northern Canada to reduce dependence on ___________ produce.",
+        "maxWords": 2,
+        "answer": "flown-in",
+        "altAnswers": ["flown in", "flown-in produce"],
+        "explanation": "Paragraf 7: 'reducing dependence on flown-in produce'.",
+        "relevantPara": 6
+      },
+      {
+        "num": 13,
+        "type": "MCQ",
+        "text": "The author's overall view of vertical farming's future is:",
+        "options": [
+          "It will soon replace traditional farming entirely",
+          "It will remain a specialised technology for premium produce and niche locations for the foreseeable future",
+          "It will fail commercially within the next decade",
+          "It will only succeed if governments subsidise it heavily"
+        ],
+        "answer": "B",
+        "explanation": "Paragraf terakhir: 'the open field will continue to feed most of humanity, while vertical farms supply a small but growing share of fresh, premium produce to the world's wealthiest cities.'",
+        "relevantPara": 7
+      }
+    ]
+  },
+  {
+    "id": "p2-octopus-color",
+    "title": "How Octopuses See Color Without Color Vision",
+    "difficulty": "Band 6–7",
+    "estimatedMinutes": 20,
+    "paragraphs": [
+      "Octopuses are among the most visually expressive animals on Earth. They can change the colour and pattern of their skin in fractions of a second, blending into rocks, mimicking flatfish, or flashing dramatic warning displays. Yet despite this dazzling repertoire, every species of octopus studied so far appears to be entirely colour-blind. Their eyes contain only a single type of light-sensitive pigment, called rhodopsin, which detects brightness but not colour. How, then, do they match the colours of their surroundings so precisely?",
+      "The mystery has occupied marine biologists for decades. Early hypotheses suggested that octopuses might rely on memory, recalling the colours of familiar environments and adjusting their skin to match. This was quickly ruled out by experiments in which octopuses were placed on novel coloured backgrounds and still produced accurate matches within seconds. Other researchers proposed that octopuses might detect colour through their skin itself, which is densely packed with light-sensitive cells. While intriguing, this idea has so far failed to explain the speed and precision of the matching response.",
+      "A more recent and unconventional hypothesis emerged in 2016, when a father-and-son team of researchers from Harvard and the University of California proposed that octopuses use the unusual shape of their pupils to perceive colour. Most animals have round or slit-shaped pupils that minimise a phenomenon called chromatic aberration — the tendency of light of different wavelengths to focus at slightly different points behind the lens. But octopus pupils are U-shaped, an arrangement that dramatically increases chromatic aberration. The researchers argued that this apparent flaw is in fact a feature: by deliberately blurring different colours by different amounts, octopuses might be able to identify the colour of an object by how much it blurs.",
+      "The hypothesis is mathematically elegant. By rapidly adjusting the focus of the eye and the size of the pupil, an octopus could in principle build up a colour image from a series of differently blurred snapshots, much as a black-and-white camera fitted with coloured filters can produce a colour photograph. The researchers calculated that this method would work in the dim, blue-green waters where most octopuses live, and would explain why their visual matching is so accurate.",
+      "Critics have raised several objections. First, the proposed mechanism requires constant rapid adjustments of the pupil and lens, which has not yet been directly observed in live octopuses. Second, the hypothesis assumes that octopuses have the neural machinery to combine multiple snapshots into a single colour percept — a process that, in vertebrates, depends on dedicated brain regions whose octopus equivalent is poorly understood. Finally, some researchers point out that the simpler explanation — colour-sensitive skin — has not been fully ruled out, despite the lack of direct evidence so far.",
+      "Subsequent studies have produced mixed results. Behavioural experiments in 2019 found that cuttlefish, close relatives of octopuses with similar visual physiology, could distinguish between objects of different colours under controlled lighting conditions, lending indirect support to some form of colour perception in cephalopods. However, attempts to detect the rapid pupil adjustments predicted by the chromatic aberration hypothesis have so far been inconclusive. High-speed cameras have recorded subtle changes in pupil shape during prey capture, but whether these changes serve a colour-discrimination function remains unclear.",
+      "What is increasingly accepted is that octopuses, despite their apparent monochromatic eyes, do somehow extract colour information from their environment. Whether they do so through chromatic aberration, through their skin, through some other mechanism not yet imagined, or through a combination of all three, remains one of the most interesting open questions in animal sensory biology. The answer, when it arrives, is likely to reshape how scientists think not just about cephalopods but about the very nature of vision itself."
+    ],
+    "questions": [
+      {
+        "num": 1,
+        "type": "TFNG",
+        "text": "All known species of octopus have only one type of visual pigment in their eyes.",
+        "answer": "TRUE",
+        "explanation": "Paragraf 1: 'every species of octopus studied so far appears to be entirely colour-blind. Their eyes contain only a single type of light-sensitive pigment'.",
+        "relevantPara": 0
+      },
+      {
+        "num": 2,
+        "type": "TFNG",
+        "text": "Octopuses match new colour environments by recalling them from memory.",
+        "answer": "FALSE",
+        "explanation": "Paragraf 2: hipotesis memori 'was quickly ruled out by experiments'.",
+        "relevantPara": 1
+      },
+      {
+        "num": 3,
+        "type": "TFNG",
+        "text": "The chromatic aberration hypothesis was first proposed in the 1990s.",
+        "answer": "FALSE",
+        "explanation": "Paragraf 3: hipotesis muncul '2016', bukan 1990-an.",
+        "relevantPara": 2
+      },
+      {
+        "num": 4,
+        "type": "TFNG",
+        "text": "Octopuses are the only animals on Earth that can change skin colour.",
+        "answer": "NOT GIVEN",
+        "explanation": "Passage tidak menyatakan octopus satu-satunya. Bahkan menyebut cuttlefish punya physiology mirip.",
+        "relevantPara": 5
+      },
+      {
+        "num": 5,
+        "type": "TFNG",
+        "text": "The U-shaped pupil of an octopus increases chromatic aberration compared to round pupils.",
+        "answer": "TRUE",
+        "explanation": "Paragraf 3: 'octopus pupils are U-shaped, an arrangement that dramatically increases chromatic aberration'.",
+        "relevantPara": 2
+      },
+      {
+        "num": 6,
+        "type": "MCQ",
+        "text": "Why were early memory-based explanations of octopus colour matching abandoned?",
+        "options": [
+          "Octopuses were found to have poor long-term memory",
+          "Octopuses matched colours accurately even in unfamiliar environments",
+          "The hypothesis could not be tested experimentally",
+          "Researchers discovered colour-sensitive cells in octopus skin"
+        ],
+        "answer": "B",
+        "explanation": "Paragraf 2: 'octopuses were placed on novel coloured backgrounds and still produced accurate matches within seconds'.",
+        "relevantPara": 1
+      },
+      {
+        "num": 7,
+        "type": "MCQ",
+        "text": "According to the chromatic aberration hypothesis, octopuses might identify colours by:",
+        "options": [
+          "comparing the brightness of different objects",
+          "using colour-sensitive cells in their skin to relay data to the brain",
+          "measuring how much different wavelengths blur as they pass through the lens",
+          "combining input from both eyes to create a stereo colour image"
+        ],
+        "answer": "C",
+        "explanation": "Paragraf 3: 'by deliberately blurring different colours by different amounts, octopuses might be able to identify the colour of an object by how much it blurs.'",
+        "relevantPara": 2
+      },
+      {
+        "num": 8,
+        "type": "MCQ",
+        "text": "Which of the following is NOT mentioned as an objection to the chromatic aberration hypothesis?",
+        "options": [
+          "The rapid pupil adjustments it requires have not been observed",
+          "It is unclear whether octopuses have the brain regions to combine snapshots",
+          "The skin-based colour detection hypothesis has not been disproven",
+          "Octopus eyes do not have the optical quality to produce the predicted blur"
+        ],
+        "answer": "D",
+        "explanation": "Paragraf 5 menyebutkan tiga objection: rapid adjustments belum diamati, neural machinery belum jelas, dan skin hypothesis belum ruled out. Optical quality eyes tidak disebutkan.",
+        "relevantPara": 4
+      },
+      {
+        "num": 9,
+        "type": "GAP",
+        "text": "Octopus eyes contain only one type of light-sensitive pigment, called ___________.",
+        "maxWords": 1,
+        "answer": "rhodopsin",
+        "altAnswers": [],
+        "explanation": "Paragraf 1: 'a single type of light-sensitive pigment, called rhodopsin'.",
+        "relevantPara": 0
+      },
+      {
+        "num": 10,
+        "type": "GAP",
+        "text": "The proposed mechanism resembles a black-and-white camera fitted with ___________.",
+        "maxWords": 2,
+        "answer": "coloured filters",
+        "altAnswers": ["colored filters"],
+        "explanation": "Paragraf 4: 'a black-and-white camera fitted with coloured filters'.",
+        "relevantPara": 3
+      },
+      {
+        "num": 11,
+        "type": "GAP",
+        "text": "In 2019, behavioural experiments on ___________ supported some form of colour perception in cephalopods.",
+        "maxWords": 1,
+        "answer": "cuttlefish",
+        "altAnswers": [],
+        "explanation": "Paragraf 6: 'Behavioural experiments in 2019 found that cuttlefish...'.",
+        "relevantPara": 5
+      },
+      {
+        "num": 12,
+        "type": "GAP",
+        "text": "High-speed cameras recorded subtle changes in pupil shape during ___________.",
+        "maxWords": 2,
+        "answer": "prey capture",
+        "altAnswers": [],
+        "explanation": "Paragraf 6: 'subtle changes in pupil shape during prey capture'.",
+        "relevantPara": 5
+      },
+      {
+        "num": 13,
+        "type": "MCQ",
+        "text": "The author's conclusion is that the mechanism of octopus colour perception is:",
+        "options": [
+          "almost certainly chromatic aberration",
+          "definitely the colour-sensitive skin hypothesis",
+          "still unresolved, with multiple plausible explanations",
+          "impossible to determine with current technology"
+        ],
+        "answer": "C",
+        "explanation": "Paragraf terakhir: 'Whether they do so through chromatic aberration, through their skin, through some other mechanism not yet imagined, or through a combination of all three, remains one of the most interesting open questions'.",
+        "relevantPara": 6
+      }
+    ]
+  },
+  {
+    "id": "p3-vinyl-renaissance",
+    "title": "The Renaissance of the Vinyl Record",
+    "difficulty": "Band 6–7",
+    "estimatedMinutes": 20,
+    "paragraphs": [
+      "For most of the late twentieth century, the vinyl record appeared destined for the museum. Compact discs surpassed vinyl sales in the late 1980s, and the rise of digital downloads in the early 2000s seemed to mark the format's final decline. By 2007, fewer than one million new vinyl records were sold each year in the United States, down from over three hundred million at the format's peak in the 1970s. Industry analysts confidently predicted that vinyl would vanish entirely within a decade.",
+      "Yet exactly the opposite has happened. Since 2007, sales of new vinyl records have grown every single year. In 2022, for the first time since the 1980s, vinyl outsold compact discs in the United States by revenue. Today, more than fifty million new records are pressed annually worldwide, and the format generates over one and a half billion dollars in global revenue. The vinyl revival is one of the most unexpected turnarounds in the history of consumer electronics.",
+      "Several explanations have been proposed for this resurgence. The most common is nostalgia: older listeners are buying records that remind them of their youth. While this explains some of the growth, surveys consistently find that the majority of new vinyl buyers are under thirty-five, an age group that grew up with digital music and never owned a record player before 2010. Nostalgia cannot account for purchases made by people who have nothing to be nostalgic about.",
+      "A more persuasive explanation focuses on what economists call the experience economy. Streaming services such as Spotify deliver music with extraordinary convenience but very little ritual: a song can begin or end with a swipe, and listeners rarely engage with any single album for long. Vinyl, by contrast, demands attention. The listener must remove the record from its sleeve, place it on the turntable, lower the needle, and turn the disc over halfway through. Each step slows the experience, creating what enthusiasts describe as a more deliberate and immersive form of listening.",
+      "The physical artwork is another significant factor. A vinyl record's large square sleeve provides space for visual art, photography, and liner notes that no streaming app can replicate at the same scale. Many young buyers report displaying their records as decorative objects, treating them as much like art prints as musical recordings. Some independent labels have responded by releasing limited-edition pressings on coloured vinyl with elaborate packaging, marketed explicitly to collectors rather than casual listeners.",
+      "The economics of the revival are nevertheless precarious. Pressing plants, which manufacture the records themselves, were largely dismantled during the format's decline. Of the roughly fifty plants operating worldwide as recently as 1990, fewer than ten survived to see the rebound. Today, capacity remains the industry's central bottleneck. Major artists can wait six to twelve months to have their albums pressed, and prices have risen sharply as demand outpaces supply. New plants are opening, but the specialised machinery required is no longer manufactured and must be salvaged from old factories or rebuilt by hand.",
+      "Environmental concerns have also begun to attract attention. A standard vinyl record is made from polyvinyl chloride, a petroleum-based plastic, and pressing each disc releases small but measurable quantities of carbon dioxide. A 2021 study estimated that producing one record generates roughly half a kilogram of CO2 — modest per unit, but significant when multiplied across an industry pressing tens of millions of copies per year. Several small labels have begun experimenting with bio-based plastics and recycled vinyl pellets, though these alternatives currently account for less than one per cent of production.",
+      "Whether the vinyl renaissance will continue to grow or eventually plateau remains uncertain. Some observers note that the format already accounts for nearly all physical music sales, so further growth must come from people listening to less streaming, rather than from displacing other physical media. Others point to broader cultural trends: a generation that grew up entirely online may be seeking out tangible, deliberately old-fashioned products of all kinds, from film photography to handwritten letters. If so, vinyl may simply be the most visible example of a much wider shift, and its revival may have decades still to run."
+    ],
+    "questions": [
+      {
+        "num": 1,
+        "type": "TFNG",
+        "text": "Vinyl record sales reached their lowest point in the 1980s.",
+        "answer": "FALSE",
+        "explanation": "Paragraf 1: CD melampaui vinyl 'in the late 1980s', dan 2007 disebut sebagai titik terendah ('fewer than one million'). Bukan 1980-an.",
+        "relevantPara": 0
+      },
+      {
+        "num": 2,
+        "type": "TFNG",
+        "text": "Industry analysts in the 2000s correctly predicted the future of vinyl.",
+        "answer": "FALSE",
+        "explanation": "Paragraf 1: analis memprediksi vinyl 'would vanish entirely within a decade' — yang tidak terjadi.",
+        "relevantPara": 0
+      },
+      {
+        "num": 3,
+        "type": "TFNG",
+        "text": "Vinyl revenue surpassed CD revenue in the US in 2022.",
+        "answer": "TRUE",
+        "explanation": "Paragraf 2: 'In 2022, for the first time since the 1980s, vinyl outsold compact discs in the United States by revenue'.",
+        "relevantPara": 1
+      },
+      {
+        "num": 4,
+        "type": "TFNG",
+        "text": "Most new vinyl buyers are people who owned records during their youth.",
+        "answer": "FALSE",
+        "explanation": "Paragraf 3: 'the majority of new vinyl buyers are under thirty-five, an age group that grew up with digital music'.",
+        "relevantPara": 2
+      },
+      {
+        "num": 5,
+        "type": "TFNG",
+        "text": "Streaming services are now offering experiences similar to vinyl.",
+        "answer": "NOT GIVEN",
+        "explanation": "Passage tidak menyatakan streaming services meniru pengalaman vinyl. Justru kebalikannya — vinyl menawarkan sesuatu yang streaming tidak punya.",
+        "relevantPara": 3
+      },
+      {
+        "num": 6,
+        "type": "MCQ",
+        "text": "According to the author, the 'experience economy' explanation argues that vinyl appeals because:",
+        "options": [
+          "it produces higher sound quality than streaming",
+          "it requires a slower, more deliberate listening ritual",
+          "it is cheaper in the long run than streaming subscriptions",
+          "it stores music that streaming services do not offer"
+        ],
+        "answer": "B",
+        "explanation": "Paragraf 4: 'Each step slows the experience, creating what enthusiasts describe as a more deliberate and immersive form of listening'.",
+        "relevantPara": 3
+      },
+      {
+        "num": 7,
+        "type": "MCQ",
+        "text": "Many young buyers reportedly use vinyl records as:",
+        "options": [
+          "investment items expected to increase in value",
+          "gifts for older relatives",
+          "decorative objects displayed in their homes",
+          "tradable items at music festivals"
+        ],
+        "answer": "C",
+        "explanation": "Paragraf 5: 'displaying their records as decorative objects, treating them as much like art prints as musical recordings'.",
+        "relevantPara": 4
+      },
+      {
+        "num": 8,
+        "type": "MCQ",
+        "text": "What is described as 'the industry's central bottleneck'?",
+        "options": [
+          "consumer demand cooling off",
+          "limited pressing-plant capacity",
+          "shortage of skilled engineers",
+          "low profit margins on each record"
+        ],
+        "answer": "B",
+        "explanation": "Paragraf 6: 'capacity remains the industry's central bottleneck'.",
+        "relevantPara": 5
+      },
+      {
+        "num": 9,
+        "type": "GAP",
+        "text": "At their peak in the 1970s, US sales exceeded ___________ million records per year.",
+        "maxWords": 2,
+        "answer": "three hundred",
+        "altAnswers": ["300", "300 million"],
+        "explanation": "Paragraf 1: 'over three hundred million at the format's peak in the 1970s'.",
+        "relevantPara": 0
+      },
+      {
+        "num": 10,
+        "type": "GAP",
+        "text": "Major artists currently wait between six and ___________ months to press an album.",
+        "maxWords": 1,
+        "answer": "twelve",
+        "altAnswers": ["12"],
+        "explanation": "Paragraf 6: 'six to twelve months to have their albums pressed'.",
+        "relevantPara": 5
+      },
+      {
+        "num": 11,
+        "type": "GAP",
+        "text": "Records are made from polyvinyl chloride, a ___________ plastic.",
+        "maxWords": 2,
+        "answer": "petroleum-based",
+        "altAnswers": ["petroleum based"],
+        "explanation": "Paragraf 7: 'polyvinyl chloride, a petroleum-based plastic'.",
+        "relevantPara": 6
+      },
+      {
+        "num": 12,
+        "type": "GAP",
+        "text": "Bio-based and recycled vinyl currently account for less than ___________ per cent of production.",
+        "maxWords": 1,
+        "answer": "one",
+        "altAnswers": ["1", "1%"],
+        "explanation": "Paragraf 7: 'less than one per cent of production'.",
+        "relevantPara": 6
+      },
+      {
+        "num": 13,
+        "type": "MCQ",
+        "text": "The author suggests in the final paragraph that vinyl's revival may be:",
+        "options": [
+          "limited because it has already captured the entire physical music market",
+          "part of a broader cultural shift toward tangible, old-fashioned products",
+          "likely to end soon as digital technology continues to improve",
+          "driven primarily by professional musicians rather than ordinary listeners"
+        ],
+        "answer": "B",
+        "explanation": "Paragraf terakhir: 'a generation that grew up entirely online may be seeking out tangible, deliberately old-fashioned products of all kinds... vinyl may simply be the most visible example of a much wider shift'.",
+        "relevantPara": 7
+      }
+    ]
+  },
+  {
+    "id": "p4-ant-decisions",
+    "title": "How Ants Decide Where to Live",
+    "difficulty": "Band 6–7",
+    "estimatedMinutes": 20,
+    "paragraphs": [
+      "When the colony of a rock-dwelling ant species, Temnothorax albipennis, finds its nest damaged or destroyed, the entire group — sometimes as many as four hundred individuals — must move to a new location quickly. The decision is collective, urgent, and surprisingly sophisticated. Despite the lack of any central leader, the colony reliably selects the best available site, often from a dozen or more candidates, within a few hours. How a group of insects with brains smaller than a grain of sand can outperform many human committees has fascinated biologists for over two decades.",
+      "The decision process begins with scout ants, which leave the damaged nest to search for alternatives. A scout that finds a candidate site does not simply report back. Instead, she inspects the site by walking through it, measuring its area, the size of its entrance, and the amount of light passing through cracks in the rock. Sites that are too bright, too small, or too exposed are rejected immediately. Sites that pass this initial assessment are tagged with a brief chemical mark and then revisited several times before any further action is taken.",
+      "Once a scout is satisfied with a site, she returns to the damaged nest and begins recruiting other ants using a behaviour called tandem running. In tandem running, the experienced scout leads a single naive ant to the new site, pausing every few centimetres so the follower can memorise the route. The follower then inspects the site for herself. If she agrees with the original scout's assessment, she becomes a recruiter in turn, leading more ants along the same path.",
+      "The colony's decision emerges from this slow build-up. As more scouts independently confirm a site, more tandem runs are initiated. If a competing site is also being assessed, both will accumulate followers at different rates. Crucially, no scout votes for two sites simultaneously, so the better site will tend to gain followers more quickly. When the number of ants visiting one site exceeds a threshold — known as the quorum — the recruitment behaviour changes abruptly. Scouts switch from leading individual followers via tandem running to physically carrying other ants directly to the new nest. This signals that a decision has been made, and the entire colony begins the move.",
+      "What makes this system remarkable is its accuracy. Laboratory experiments by Nigel Franks at the University of Bristol have shown that colonies offered a choice between a clearly good site and a clearly poor one almost always select the good one. More impressively, when offered two similar sites, the colonies usually select the slightly better one — even though no single scout has visited both sites for comparison. The decision emerges from the aggregate behaviour of dozens of independent assessments, not from any individual judgement.",
+      "However, the system is not flawless. When the colony is rushed — for example, when researchers expose the damaged nest to bright light to simulate predator threat — accuracy declines noticeably. Scouts skip the repeated re-inspections, lower their quorum thresholds, and accept sites they would otherwise reject. In one set of experiments, rushed colonies were nearly three times as likely to move to an inferior site. This suggests that the colony's decision quality depends on having time to gather and cross-check information, much as human group decisions tend to deteriorate when made under pressure.",
+      "Researchers have drawn careful analogies between ant decision-making and certain features of human collective behaviour. Like a well-functioning committee, the ant colony aggregates independent observations rather than relying on a single expert. Like a well-functioning market, it allows information to flow gradually and adjusts its commitment as evidence accumulates. Like a well-functioning democracy, it uses a quorum threshold to convert a continuous build-up of support into a clear decision point. The differences from human institutions, however, are equally striking: the ants have no language, no leaders, and no awareness of being part of a collective process.",
+      "Whether these insights can be translated into practical algorithms is an active area of research. Engineers have already used ant-inspired decision rules to design distributed networks of small robots that select assembly sites or coordinate searches without central control. The hope is that, by studying creatures that have been solving collective decision problems for tens of millions of years, we may discover principles that apply far beyond the world of insects."
+    ],
+    "questions": [
+      {
+        "num": 1,
+        "type": "TFNG",
+        "text": "Temnothorax albipennis colonies can contain several hundred ants.",
+        "answer": "TRUE",
+        "explanation": "Paragraf 1: 'sometimes as many as four hundred individuals'.",
+        "relevantPara": 0
+      },
+      {
+        "num": 2,
+        "type": "TFNG",
+        "text": "The colony's decision about a new nest site is made by a queen.",
+        "answer": "FALSE",
+        "explanation": "Paragraf 1: 'Despite the lack of any central leader, the colony reliably selects the best available site'.",
+        "relevantPara": 0
+      },
+      {
+        "num": 3,
+        "type": "TFNG",
+        "text": "A scout commits to a site after a single inspection.",
+        "answer": "FALSE",
+        "explanation": "Paragraf 2: 'tagged with a brief chemical mark and then revisited several times before any further action is taken'.",
+        "relevantPara": 1
+      },
+      {
+        "num": 4,
+        "type": "TFNG",
+        "text": "Tandem running involves multiple followers being led at the same time.",
+        "answer": "FALSE",
+        "explanation": "Paragraf 3: 'the experienced scout leads a single naive ant to the new site'.",
+        "relevantPara": 2
+      },
+      {
+        "num": 5,
+        "type": "TFNG",
+        "text": "A scout that has agreed to a site can recruit followers to other sites simultaneously.",
+        "answer": "FALSE",
+        "explanation": "Paragraf 4: 'no scout votes for two sites simultaneously'.",
+        "relevantPara": 3
+      },
+      {
+        "num": 6,
+        "type": "MCQ",
+        "text": "What does the colony do once the 'quorum' threshold is reached?",
+        "options": [
+          "Scouts begin a final inspection of the chosen site",
+          "Recruitment behaviour changes from tandem running to physically carrying ants",
+          "The colony returns to the damaged nest to vote",
+          "Scouts begin searching for alternative sites again"
+        ],
+        "answer": "B",
+        "explanation": "Paragraf 4: 'Scouts switch from leading individual followers via tandem running to physically carrying other ants directly to the new nest'.",
+        "relevantPara": 3
+      },
+      {
+        "num": 7,
+        "type": "MCQ",
+        "text": "Franks's experiments showed that colonies are accurate even when:",
+        "options": [
+          "the queen makes the final decision",
+          "the two candidate sites are very similar in quality",
+          "individual scouts visit every candidate site",
+          "the move must be completed within thirty minutes"
+        ],
+        "answer": "B",
+        "explanation": "Paragraf 5: 'when offered two similar sites, the colonies usually select the slightly better one — even though no single scout has visited both sites for comparison'.",
+        "relevantPara": 4
+      },
+      {
+        "num": 8,
+        "type": "MCQ",
+        "text": "When the colony is rushed, decision accuracy declines because scouts:",
+        "options": [
+          "follow the first ant they meet without question",
+          "skip re-inspections and lower their quorum thresholds",
+          "fight among themselves for control",
+          "ignore the chemical marks left by other scouts"
+        ],
+        "answer": "B",
+        "explanation": "Paragraf 6: 'Scouts skip the repeated re-inspections, lower their quorum thresholds, and accept sites they would otherwise reject'.",
+        "relevantPara": 5
+      },
+      {
+        "num": 9,
+        "type": "GAP",
+        "text": "Sites are rejected if too bright, too small, or too ___________.",
+        "maxWords": 1,
+        "answer": "exposed",
+        "explanation": "Paragraf 2: 'too bright, too small, or too exposed'.",
+        "relevantPara": 1
+      },
+      {
+        "num": 10,
+        "type": "GAP",
+        "text": "Scouts mark approved sites with a brief ___________ mark.",
+        "maxWords": 1,
+        "answer": "chemical",
+        "explanation": "Paragraf 2: 'tagged with a brief chemical mark'.",
+        "relevantPara": 1
+      },
+      {
+        "num": 11,
+        "type": "GAP",
+        "text": "Researchers simulated predator threat by exposing the damaged nest to ___________ light.",
+        "maxWords": 1,
+        "answer": "bright",
+        "explanation": "Paragraf 6: 'expose the damaged nest to bright light to simulate predator threat'.",
+        "relevantPara": 5
+      },
+      {
+        "num": 12,
+        "type": "GAP",
+        "text": "Rushed colonies were nearly ___________ times as likely to move to an inferior site.",
+        "maxWords": 1,
+        "answer": "three",
+        "altAnswers": ["3"],
+        "explanation": "Paragraf 6: 'nearly three times as likely to move to an inferior site'.",
+        "relevantPara": 5
+      },
+      {
+        "num": 13,
+        "type": "MCQ",
+        "text": "The author suggests that the practical interest of ant decision-making lies mainly in:",
+        "options": [
+          "explaining the evolution of insect societies",
+          "helping ants survive predators more effectively",
+          "designing distributed systems without central control",
+          "improving human committee decision rules"
+        ],
+        "answer": "C",
+        "explanation": "Paragraf terakhir: 'Engineers have already used ant-inspired decision rules to design distributed networks of small robots that select assembly sites or coordinate searches without central control'.",
+        "relevantPara": 7
+      }
+    ]
+  }
+]

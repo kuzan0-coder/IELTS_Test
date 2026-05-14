@@ -1,0 +1,108 @@
+{
+  "task1": [
+    {
+      "id": "t1-electricity",
+      "title": "Electricity Production by Source",
+      "instructions": "The bar chart below shows the percentage of electricity produced by different sources in four countries in 2023. Summarise the information by selecting and reporting the main features, and make comparisons where relevant. Write at least 150 words. You should spend about 20 minutes on this task.",
+      "chartType": "bar",
+      "chartData": {
+        "categories": ["Norway", "France", "Indonesia", "India"],
+        "series": [
+          { "name": "Coal", "values": [1, 2, 60, 72], "color": "#475569" },
+          { "name": "Gas", "values": [2, 7, 25, 8], "color": "#f59e0b" },
+          { "name": "Nuclear", "values": [0, 70, 0, 3], "color": "#dc2626" },
+          { "name": "Renewables", "values": [97, 21, 15, 17], "color": "#16a34a" }
+        ],
+        "unit": "%"
+      }
+    },
+    {
+      "id": "t1-coffee-tea",
+      "title": "Coffee and Tea Consumption Trend",
+      "instructions": "The table below shows the average annual consumption of coffee and tea per person (in kilograms) in five countries between 2000 and 2020. Summarise the information by selecting and reporting the main features. Write at least 150 words. You should spend about 20 minutes on this task.",
+      "chartType": "table",
+      "chartData": {
+        "headers": ["Country", "Coffee 2000", "Coffee 2020", "Tea 2000", "Tea 2020"],
+        "rows": [
+          ["Finland", "11.4", "12.0", "0.2", "0.3"],
+          ["UK", "2.8", "3.2", "2.7", "1.9"],
+          ["USA", "4.2", "4.7", "0.3", "0.2"],
+          ["Japan", "3.3", "3.5", "1.0", "0.8"],
+          ["Indonesia", "1.0", "1.5", "0.4", "0.3"]
+        ]
+      }
+    },
+    {
+      "id": "t1-internet-age",
+      "title": "Internet Usage by Age Group",
+      "instructions": "The bar chart below shows the percentage of people in three age groups who used the internet daily in a European country between 2005, 2015, and 2024. Summarise the information by selecting and reporting the main features, and make comparisons where relevant. Write at least 150 words.",
+      "chartType": "bar",
+      "chartData": {
+        "categories": ["16-29 years", "30-59 years", "60+ years"],
+        "series": [
+          { "name": "2005", "values": [62, 38, 9], "color": "#94a3b8" },
+          { "name": "2015", "values": [95, 78, 35], "color": "#3b82f6" },
+          { "name": "2024", "values": [99, 94, 72], "color": "#16a34a" }
+        ],
+        "unit": "%"
+      }
+    },
+    {
+      "id": "t1-meal-prep",
+      "title": "Time Spent Preparing Meals",
+      "instructions": "The table below shows the average minutes spent preparing meals per day by men and women in four countries in 2023. Summarise the information by selecting and reporting the main features. Write at least 150 words.",
+      "chartType": "table",
+      "chartData": {
+        "headers": ["Country", "Men (minutes)", "Women (minutes)", "Total household"],
+        "rows": [
+          ["Italy", "18", "84", "102"],
+          ["South Korea", "12", "68", "80"],
+          ["Sweden", "34", "44", "78"],
+          ["Mexico", "9", "92", "101"]
+        ]
+      }
+    }
+  ],
+  "task2": [
+    {
+      "id": "t2-tech-education",
+      "type": "Discussion + Opinion",
+      "prompt": "Some people believe that technology has made education more accessible and effective, while others argue that traditional classroom learning is still essential. Discuss both views and give your own opinion. Write at least 250 words. You should spend about 40 minutes on this task."
+    },
+    {
+      "id": "t2-remote-work",
+      "type": "Agree/Disagree",
+      "prompt": "Working from home is becoming more common in many industries. Some argue that this trend will eventually replace office work entirely. To what extent do you agree or disagree? Give reasons for your answer and include any relevant examples from your own knowledge or experience. Write at least 250 words."
+    },
+    {
+      "id": "t2-environment",
+      "type": "Problem/Solution",
+      "prompt": "Plastic waste in oceans has become a serious global problem. What are the main causes of this issue, and what measures can governments and individuals take to address it? Write at least 250 words. You should spend about 40 minutes on this task."
+    },
+    {
+      "id": "t2-urbanization",
+      "type": "Advantages/Disadvantages",
+      "prompt": "More people in developing countries are moving from rural areas to large cities in search of better opportunities. Do the advantages of this trend outweigh the disadvantages? Give reasons for your answer. Write at least 250 words."
+    },
+    {
+      "id": "t2-ai-jobs",
+      "type": "Discussion + Opinion",
+      "prompt": "Some people believe that artificial intelligence and automation will eventually replace most human jobs, leading to widespread unemployment. Others argue that new technologies will create new types of jobs and improve overall living standards. Discuss both views and give your own opinion. Write at least 250 words."
+    },
+    {
+      "id": "t2-health-spending",
+      "type": "Agree/Disagree",
+      "prompt": "Some people believe that governments should spend more money on preventing illness (e.g. through public exercise programmes and healthy-eating campaigns) rather than on treating people who are already sick. To what extent do you agree or disagree? Write at least 250 words."
+    },
+    {
+      "id": "t2-social-media",
+      "type": "Problem/Solution",
+      "prompt": "The use of social media by teenagers has been linked to rising rates of anxiety, depression, and poor sleep. What are the main causes of these problems, and what measures can parents, schools, and governments take to address them? Write at least 250 words."
+    },
+    {
+      "id": "t2-public-transport",
+      "type": "Agree/Disagree",
+      "prompt": "Some people argue that governments should invest more in public transport rather than building new roads for private cars. To what extent do you agree or disagree? Use specific reasons and examples to support your answer. Write at least 250 words."
+    }
+  ]
+}
