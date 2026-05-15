@@ -37,39 +37,89 @@ app.on('activate', () => {
 });
 
 ipcMain.handle('ai:feedback', async (_evt, { type, content, context }) => {
-  const apiKey = process.env.ANTHROPIC_API_KEY;
-  if (!apiKey || apiKey.startsWith('sk-ant-your-key')) {
-    return {
-      ok: false,
-      error: 'API key belum diset. Buat file .env (lihat .env.example) dan isi ANTHROPIC_API_KEY.'
-    };
-  }
+  const provider = (process.env.AI_PROVIDER || 'claude').toLowerCase();
+  const systemPrompt = buildSystemPrompt(type);
+  const userPrompt = buildUserPrompt(type, content, context);
+  const maxTokens = (type === 'writing-score' || type === 'speaking-feedback') ? 3000 : 1500;
 
   try {
-    const Anthropic = require('@anthropic-ai/sdk').default;
-    const client = new Anthropic({ apiKey });
-
-    const systemPrompt = buildSystemPrompt(type);
-    const userPrompt = buildUserPrompt(type, content, context);
-
-    const maxTokens = (type === 'writing-score' || type === 'speaking-feedback') ? 3000 : 1500;
-    const message = await client.messages.create({
-      model: 'claude-sonnet-4-6',
-      max_tokens: maxTokens,
-      system: systemPrompt,
-      messages: [{ role: 'user', content: userPrompt }]
-    });
-
-    const text = message.content
-      .filter((b) => b.type === 'text')
-      .map((b) => b.text)
-      .join('\n');
-
-    return { ok: true, text };
+    if (provider === 'gemini') {
+      return await callGemini({ systemPrompt, userPrompt, maxTokens });
+    }
+    return await callClaude({ systemPrompt, userPrompt, maxTokens });
   } catch (err) {
     return { ok: false, error: err.message || String(err) };
   }
 });
+
+async function callClaude({ systemPrompt, userPrompt, maxTokens }) {
+  const apiKey = process.env.ANTHROPIC_API_KEY;
+  if (!apiKey || apiKey.startsWith('sk-ant-your-key')) {
+    return {
+      ok: false,
+      error: 'ANTHROPIC_API_KEY belum diset. Buat file .env (lihat .env.example) dan isi key-nya, atau ganti AI_PROVIDER=gemini.'
+    };
+  }
+
+  const Anthropic = require('@anthropic-ai/sdk').default;
+  const client = new Anthropic({ apiKey });
+
+  const message = await client.messages.create({
+    model: 'claude-sonnet-4-6',
+    max_tokens: maxTokens,
+    system: systemPrompt,
+    messages: [{ role: 'user', content: userPrompt }]
+  });
+
+  const text = message.content
+    .filter((b) => b.type === 'text')
+    .map((b) => b.text)
+    .join('\n');
+
+  return { ok: true, text };
+}
+
+async function callGemini({ systemPrompt, userPrompt, maxTokens }) {
+  const apiKey = process.env.GEMINI_API_KEY;
+  if (!apiKey || apiKey.startsWith('your-gemini-key')) {
+    return {
+      ok: false,
+      error: 'GEMINI_API_KEY belum diset. Ambil key gratis di https://aistudio.google.com dan isi di file .env.'
+    };
+  }
+
+  const model = process.env.GEMINI_MODEL || 'gemini-2.5-flash';
+  const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${encodeURIComponent(apiKey)}`;
+
+  const res = await fetch(url, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      systemInstruction: { parts: [{ text: systemPrompt }] },
+      contents: [{ role: 'user', parts: [{ text: userPrompt }] }],
+      generationConfig: { maxOutputTokens: maxTokens, temperature: 0.7 }
+    })
+  });
+
+  if (!res.ok) {
+    const errBody = await res.text().catch(() => '');
+    return { ok: false, error: `Gemini API error ${res.status}: ${errBody.slice(0, 300)}` };
+  }
+
+  const data = await res.json();
+  const text = (data.candidates || [])
+    .flatMap((c) => (c.content?.parts || []))
+    .map((p) => p.text || '')
+    .join('\n')
+    .trim();
+
+  if (!text) {
+    const reason = data.candidates?.[0]?.finishReason || 'no content';
+    return { ok: false, error: `Gemini tidak mengembalikan teks (${reason}).` };
+  }
+
+  return { ok: true, text };
+}
 
 function buildSystemPrompt(type) {
   if (type === 'reading-explain') {

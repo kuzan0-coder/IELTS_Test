@@ -1,18 +1,6 @@
-const AnthropicMod = require('@anthropic-ai/sdk');
-const Anthropic = AnthropicMod.default || AnthropicMod;
-
 module.exports = async (req, res) => {
   if (req.method !== 'POST') {
     res.status(405).json({ ok: false, error: 'Method not allowed' });
-    return;
-  }
-
-  const apiKey = process.env.ANTHROPIC_API_KEY;
-  if (!apiKey || apiKey.startsWith('sk-ant-your-key')) {
-    res.status(200).json({
-      ok: false,
-      error: 'API key belum diset di server. Set environment variable ANTHROPIC_API_KEY di dashboard Vercel.'
-    });
     return;
   }
 
@@ -22,30 +10,90 @@ module.exports = async (req, res) => {
     return;
   }
 
+  const provider = (process.env.AI_PROVIDER || 'claude').toLowerCase();
+  const systemPrompt = buildSystemPrompt(type);
+  const userPrompt = buildUserPrompt(type, content, context);
+  const maxTokens = (type === 'writing-score' || type === 'speaking-feedback') ? 3000 : 1500;
+
   try {
-    const client = new Anthropic({ apiKey });
-
-    const systemPrompt = buildSystemPrompt(type);
-    const userPrompt = buildUserPrompt(type, content, context);
-
-    const maxTokens = (type === 'writing-score' || type === 'speaking-feedback') ? 3000 : 1500;
-    const message = await client.messages.create({
-      model: 'claude-sonnet-4-6',
-      max_tokens: maxTokens,
-      system: systemPrompt,
-      messages: [{ role: 'user', content: userPrompt }]
-    });
-
-    const text = message.content
-      .filter((b) => b.type === 'text')
-      .map((b) => b.text)
-      .join('\n');
-
-    res.status(200).json({ ok: true, text });
+    const result = provider === 'gemini'
+      ? await callGemini({ systemPrompt, userPrompt, maxTokens })
+      : await callClaude({ systemPrompt, userPrompt, maxTokens });
+    res.status(200).json(result);
   } catch (err) {
     res.status(200).json({ ok: false, error: err.message || String(err) });
   }
 };
+
+async function callClaude({ systemPrompt, userPrompt, maxTokens }) {
+  const apiKey = process.env.ANTHROPIC_API_KEY;
+  if (!apiKey || apiKey.startsWith('sk-ant-your-key')) {
+    return {
+      ok: false,
+      error: 'ANTHROPIC_API_KEY belum diset di Vercel. Set di Project Settings > Environment Variables, atau ganti AI_PROVIDER=gemini.'
+    };
+  }
+
+  const AnthropicMod = require('@anthropic-ai/sdk');
+  const Anthropic = AnthropicMod.default || AnthropicMod;
+  const client = new Anthropic({ apiKey });
+
+  const message = await client.messages.create({
+    model: 'claude-sonnet-4-6',
+    max_tokens: maxTokens,
+    system: systemPrompt,
+    messages: [{ role: 'user', content: userPrompt }]
+  });
+
+  const text = message.content
+    .filter((b) => b.type === 'text')
+    .map((b) => b.text)
+    .join('\n');
+
+  return { ok: true, text };
+}
+
+async function callGemini({ systemPrompt, userPrompt, maxTokens }) {
+  const apiKey = process.env.GEMINI_API_KEY;
+  if (!apiKey || apiKey.startsWith('your-gemini-key')) {
+    return {
+      ok: false,
+      error: 'GEMINI_API_KEY belum diset di Vercel. Set di Project Settings > Environment Variables.'
+    };
+  }
+
+  const model = process.env.GEMINI_MODEL || 'gemini-2.5-flash';
+  const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${encodeURIComponent(apiKey)}`;
+
+  const res = await fetch(url, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      systemInstruction: { parts: [{ text: systemPrompt }] },
+      contents: [{ role: 'user', parts: [{ text: userPrompt }] }],
+      generationConfig: { maxOutputTokens: maxTokens, temperature: 0.7 }
+    })
+  });
+
+  if (!res.ok) {
+    const errBody = await res.text().catch(() => '');
+    return { ok: false, error: `Gemini API error ${res.status}: ${errBody.slice(0, 300)}` };
+  }
+
+  const data = await res.json();
+  const text = (data.candidates || [])
+    .flatMap((c) => (c.content?.parts || []))
+    .map((p) => p.text || '')
+    .join('\n')
+    .trim();
+
+  if (!text) {
+    const reason = data.candidates?.[0]?.finishReason || 'no content';
+    return { ok: false, error: `Gemini tidak mengembalikan teks (${reason}).` };
+  }
+
+  return { ok: true, text };
+}
 
 function buildSystemPrompt(type) {
   if (type === 'reading-explain') {
