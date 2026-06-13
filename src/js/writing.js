@@ -250,16 +250,21 @@ function extractBand(text) {
 }
 
 function saveSession(task, prompt, band, wordCount) {
-  const history = JSON.parse(localStorage.getItem('ielts-writing-history') || '[]');
-  history.push({
+  const session = {
     task,
     promptId: prompt.id,
     promptTitle: prompt.title || prompt.type,
     date: new Date().toISOString(),
     band,
     wordCount
-  });
-  localStorage.setItem('ielts-writing-history', JSON.stringify(history));
+  };
+  if (window.Store) {
+    Store.saveSession('writing', session);
+  } else {
+    const history = JSON.parse(localStorage.getItem('ielts-writing-history') || '[]');
+    history.push(session);
+    localStorage.setItem('ielts-writing-history', JSON.stringify(history));
+  }
 }
 
 function markdownToHtml(md) {

@@ -336,16 +336,21 @@ function extractBand(text) {
 }
 
 function saveSession(part, card, band, duration) {
-  const history = JSON.parse(localStorage.getItem('ielts-speaking-history') || '[]');
-  history.push({
+  const session = {
     part,
     cardId: card.id,
     cardTitle: card.title || card.topic,
     date: new Date().toISOString(),
     band,
     duration
-  });
-  localStorage.setItem('ielts-speaking-history', JSON.stringify(history));
+  };
+  if (window.Store) {
+    Store.saveSession('speaking', session);
+  } else {
+    const history = JSON.parse(localStorage.getItem('ielts-speaking-history') || '[]');
+    history.push(session);
+    localStorage.setItem('ielts-speaking-history', JSON.stringify(history));
+  }
 }
 
 function markdownToHtml(md) {

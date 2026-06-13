@@ -34,10 +34,17 @@ Bisa dijalankan **2 cara**:
   - AI feedback per kriteria IELTS
 
 **Plus:**
+- **🔐 Login & akun cloud** (Supabase) — riwayat & skor tersimpan aman + sinkron antar perangkat (HP, laptop). Lihat [Login & cloud](#login--sinkronisasi-cloud-supabase).
+- **📊 Halaman History** — semua sesi latihan dalam satu tempat, bisa difilter per skill.
+- **▶️ Tutorial** — video YouTube terkurasi per skill, mudah diubah lewat `src/data/tutorials.json`.
+- **🌙 Dark mode** — tombol ganti tema terang/gelap di sidebar (ingat pilihan terakhir).
 - **Study Plan 12 minggu** terintegrasi
 - **Tips & Tricks** semua section
-- **Multi-skill progress tracking** otomatis (localStorage)
+- **Multi-skill progress tracking** otomatis (cloud kalau login, localStorage kalau tidak)
 - **Dashboard** dengan tren skor per skill vs baseline
+
+> **Belum setup Supabase?** Tidak masalah — app tetap jalan dalam **mode lokal**
+> (tanpa login, data di perangkat) sampai kamu mengisi `src/js/config.js`.
 
 ## Cara menjalankan
 
@@ -111,6 +118,50 @@ berisi `ANTHROPIC_API_KEY`.
 > (`vercel.json`). Scoring Writing/Speaking biasanya selesai 15-30 detik, jadi
 > aman. Kalau pakai tier gratis dan sering timeout, pertimbangkan upgrade plan.
 
+## Login & sinkronisasi cloud (Supabase)
+
+Login dan penyimpanan riwayat ke cloud memakai **Supabase** (gratis untuk
+pemakaian pribadi). Setup-nya sekali saja, ~10 menit:
+
+### 1. Buat project Supabase
+1. Daftar/masuk di https://supabase.com → **New project**.
+2. Beri nama, pilih region terdekat (mis. Singapore), buat password database
+   (boleh disimpan, jarang dipakai). Tunggu project selesai dibuat (~1 menit).
+
+### 2. Buat tabel & aturan keamanan
+1. Menu kiri **SQL Editor → New query**.
+2. Buka file [`supabase-setup.sql`](supabase-setup.sql), copy **semua** isinya
+   ke editor, lalu klik **Run**. Ini membuat tabel `practice_sessions` plus
+   aturan Row Level Security (tiap user cuma bisa lihat datanya sendiri).
+
+### 3. Atur metode login email
+- Menu **Authentication → Providers → Email**: pastikan **Email** aktif.
+- Untuk testing cepat, **matikan "Confirm email"** supaya akun baru langsung
+  bisa login (tanpa harus klik link konfirmasi). Bisa diaktifkan lagi nanti.
+
+### 4. Hubungkan app ke Supabase
+1. Menu **Project Settings → API**. Salin dua nilai:
+   - **Project URL** (mis. `https://abcd1234.supabase.co`)
+   - **anon public** key (string panjang)
+2. Buka [`src/js/config.js`](src/js/config.js) dan isi:
+   ```js
+   const SUPABASE_URL = 'https://abcd1234.supabase.co';
+   const SUPABASE_ANON_KEY = 'eyJhbGciOi...';   // anon public key
+   ```
+3. Simpan. Refresh app → sekarang muncul halaman **login**. Daftar akun, selesai!
+
+> **Apakah aman menaruh anon key di file?** Ya. Anon key memang kunci **publik**
+> yang dirancang untuk dipakai di browser. Yang menjaga data tiap user adalah
+> Row Level Security di database (sudah diatur di `supabase-setup.sql`). Karena
+> app ini statis (tanpa build step), inilah cara standar Supabase untuk web.
+
+> Saat pertama kali login, riwayat lama yang tersimpan di perangkat otomatis
+> dipindahkan ke cloud (hanya kalau cloud-mu masih kosong, jadi tidak dobel).
+
+Untuk versi **web (Vercel)**: cukup `git push` seperti biasa — `config.js` ikut
+ter-deploy. Tidak perlu environment variable khusus untuk Supabase (anon key
+aman publik). Env var di Vercel tetap hanya untuk API key AI (`ANTHROPIC_API_KEY`).
+
 ## Struktur file
 
 ```
@@ -119,22 +170,33 @@ ielts-app/
 ├── preload.js                    # Secure bridge ke renderer (desktop)
 ├── vercel.json                   # Config deploy web: output dir + clean URLs + maxDuration
 ├── package.json
-├── .env.example                  # Template API key
+├── .env.example                  # Template API key AI (Claude/Gemini)
+├── supabase-setup.sql            # SQL untuk membuat tabel + RLS di Supabase
 ├── api/
 │   └── ai/
 │       └── feedback.js           # Serverless function — fitur AI versi web
 └── src/
     ├── index.html                # Home / dashboard
-    ├── reading.html              # Reading practice
+    ├── login.html                # Halaman login / daftar (cloud)
+    ├── history.html              # Riwayat semua latihan (filter per skill)
+    ├── tutorials.html            # Tutorial video YouTube per skill
+    ├── reading.html / listening.html / writing.html / speaking.html / vocabulary.html
     ├── plan.html                 # Study plan 12 minggu
     ├── tips.html                 # Tips & tricks per section
-    ├── styles.css
+    ├── styles.css                # Design system + dark mode
     ├── js/
+    │   ├── config.js             # ← ISI kredensial Supabase di sini
+    │   ├── auth.js               # Wrapper login/daftar/logout
+    │   ├── store.js              # Lapisan data riwayat (cloud + cache lokal)
+    │   ├── app-shell.js          # Bangun sidebar, auth guard, tema, migrasi data
+    │   ├── theme.js              # Light/dark mode
     │   ├── api.js                # Shim window.ielts untuk versi web (no-op di desktop)
-    │   ├── home.js
-    │   └── reading.js
+    │   ├── home.js / reading.js / listening.js / writing.js / speaking.js / vocabulary.js
+    │   ├── history.js / tutorials.js / login.js
     └── data/
-        └── reading-passages.json # Library passage
+        ├── reading-passages.json # Library passage
+        ├── listening-tests.json / writing-prompts.json / speaking-cards.json / vocabulary.json
+        └── tutorials.json        # ← Daftar video tutorial (mudah diedit)
 ```
 
 ## Menambah passage baru
@@ -155,10 +217,12 @@ Tipe soal yang didukung:
 - [x] ~~Writing module~~ ✅
 - [x] ~~Speaking module~~ ✅
 - [ ] Tambah passage Reading & test Listening
+- [x] ~~Login & sinkronisasi cloud (Supabase)~~ ✅
+- [x] ~~Halaman History + Tutorial YouTube~~ ✅
+- [x] ~~Dark mode~~ ✅
 - [ ] Speech-to-text Whisper API (akurasi lebih tinggi dari Web Speech API)
 - [ ] Export progress ke spreadsheet CSV
 - [ ] Full mock test mode (4 section beruntun)
-- [ ] Dark mode
 
 ## Catatan tentang materi
 

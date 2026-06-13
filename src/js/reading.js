@@ -223,16 +223,22 @@ function bandFromScore(correct, total) {
 }
 
 function saveSession(passage, correct, total, band) {
-  const history = JSON.parse(localStorage.getItem('ielts-history') || '[]');
-  history.push({
+  const session = {
     passageId: passage.id,
     passageTitle: passage.title,
     date: new Date().toISOString(),
     correct,
     total,
     band
-  });
-  localStorage.setItem('ielts-history', JSON.stringify(history));
+  };
+  // Store handles both cloud (when logged in) and local cache.
+  if (window.Store) {
+    Store.saveSession('reading', session);
+  } else {
+    const history = JSON.parse(localStorage.getItem('ielts-history') || '[]');
+    history.push(session);
+    localStorage.setItem('ielts-history', JSON.stringify(history));
+  }
 }
 
 function renderResult(results, correctCount, band) {

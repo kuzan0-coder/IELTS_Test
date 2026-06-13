@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Masuk — IELTS Prep</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" type="image/png" href="assets/logo.png">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/config.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/theme.js"></script>
+</head>
+<body>
+  <div class="auth-wrap">
+    <div class="auth-hero">
+      <div class="hero-brand"><img class="brand-logo" src="assets/logo.png" alt="IELTS Prep"> IELTS Prep</div>
+      <h1>Naikkan band score-mu, satu latihan setiap hari.</h1>
+      <p>Reading, Listening, Writing, Speaking, dan Vocabulary — lengkap dengan feedback AI dan tutorial video pilihan.</p>
+      <ul class="hero-points">
+        <li><span class="check">✓</span> Skor & riwayat tersimpan aman di cloud</li>
+        <li><span class="check">✓</span> Akses dari HP maupun laptop, otomatis sinkron</li>
+        <li><span class="check">✓</span> Tutorial YouTube terkurasi per skill</li>
+      </ul>
+    </div>
+
+    <div class="auth-panel">
+      <div class="auth-card">
+        <h2 id="form-title">Selamat datang 👋</h2>
+        <p class="auth-sub" id="form-sub">Masuk untuk lanjut latihan.</p>
+
+        <!-- Login / signup form (shown when Supabase is configured) -->
+        <div id="auth-forms">
+          <div class="auth-tabs">
+            <button class="auth-tab active" id="tab-login" type="button">Masuk</button>
+            <button class="auth-tab" id="tab-signup" type="button">Daftar</button>
+          </div>
+
+          <form id="auth-form" autocomplete="on">
+            <div class="field signup-only hidden" id="field-name">
+              <label for="name">Nama</label>
+              <input type="text" id="name" placeholder="Nama kamu" autocomplete="name">
+            </div>
+            <div class="field">
+              <label for="email">Email</label>
+              <input type="email" id="email" placeholder="kamu@email.com" required autocomplete="email">
+            </div>
+            <div class="field signup-only hidden" id="field-phone">
+              <label for="phone">No. HP <span style="color:var(--text-muted);font-weight:400">(opsional)</span></label>
+              <input type="tel" id="phone" placeholder="08xxxxxxxxxx" autocomplete="tel">
+            </div>
+            <div class="field">
+              <label for="password">Password</label>
+              <input type="password" id="password" placeholder="Minimal 6 karakter" required minlength="6" autocomplete="current-password">
+            </div>
+            <div class="field signup-only hidden" id="field-password2">
+              <label for="password2">Konfirmasi Password</label>
+              <input type="password" id="password2" placeholder="Ketik ulang password" autocomplete="new-password">
+            </div>
+            <button class="btn block" id="submit-btn" type="submit">Masuk</button>
+          </form>
+
+          <div class="auth-msg" id="auth-msg"></div>
+        </div>
+
+        <!-- Local-mode notice (shown when Supabase is NOT configured yet) -->
+        <div id="local-notice" class="hidden">
+          <div class="auth-msg info show" style="margin-top:0">
+            Login cloud belum diaktifkan. Isi <strong>src/js/config.js</strong> dengan kredensial Supabase untuk mengaktifkan akun
+            (lihat <strong>supabase-setup.sql</strong> &amp; README). Sementara ini app bisa dipakai dalam mode lokal.
+          </div>
+          <a href="index.html" class="btn block" style="margin-top:16px">Lanjut tanpa login (mode lokal) →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/login.js"></script>
+</body>
+</html>

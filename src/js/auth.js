@@ -1,0 +1,57 @@
+/* =========================================================================
+   auth.js — thin wrapper around Supabase Auth.
+   When Supabase is not configured (local mode), everything resolves to
+   "no user" and the app stays open without login.
+   ========================================================================= */
+(function () {
+  const SB = window.SB;
+  const configured = window.IELTS_CONFIG && window.IELTS_CONFIG.isConfigured;
+
+  function mapAuthError(err) {
+    const msg = (err && err.message) || String(err || 'Terjadi kesalahan');
+    if (/Invalid login credentials/i.test(msg)) return 'Email atau password salah.';
+    if (/already registered/i.test(msg)) return 'Email ini sudah terdaftar. Coba login.';
+    if (/Password should be at least/i.test(msg)) return 'Password minimal 6 karakter.';
+    if (/Unable to validate email address/i.test(msg)) return 'Format email tidak valid.';
+    if (/Email not confirmed/i.test(msg)) return 'Email belum dikonfirmasi. Cek inbox kamu, atau matikan "Confirm email" di Supabase.';
+    return msg;
+  }
+
+  window.Auth = {
+    isConfigured: () => !!configured,
+
+    /** Cepat: ambil user dari sesi lokal (tanpa request jaringan). */
+    async getSessionUser() {
+      if (!configured) return null;
+      const { data } = await SB.auth.getSession();
+      return data.session ? data.session.user : null;
+    },
+
+    async signUp(email, password, meta) {
+      if (!configured) return { ok: false, error: 'Supabase belum dikonfigurasi.' };
+      // Data profil tambahan (nama, no HP) disimpan di user_metadata.
+      const profile = {};
+      if (meta && meta.name) profile.full_name = meta.name;
+      if (meta && meta.phone) profile.phone = meta.phone;
+      const { data, error } = await SB.auth.signUp({
+        email, password, options: { data: profile }
+      });
+      if (error) return { ok: false, error: mapAuthError(error) };
+      // Kalau "Confirm email" aktif, session null sampai user klik link email.
+      const needsConfirm = !data.session;
+      return { ok: true, needsConfirm, user: data.user };
+    },
+
+    async signIn(email, password) {
+      if (!configured) return { ok: false, error: 'Supabase belum dikonfigurasi.' };
+      const { data, error } = await SB.auth.signInWithPassword({ email, password });
+      if (error) return { ok: false, error: mapAuthError(error) };
+      return { ok: true, user: data.user };
+    },
+
+    async signOut() {
+      if (!configured) return;
+      await SB.auth.signOut();
+    }
+  };
+})();

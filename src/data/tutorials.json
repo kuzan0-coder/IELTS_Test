@@ -1,0 +1,54 @@
+{
+  "_howto": "Tambah/ubah video di sini. Tiap video bisa salah satu dari: (a) { \"youtubeId\": \"xxxx\" } untuk DI-EMBED langsung — ambil dari URL video, mis. youtube.com/watch?v=XXXX -> youtubeId-nya XXXX; atau (b) { \"search\": \"kata kunci\" } untuk kartu yang membuka pencarian YouTube. Field title, channel, desc opsional tapi disarankan.",
+  "sections": [
+    {
+      "skill": "reading",
+      "icon": "📖",
+      "title": "Reading",
+      "videos": [
+        { "title": "Strategi True / False / Not Given", "channel": "IELTS Liz", "desc": "Cara membedakan False vs Not Given — sumber kesalahan paling umum.", "search": "IELTS Reading True False Not Given strategy IELTS Liz" },
+        { "title": "Skimming & Scanning", "channel": "E2 IELTS", "desc": "Teknik membaca cepat untuk menemukan jawaban tanpa baca tiap kata.", "search": "IELTS Reading skimming and scanning techniques E2 IELTS" },
+        { "title": "Matching Headings", "channel": "IELTS Advantage", "desc": "Pendekatan sistematis untuk soal mencocokkan judul paragraf.", "search": "IELTS Reading matching headings strategy" }
+      ]
+    },
+    {
+      "skill": "listening",
+      "icon": "🎧",
+      "title": "Listening",
+      "videos": [
+        { "title": "Tips Band 7+ Listening", "channel": "E2 IELTS", "desc": "Kebiasaan menyimak & menjebak distractor di tiap section.", "search": "IELTS Listening tips band 7 E2 IELTS" },
+        { "title": "Ejaan, Angka & Tanggal", "channel": "IELTS Liz", "desc": "Hindari kehilangan poin karena salah eja atau format angka.", "search": "IELTS Listening spelling numbers dates tips" },
+        { "title": "Soal Peta & Denah (Map)", "channel": "AcademicEnglishHelp", "desc": "Bahasa arah (north, opposite, adjacent) untuk section 2.", "search": "IELTS Listening map labelling questions" }
+      ]
+    },
+    {
+      "skill": "writing",
+      "icon": "✍️",
+      "title": "Writing",
+      "videos": [
+        { "title": "Task 1 Academic — Overview", "channel": "IELTS Advantage", "desc": "Cara menulis paragraf overview yang menentukan band Task 1.", "search": "IELTS Writing Task 1 academic overview paragraph" },
+        { "title": "Task 2 — Struktur Esai", "channel": "E2 IELTS", "desc": "Kerangka 4 paragraf yang aman untuk semua tipe esai.", "search": "IELTS Writing Task 2 essay structure E2 IELTS" },
+        { "title": "Kosakata & Linking Band 8", "channel": "IELTS Liz", "desc": "Cohesive devices dan kosakata less-common yang menaikkan skor.", "search": "IELTS Writing Task 2 band 8 vocabulary linking words" }
+      ]
+    },
+    {
+      "skill": "speaking",
+      "icon": "🗣️",
+      "title": "Speaking",
+      "videos": [
+        { "title": "Part 2 — Menjawab Cue Card", "channel": "E2 IELTS", "desc": "Mengembangkan jawaban 2 menit tanpa kehabisan ide.", "search": "IELTS Speaking Part 2 cue card tips E2 IELTS" },
+        { "title": "Contoh Jawaban Band 8", "channel": "IELTS Advantage", "desc": "Dengar bagaimana fluency & kosakata band tinggi terdengar.", "search": "IELTS Speaking band 8 sample answer" },
+        { "title": "Meningkatkan Kelancaran (Fluency)", "channel": "IELTS Liz", "desc": "Mengurangi jeda dan filler, bicara lebih natural.", "search": "IELTS Speaking fluency tips reduce hesitation" }
+      ]
+    },
+    {
+      "skill": "general",
+      "icon": "🎯",
+      "title": "Strategi Umum & Vocabulary",
+      "videos": [
+        { "title": "Rencana Belajar Menuju Band 6.5", "channel": "IELTS Daily", "desc": "Menyusun jadwal latihan mingguan yang realistis.", "search": "IELTS study plan band 6.5 schedule" },
+        { "title": "Vocabulary Topik Umum", "channel": "IELTS Liz", "desc": "Kosakata tema environment, education, technology, health.", "search": "IELTS vocabulary common topics band 7" }
+      ]
+    }
+  ]
+}

@@ -1,4 +1,4 @@
-const { app, BrowserWindow, ipcMain } = require('electron');
+const { app, BrowserWindow, ipcMain, shell } = require('electron');
 const path = require('path');
 require('dotenv').config();
 
@@ -16,10 +16,21 @@ function createWindow() {
       nodeIntegration: false
     },
     title: 'IELTS Prep — Fauzan',
+    icon: path.join(__dirname, 'src', 'assets', 'logo.png'),
     backgroundColor: '#f5f7fb'
   });
 
   mainWindow.loadFile(path.join(__dirname, 'src', 'index.html'));
+
+  // Link eksternal (mis. YouTube) dibuka di browser default, bukan jendela
+  // Electron kosong. Ini juga menghindari jendela tanpa ikon aplikasi.
+  mainWindow.webContents.setWindowOpenHandler(({ url }) => {
+    if (/^https?:\/\//i.test(url)) {
+      shell.openExternal(url);
+      return { action: 'deny' };
+    }
+    return { action: 'allow' };
+  });
 
   if (process.argv.includes('--dev')) {
     mainWindow.webContents.openDevTools({ mode: 'detach' });

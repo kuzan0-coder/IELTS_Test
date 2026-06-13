@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Tutorial — IELTS Prep</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/config.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/store.js"></script>
+  <script src="js/theme.js"></script>
+  <script src="js/app-shell.js"></script>
+</head>
+<body>
+  <div class="layout">
+    <aside></aside>
+    <main>
+      <div class="page-header">
+        <h2>▶️ Tutorial Video</h2>
+        <div class="meta">Video pilihan per skill</div>
+      </div>
+
+      <div class="card" style="background:var(--primary-soft);border-color:transparent">
+        <p style="margin:0;font-size:14px">
+          Kumpulan tutorial YouTube terkurasi untuk tiap skill IELTS. Tonton sebelum latihan untuk memahami strateginya.
+          Daftar video bisa kamu ubah di <strong>src/data/tutorials.json</strong>.
+        </p>
+      </div>
+
+      <div id="tutorials-root">
+        <p style="color:var(--text-muted)">Memuat tutorial…</p>
+      </div>
+    </main>
+  </div>
+  <script src="js/tutorials.js"></script>
+</body>
+</html>

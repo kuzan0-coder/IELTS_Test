@@ -347,16 +347,21 @@ function bandFromScore(correct) {
 }
 
 function saveSession(test, correct, total, band) {
-  const history = JSON.parse(localStorage.getItem('ielts-listening-history') || '[]');
-  history.push({
+  const session = {
     testId: test.id,
     testTitle: test.title,
     date: new Date().toISOString(),
     correct,
     total,
     band
-  });
-  localStorage.setItem('ielts-listening-history', JSON.stringify(history));
+  };
+  if (window.Store) {
+    Store.saveSession('listening', session);
+  } else {
+    const history = JSON.parse(localStorage.getItem('ielts-listening-history') || '[]');
+    history.push(session);
+    localStorage.setItem('ielts-listening-history', JSON.stringify(history));
+  }
 }
 
 function renderResult(results, correctCount, band) {

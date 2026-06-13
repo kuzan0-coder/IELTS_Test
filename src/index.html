@@ -2,8 +2,16 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>IELTS Prep — Home</title>
   <link rel="stylesheet" href="styles.css">
+  <link rel="icon" type="image/png" href="assets/logo.png">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/config.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/store.js"></script>
+  <script src="js/theme.js"></script>
+  <script src="js/app-shell.js"></script>
 </head>
 <body>
   <div class="layout">
@@ -22,7 +30,7 @@
     </aside>
     <main>
       <div class="page-header">
-        <h2>Halo Fauzan 👋</h2>
+        <h2 id="greeting">Halo Fauzan 👋</h2>
         <div class="meta" id="today-date"></div>
       </div>
 
@@ -42,14 +50,19 @@
           <a href="listening.html" class="btn">🎧 Listening</a>
           <a href="writing.html" class="btn">✍️ Writing</a>
           <a href="speaking.html" class="btn">🗣️ Speaking</a>
+          <a href="vocabulary.html" class="btn">📚 Vocabulary</a>
+          <a href="tutorials.html" class="btn secondary">▶️ Tutorial</a>
           <a href="plan.html" class="btn secondary">📅 Study Plan</a>
           <a href="tips.html" class="btn secondary">💡 Tips</a>
         </div>
       </div>
 
       <div class="card">
-        <h3>📋 Riwayat Sesi Terakhir</h3>
-        <div id="history-list">
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <h3 style="margin:0">📋 Riwayat Sesi Terakhir</h3>
+          <a href="history.html" class="btn secondary" style="padding:7px 14px">Lihat semua →</a>
+        </div>
+        <div id="history-list" style="margin-top:14px">
           <p style="color: var(--text-muted)">Belum ada sesi. Mulai latihan pertamamu!</p>
         </div>
       </div>
