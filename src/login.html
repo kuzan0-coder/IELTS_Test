@@ -49,14 +49,22 @@
               <label for="phone">No. HP <span style="color:var(--text-muted);font-weight:400">(opsional)</span></label>
               <input type="tel" id="phone" placeholder="08xxxxxxxxxx" autocomplete="tel">
             </div>
-            <div class="field">
+            <div class="field" id="field-password">
               <label for="password">Password</label>
-              <input type="password" id="password" placeholder="Minimal 6 karakter" required minlength="6" autocomplete="current-password">
+              <div class="password-wrap">
+                <input type="password" id="password" placeholder="Minimal 6 karakter" required minlength="6" autocomplete="current-password">
+                <button type="button" class="pw-toggle" data-target="password" aria-label="Tampilkan password">👁️</button>
+              </div>
             </div>
             <div class="field signup-only hidden" id="field-password2">
               <label for="password2">Konfirmasi Password</label>
-              <input type="password" id="password2" placeholder="Ketik ulang password" autocomplete="new-password">
+              <div class="password-wrap">
+                <input type="password" id="password2" placeholder="Ketik ulang password" autocomplete="new-password">
+                <button type="button" class="pw-toggle" data-target="password2" aria-label="Tampilkan password">👁️</button>
+              </div>
             </div>
+            <div id="forgot-row"><button type="button" class="link-btn" id="forgot-link">Lupa password?</button></div>
+            <button type="button" class="link-btn hidden" id="back-login" style="margin-bottom:10px">← Kembali ke Masuk</button>
             <button class="btn block" id="submit-btn" type="submit">Masuk</button>
           </form>
 
@@ -75,6 +83,7 @@
     </div>
   </div>
 
+  <script src="js/pw-toggle.js"></script>
   <script src="js/login.js"></script>
 </body>
 </html>

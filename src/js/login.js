@@ -25,11 +25,16 @@
     msg: document.getElementById('auth-msg'),
     title: document.getElementById('form-title'),
     sub: document.getElementById('form-sub'),
+    tabs: document.querySelector('.auth-tabs'),
+    fieldPassword: document.getElementById('field-password'),
+    forgotRow: document.getElementById('forgot-row'),
+    forgotLink: document.getElementById('forgot-link'),
+    backLogin: document.getElementById('back-login'),
     // Pembungkus field yang hanya muncul saat mode Daftar.
     signupFields: Array.from(document.querySelectorAll('.signup-only'))
   };
 
-  let mode = 'login'; // or 'signup'
+  let mode = 'login'; // 'login' | 'signup' | 'reset'
 
   function showMsg(text, kind) {
     els.msg.textContent = text;
@@ -39,15 +44,33 @@
 
   function setMode(next) {
     mode = next;
-    const login = mode === 'login';
-    els.tabLogin.classList.toggle('active', login);
-    els.tabSignup.classList.toggle('active', !login);
-    els.submit.textContent = login ? 'Masuk' : 'Daftar';
-    els.title.textContent = login ? 'Selamat datang 👋' : 'Buat akun baru';
-    els.sub.textContent = login ? 'Masuk untuk lanjut latihan.' : 'Daftar gratis, mulai latihan dalam hitungan detik.';
-    els.password.setAttribute('autocomplete', login ? 'current-password' : 'new-password');
-    // Nama, No. HP, dan Konfirmasi Password hanya tampil saat mode Daftar.
-    els.signupFields.forEach((f) => f.classList.toggle('hidden', login));
+    const isLogin = mode === 'login';
+    const isSignup = mode === 'signup';
+    const isReset = mode === 'reset';
+
+    // Tab Masuk/Daftar disembunyikan saat mode reset.
+    els.tabs.classList.toggle('hidden', isReset);
+    els.tabLogin.classList.toggle('active', isLogin);
+    els.tabSignup.classList.toggle('active', isSignup);
+
+    // Saat reset cukup email — sembunyikan & nonaktifkan field password
+    // (input required yang tersembunyi bisa memblokir submit kalau tidak di-disable).
+    els.fieldPassword.classList.toggle('hidden', isReset);
+    els.password.disabled = isReset;
+    els.password.setAttribute('autocomplete', isLogin ? 'current-password' : 'new-password');
+
+    // Nama, No. HP, Konfirmasi Password hanya saat Daftar.
+    els.signupFields.forEach((f) => f.classList.toggle('hidden', !isSignup));
+
+    // Link bantu: "Lupa password?" hanya di Masuk; "Kembali" hanya di reset.
+    els.forgotRow.classList.toggle('hidden', !isLogin);
+    els.backLogin.classList.toggle('hidden', !isReset);
+
+    els.submit.textContent = isReset ? 'Kirim link reset' : (isLogin ? 'Masuk' : 'Daftar');
+    els.title.textContent = isReset ? 'Reset password 🔑' : (isLogin ? 'Selamat datang 👋' : 'Buat akun baru');
+    els.sub.textContent = isReset
+      ? 'Masukkan email akunmu, nanti kami kirim link untuk membuat password baru.'
+      : (isLogin ? 'Masuk untuk lanjut latihan.' : 'Daftar gratis, mulai latihan dalam hitungan detik.');
     clearMsg();
   }
 
@@ -67,10 +90,26 @@
 
   els.tabLogin.addEventListener('click', () => setMode('login'));
   els.tabSignup.addEventListener('click', () => setMode('signup'));
+  els.forgotLink.addEventListener('click', () => setMode('reset'));
+  els.backLogin.addEventListener('click', () => setMode('login'));
 
   els.form.addEventListener('submit', async (e) => {
     e.preventDefault();
     const email = els.email.value.trim();
+
+    // --- Mode reset password: cukup email, kirim link ke email ---
+    if (mode === 'reset') {
+      if (!email) { showMsg('Masukkan email akunmu dulu.', 'error'); return; }
+      els.submit.disabled = true;
+      els.submit.textContent = 'Mengirim…';
+      const r = await Auth.requestPasswordReset(email);
+      els.submit.disabled = false;
+      els.submit.textContent = 'Kirim link reset';
+      if (!r.ok) { showMsg(r.error, 'error'); return; }
+      showMsg('Link reset dikirim ke ' + email + '. Cek email (termasuk folder Spam/Promosi), lalu klik link-nya untuk membuat password baru.', 'success');
+      return;
+    }
+
     const password = els.password.value;
 
     // --- Validasi dasar (berlaku untuk Masuk & Daftar) ---

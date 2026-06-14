@@ -14,6 +14,9 @@
     if (/Password should be at least/i.test(msg)) return 'Password minimal 6 karakter.';
     if (/Unable to validate email address/i.test(msg)) return 'Format email tidak valid.';
     if (/Email not confirmed/i.test(msg)) return 'Email belum dikonfirmasi. Cek inbox kamu, atau matikan "Confirm email" di Supabase.';
+    if (/For security purposes|rate ?limit|after \d+ seconds/i.test(msg)) return 'Terlalu sering mencoba. Tunggu sebentar (±60 detik) lalu coba lagi.';
+    if (/Auth session missing|session.*not.*found|token.*expired|link.*expired|otp.*expired/i.test(msg)) return 'Sesi reset tidak valid atau sudah kedaluwarsa. Minta link reset baru dari halaman masuk.';
+    if (/New password should be different/i.test(msg)) return 'Password baru harus berbeda dari password lama.';
     return msg;
   }
 
@@ -52,6 +55,23 @@
     async signOut() {
       if (!configured) return;
       await SB.auth.signOut();
+    },
+
+    /** Kirim email berisi link untuk membuat password baru. */
+    async requestPasswordReset(email) {
+      if (!configured) return { ok: false, error: 'Supabase belum dikonfigurasi.' };
+      const redirectTo = location.origin + '/reset-password';
+      const { error } = await SB.auth.resetPasswordForEmail(email, { redirectTo });
+      if (error) return { ok: false, error: mapAuthError(error) };
+      return { ok: true };
+    },
+
+    /** Set password baru untuk user yang sedang dalam sesi recovery. */
+    async updatePassword(newPassword) {
+      if (!configured) return { ok: false, error: 'Supabase belum dikonfigurasi.' };
+      const { error } = await SB.auth.updateUser({ password: newPassword });
+      if (error) return { ok: false, error: mapAuthError(error) };
+      return { ok: true };
     }
   };
 })();

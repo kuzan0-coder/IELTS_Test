@@ -670,6 +670,22 @@ main {
 .auth-msg.success { background: var(--success-soft); color: var(--success); }
 .auth-msg.info { background: var(--surface-2); color: var(--text-muted); }
 
+/* Tombol lihat/sembunyikan password + tombol-link (form login/reset) */
+.password-wrap { position: relative; }
+.password-wrap input { padding-right: 42px; }
+.pw-toggle {
+  position: absolute; right: 6px; top: 50%; transform: translateY(-50%);
+  background: none; border: none; cursor: pointer; font-size: 16px;
+  line-height: 1; padding: 6px; opacity: 0.6; border-radius: 8px;
+}
+.pw-toggle:hover { opacity: 1; }
+.link-btn {
+  background: none; border: none; color: var(--primary); cursor: pointer;
+  font-family: inherit; font-size: 13px; font-weight: 600; padding: 4px 0;
+}
+.link-btn:hover { text-decoration: underline; }
+#forgot-row { text-align: right; margin: -4px 0 14px; }
+
 .auth-divider { text-align: center; margin: 20px 0; color: var(--text-muted); font-size: 13px; position: relative; }
 .auth-guest { width: 100%; }
 
