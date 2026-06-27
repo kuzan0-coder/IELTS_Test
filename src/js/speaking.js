@@ -286,6 +286,19 @@ async function handleSubmit() {
     return;
   }
 
+  // Penilaian AI = fitur berbayar. Latihan rekam/transkrip tetap bisa dipakai.
+  if (!(window.License ? await License.isPaid() : false)) {
+    document.getElementById('ai-result').innerHTML = `
+      <div class="ai-result-box lock-inline">
+        <div class="lock-emoji">🔒</div>
+        <h3>Penilaian AI adalah fitur berbayar</h3>
+        <p>Buka feedback AI untuk Speaking (Fluency, Lexical, Grammar) plus contoh
+        jawaban band 7 — sekali bayar, akses selamanya.</p>
+        <a href="upgrade.html" class="btn">Buka Akses Penuh</a>
+      </div>`;
+    return;
+  }
+
   const btn = document.getElementById('submit-btn');
   btn.disabled = true;
   btn.textContent = 'AI sedang menilai... (10-20 detik)';

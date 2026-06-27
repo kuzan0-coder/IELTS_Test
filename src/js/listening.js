@@ -8,6 +8,7 @@ let isPlaying = false;
 let currentUtterance = null;
 let voicesReady = false;
 let cachedVoices = { female: null, male: null };
+let isPaid = false; // diisi dari License.isPaid() saat init
 
 init();
 
@@ -23,16 +24,41 @@ async function init() {
   loadVoices();
   window.speechSynthesis.addEventListener('voiceschanged', loadVoices);
 
+  try { isPaid = window.License ? await License.isPaid() : false; }
+  catch (e) { isPaid = false; }
+
   const params = new URLSearchParams(window.location.search);
   const id = params.get('id');
   if (id) {
-    currentTest = tests.find((t) => t.id === id);
-    if (currentTest) {
+    const idx = tests.findIndex((t) => t.id === id);
+    if (idx >= 0) {
+      if (idx > 0 && !isPaid) { renderLocked(tests[idx]); return; }
+      currentTest = tests[idx];
       renderTest();
       return;
     }
   }
   renderTestList();
+}
+
+/** Layar terkunci untuk test premium (free user). */
+function renderLocked(t) {
+  main.innerHTML = `
+    <div class="page-header">
+      <h2>🔒 ${t.title}</h2>
+      <div class="meta">Test premium</div>
+    </div>
+    <div class="card lock-card">
+      <div class="lock-emoji">🔒</div>
+      <h3>Test ini bagian dari akses penuh</h3>
+      <p>Versi gratis mencakup <strong>1 test listening</strong>. Buka semua test,
+      Reading, dan penilaian AI dengan sekali bayar.</p>
+      <div class="lock-actions">
+        <a href="upgrade.html" class="btn">Buka Akses Penuh</a>
+        <a href="listening.html" class="btn secondary">← Kembali ke daftar</a>
+      </div>
+    </div>
+  `;
 }
 
 function loadVoices() {
@@ -68,20 +94,24 @@ function renderTestList() {
     </div>
     <div class="card">
       <h3>Tes tersedia</h3>
+      ${isPaid ? '' : '<p class="free-note">🎁 Versi gratis: test pertama. <a href="upgrade.html">Buka semua →</a></p>'}
       <div id="test-list"></div>
     </div>
   `;
   const list = document.getElementById('test-list');
-  tests.forEach((t) => {
+  tests.forEach((t, idx) => {
+    const locked = idx > 0 && !isPaid;
     const item = document.createElement('div');
-    item.className = 'passage-card';
+    item.className = 'passage-card' + (locked ? ' locked' : '');
     const totalQ = t.sections.reduce((sum, s) => sum + s.questions.length, 0);
     item.innerHTML = `
       <div>
-        <div class="title">${t.title}</div>
+        <div class="title">${locked ? '🔒 ' : ''}${t.title}</div>
         <div class="desc">${t.sections.length} section · ${totalQ} soal · ~30 menit</div>
       </div>
-      <a href="listening.html?id=${t.id}" class="btn">Mulai</a>
+      ${locked
+        ? '<a href="upgrade.html" class="btn secondary lock-btn">🔒 Premium</a>'
+        : `<a href="listening.html?id=${t.id}" class="btn">Mulai</a>`}
     `;
     list.appendChild(item);
   });
@@ -313,7 +343,9 @@ function handleSubmit() {
   const correctCount = allResults.filter((r) => r.correct).length;
   const band = bandFromScore(correctCount);
   saveSession(currentTest, correctCount, allResults.length, band);
-  renderResult(allResults, correctCount, band);
+  const inMock = new URLSearchParams(location.search).get('mock') === '1' && window.Mock;
+  if (inMock) Mock.record('listening', band);
+  renderResult(allResults, correctCount, band, inMock);
 }
 
 function checkAnswer(q, userAns) {
@@ -364,7 +396,7 @@ function saveSession(test, correct, total, band) {
   }
 }
 
-function renderResult(results, correctCount, band) {
+function renderResult(results, correctCount, band, inMock) {
   const targetBand = 6.5;
   const verdict = band >= targetBand ? '🎉 Sudah mencapai target!' : `Masih ${(targetBand - band).toFixed(1)} band dari target ${targetBand}.`;
 
@@ -372,8 +404,10 @@ function renderResult(results, correctCount, band) {
     <div class="page-header">
       <h2>Hasil — ${currentTest.title}</h2>
       <div>
-        <a href="listening.html" class="btn secondary">Latihan lagi</a>
-        <a href="index.html" class="btn secondary">Home</a>
+        ${inMock
+          ? `<button class="btn" onclick="Mock.advance()">Lanjut ke section berikutnya →</button>`
+          : `<a href="listening.html" class="btn secondary">Latihan lagi</a>
+             <a href="index.html" class="btn secondary">Home</a>`}
       </div>
     </div>
     <div class="result-banner">

@@ -3,8 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>IELTS Prep — Reading</title>
+  <title>IELTS Prep — Mock Test</title>
   <link rel="stylesheet" href="styles.css">
+  <link rel="icon" type="image/png" href="assets/logo.png">
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="js/config.js"></script>
   <script src="js/auth.js"></script>
@@ -15,25 +16,16 @@
 </head>
 <body>
   <div class="layout">
-    <aside>
-      <h1>IELTS Prep</h1>
-      <nav>
-        <a href="index.html">Home</a>
-        <a href="reading.html" class="active">Reading</a>
-        <a href="listening.html">Listening</a>
-        <a href="writing.html">Writing</a>
-        <a href="speaking.html">Speaking</a>
-        <a href="vocabulary.html">Vocabulary</a>
-        <a href="plan.html">Study Plan</a>
-        <a href="tips.html">Tips & Tricks</a>
-      </nav>
-    </aside>
+    <aside></aside>
     <main id="main-content">
-      <!-- Content injected by reading.js -->
+      <div class="page-header">
+        <h2>🎯 Mock Test</h2>
+        <div class="meta">Simulasi ujian beruntun + skor gabungan</div>
+      </div>
+      <div id="mock-root"></div>
     </main>
   </div>
-  <script src="js/api.js"></script>
+
   <script src="js/mock.js"></script>
-  <script src="js/reading.js"></script>
 </body>
 </html>

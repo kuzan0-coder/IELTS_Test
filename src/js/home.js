@@ -9,7 +9,7 @@
   });
 
   // Sapaan dinamis: ambil nama dari email user yang login (bagian sebelum "@").
-  // Kalau mode lokal / belum login, biarkan teks default "Halo Fauzan".
+  // Kalau mode lokal / belum login, biarkan teks default "Halo".
   (async function renderGreeting() {
     const el = document.getElementById('greeting');
     if (!el) return;
@@ -28,7 +28,6 @@
   })();
 
   const SKILLS = ['reading', 'listening', 'writing', 'speaking'];
-  const baselineScores = { reading: 3.5, listening: 5.5, writing: 4.0, speaking: 3.5 };
   const skillIcon = { reading: '📖', listening: '🎧', writing: '✍️', speaking: '🗣️' };
 
   const skillStatsEl = document.getElementById('skill-stats');
@@ -52,9 +51,12 @@
         const last3 = history.slice(-3);
         const avg = last3.reduce((sum, h) => sum + h.band, 0) / last3.length;
         display = avg.toFixed(1);
-        const delta = avg - baselineScores[skill];
-        if (delta > 0) trend = ` <span style="color:var(--success);font-size:13px">↑ +${delta.toFixed(1)}</span>`;
-        else if (delta < 0) trend = ` <span style="color:var(--error);font-size:13px">↓ ${delta.toFixed(1)}</span>`;
+        // Tren dibandingkan skor PERTAMA user sendiri (progres pribadi mereka).
+        if (history.length > 1) {
+          const delta = avg - history[0].band;
+          if (delta > 0) trend = ` <span style="color:var(--success);font-size:13px">↑ +${delta.toFixed(1)}</span>`;
+          else if (delta < 0) trend = ` <span style="color:var(--error);font-size:13px">↓ ${delta.toFixed(1)}</span>`;
+        }
       }
 
       const card = document.createElement('div');

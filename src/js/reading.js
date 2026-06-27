@@ -4,6 +4,7 @@ let currentPassage = null;
 let timerId = null;
 let secondsLeft = 0;
 let answers = {};
+let isPaid = false; // diisi dari License.isPaid() saat init
 
 init();
 
@@ -16,13 +17,19 @@ async function init() {
     return;
   }
 
+  try { isPaid = window.License ? await License.isPaid() : false; }
+  catch (e) { isPaid = false; }
+
   const params = new URLSearchParams(window.location.search);
   const id = params.get('id');
 
   if (id) {
-    const p = passages.find((x) => x.id === id);
+    const idx = passages.findIndex((x) => x.id === id);
+    const p = passages[idx];
     if (!p) {
       renderPassageList();
+    } else if (idx > 0 && !isPaid) {
+      renderLocked(p);                 // passage premium diakses langsung via ?id
     } else {
       currentPassage = p;
       renderPractice();
@@ -30,6 +37,26 @@ async function init() {
   } else {
     renderPassageList();
   }
+}
+
+/** Layar terkunci untuk passage premium (free user). */
+function renderLocked(p) {
+  main.innerHTML = `
+    <div class="page-header">
+      <h2>🔒 ${p.title}</h2>
+      <div class="meta">Passage premium</div>
+    </div>
+    <div class="card lock-card">
+      <div class="lock-emoji">🔒</div>
+      <h3>Passage ini bagian dari akses penuh</h3>
+      <p>Versi gratis mencakup <strong>1 passage</strong>. Buka semua passage,
+      Listening, dan penilaian AI dengan sekali bayar.</p>
+      <div class="lock-actions">
+        <a href="upgrade.html" class="btn">Buka Akses Penuh</a>
+        <a href="reading.html" class="btn secondary">← Kembali ke daftar</a>
+      </div>
+    </div>
+  `;
 }
 
 function renderPassageList() {
@@ -49,20 +76,24 @@ function renderPassageList() {
     </div>
     <div class="card">
       <h3>Passage tersedia</h3>
+      ${isPaid ? '' : '<p class="free-note">🎁 Versi gratis: passage pertama. <a href="upgrade.html">Buka semua →</a></p>'}
       <div id="passage-list"></div>
     </div>
   `;
 
   const list = document.getElementById('passage-list');
-  passages.forEach((p) => {
+  passages.forEach((p, idx) => {
+    const locked = idx > 0 && !isPaid;
     const card = document.createElement('div');
-    card.className = 'passage-card';
+    card.className = 'passage-card' + (locked ? ' locked' : '');
     card.innerHTML = `
       <div>
-        <div class="title">${p.title}</div>
+        <div class="title">${locked ? '🔒 ' : ''}${p.title}</div>
         <div class="desc">${p.difficulty} · ${p.estimatedMinutes} menit · ${p.questions.length} soal</div>
       </div>
-      <a href="reading.html?id=${p.id}" class="btn">Mulai</a>
+      ${locked
+        ? '<a href="upgrade.html" class="btn secondary lock-btn">🔒 Premium</a>'
+        : `<a href="reading.html?id=${p.id}" class="btn">Mulai</a>`}
     `;
     list.appendChild(card);
   });
@@ -187,7 +218,9 @@ function handleSubmit() {
   const correctCount = results.filter((r) => r.correct).length;
   const band = bandFromScore(correctCount, results.length);
   saveSession(currentPassage, correctCount, results.length, band);
-  renderResult(results, correctCount, band);
+  const inMock = new URLSearchParams(location.search).get('mock') === '1' && window.Mock;
+  if (inMock) Mock.record('reading', band);
+  renderResult(results, correctCount, band, inMock);
 }
 
 function checkAnswer(q, userAns) {
@@ -241,7 +274,7 @@ function saveSession(passage, correct, total, band) {
   }
 }
 
-function renderResult(results, correctCount, band) {
+function renderResult(results, correctCount, band, inMock) {
   const total = results.length;
   const targetBand = 6.5;
   const verdict = band >= targetBand ? '🎉 Sudah mencapai target!' : `Masih ${(targetBand - band).toFixed(1)} band dari target ${targetBand}.`;
@@ -250,8 +283,10 @@ function renderResult(results, correctCount, band) {
     <div class="page-header">
       <h2>Hasil — ${currentPassage.title}</h2>
       <div>
-        <a href="reading.html" class="btn secondary">Latihan lagi</a>
-        <a href="index.html" class="btn secondary">Kembali ke Home</a>
+        ${inMock
+          ? `<button class="btn" onclick="Mock.advance()">Lanjut ke section berikutnya →</button>`
+          : `<a href="reading.html" class="btn secondary">Latihan lagi</a>
+             <a href="index.html" class="btn secondary">Kembali ke Home</a>`}
       </div>
     </div>
     <div class="result-banner">

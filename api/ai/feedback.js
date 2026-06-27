@@ -1,3 +1,19 @@
+// Tipe yang dihitung terhadap kuota bulanan (panggilan AI termahal: 3000 token).
+// Reading explain/tip lebih murah & cuma butuh login + batas input.
+const METERED_TYPES = new Set(['writing-score', 'speaking-feedback']);
+
+// Batas panjang input (karakter) supaya satu panggilan tidak membengkak biayanya.
+const INPUT_LIMITS = {
+  essay: 8000,
+  transcript: 8000,
+  prompt: 3000,
+  question: 2000,
+  context: 4000,
+  userAnswer: 600,
+  correctAnswer: 600,
+  questionType: 120
+};
+
 module.exports = async (req, res) => {
   if (req.method !== 'POST') {
     res.status(405).json({ ok: false, error: 'Method not allowed' });
@@ -10,20 +26,156 @@ module.exports = async (req, res) => {
     return;
   }
 
+  // 1) WAJIB LOGIN — verifikasi token Supabase. Tanpa user terverifikasi, tolak.
+  const user = await verifyUser(req);
+  if (!user) {
+    res.status(401).json({ ok: false, error: 'Silakan login dulu untuk memakai fitur AI.' });
+    return;
+  }
+
+  // 1b) WAJIB BERBAYAR — fitur AI premium. Aktifkan dengan REQUIRE_PAID_LICENSE=true
+  //     di Vercel setelah sistem pembayaran siap (default off agar testing lancar).
+  if ((process.env.REQUIRE_PAID_LICENSE || '').toLowerCase() === 'true') {
+    const paid = await hasLicense(user.id);
+    if (!paid) {
+      res.status(403).json({ ok: false, error: 'Penilaian AI adalah fitur berbayar. Upgrade dulu untuk membukanya.' });
+      return;
+    }
+  }
+
+  // 2) BATAS PANJANG INPUT — cegah payload raksasa yang mahal.
+  const oversize = checkInputSize(content, context);
+  if (oversize) {
+    res.status(413).json({ ok: false, error: oversize });
+    return;
+  }
+
+  // 3) KUOTA BULANAN — hanya untuk scoring berat (Writing/Speaking).
+  let quotaInfo = null;
+  if (METERED_TYPES.has(type)) {
+    const limit = parseInt(process.env.AI_MONTHLY_LIMIT || '60', 10);
+    const quota = await consumeQuota(user.id, limit);
+    if (!quota.ok) {
+      // Fail-closed: kalau pengecekan kuota gagal/salah konfigurasi, jangan
+      // teruskan ke LLM (lindungi dompet daripada jebol diam-diam).
+      res.status(200).json({ ok: false, error: quota.error });
+      return;
+    }
+    if (!quota.allowed) {
+      res.status(200).json({
+        ok: false,
+        error: `Kuota scoring AI bulan ini sudah habis (${quota.used}/${quota.limit}). Kuota direset otomatis awal bulan depan.`
+      });
+      return;
+    }
+    quotaInfo = { used: quota.used, limit: quota.limit };
+  }
+
+  // 4) Panggil LLM.
   const provider = (process.env.AI_PROVIDER || 'claude').toLowerCase();
   const systemPrompt = buildSystemPrompt(type);
   const userPrompt = buildUserPrompt(type, content, context);
-  const maxTokens = (type === 'writing-score' || type === 'speaking-feedback') ? 3000 : 1500;
+  const maxTokens = METERED_TYPES.has(type) ? 3000 : 1500;
 
   try {
     const result = provider === 'gemini'
       ? await callGemini({ systemPrompt, userPrompt, maxTokens })
       : await callClaude({ systemPrompt, userPrompt, maxTokens });
+    if (quotaInfo) result.quota = quotaInfo;
     res.status(200).json(result);
   } catch (err) {
     res.status(200).json({ ok: false, error: err.message || String(err) });
   }
 };
+
+// --- Keamanan & kontrol biaya -------------------------------------------------
+
+/** Verifikasi access token Supabase dari header Authorization. */
+async function verifyUser(req) {
+  const url = process.env.SUPABASE_URL;
+  const anon = process.env.SUPABASE_ANON_KEY;
+  if (!url || !anon) return null; // fail-closed: server belum dikonfigurasi.
+
+  const header = req.headers.authorization || req.headers.Authorization || '';
+  const token = header.startsWith('Bearer ') ? header.slice(7).trim() : '';
+  if (!token) return null;
+
+  try {
+    const r = await fetch(`${url}/auth/v1/user`, {
+      headers: { Authorization: `Bearer ${token}`, apikey: anon }
+    });
+    if (!r.ok) return null;
+    const u = await r.json();
+    return u && u.id ? u : null;
+  } catch {
+    return null;
+  }
+}
+
+/** true kalau user punya lisensi 'active' (sudah bayar). Pakai service role. */
+async function hasLicense(userId) {
+  const url = process.env.SUPABASE_URL;
+  const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+  if (!url || !serviceKey) return false; // fail-closed: anggap belum bayar.
+  try {
+    const r = await fetch(
+      `${url}/rest/v1/licenses?user_id=eq.${encodeURIComponent(userId)}&status=eq.active&select=user_id`,
+      { headers: { apikey: serviceKey, Authorization: `Bearer ${serviceKey}` } }
+    );
+    if (!r.ok) return false;
+    const rows = await r.json();
+    return Array.isArray(rows) && rows.length > 0;
+  } catch {
+    return false;
+  }
+}
+
+/** Pastikan field teks tidak melebihi batas. Mengembalikan pesan error / null. */
+function checkInputSize(content, context) {
+  const fields = { ...(content || {}) };
+  if (typeof context === 'string') fields.context = context;
+  for (const [key, max] of Object.entries(INPUT_LIMITS)) {
+    const val = fields[key];
+    if (typeof val === 'string' && val.length > max) {
+      return `Input "${key}" terlalu panjang (${val.length} karakter, maksimal ${max}).`;
+    }
+  }
+  return null;
+}
+
+/**
+ * Konsumsi 1 kuota secara atomik lewat Postgres function `consume_ai_quota`
+ * (dipanggil dengan service role key — hanya ada di server, tidak pernah ke browser).
+ * Lihat supabase-ai-quota.sql.
+ */
+async function consumeQuota(userId, limit) {
+  const url = process.env.SUPABASE_URL;
+  const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+  if (!url || !serviceKey) {
+    return { ok: false, error: 'Server belum dikonfigurasi: set SUPABASE_SERVICE_ROLE_KEY di Vercel.' };
+  }
+  try {
+    const r = await fetch(`${url}/rest/v1/rpc/consume_ai_quota`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        apikey: serviceKey,
+        Authorization: `Bearer ${serviceKey}`
+      },
+      body: JSON.stringify({ p_user: userId, p_limit: limit })
+    });
+    if (!r.ok) {
+      const t = await r.text().catch(() => '');
+      return { ok: false, error: `Gagal cek kuota (${r.status}). ${t.slice(0, 200)}` };
+    }
+    const rows = await r.json();
+    const row = Array.isArray(rows) ? rows[0] : rows;
+    if (!row) return { ok: false, error: 'Gagal cek kuota: respons kosong.' };
+    return { ok: true, allowed: row.allowed, used: row.used, limit: row.quota_limit };
+  } catch (e) {
+    return { ok: false, error: 'Gagal cek kuota: ' + (e.message || String(e)) };
+  }
+}
 
 async function callClaude({ systemPrompt, userPrompt, maxTokens }) {
   const apiKey = process.env.ANTHROPIC_API_KEY;

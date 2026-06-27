@@ -103,7 +103,12 @@
         "text": "Indoor farms use up to ___________ less water than field farming.",
         "maxWords": 2,
         "answer": "ninety-five per cent",
-        "altAnswers": ["95 per cent", "95%", "ninety-five percent", "95 percent"],
+        "altAnswers": [
+          "95 per cent",
+          "95%",
+          "ninety-five percent",
+          "95 percent"
+        ],
         "explanation": "Paragraf 2: 'use up to ninety-five per cent less water'. Tulis sesuai passage.",
         "relevantPara": 1
       },
@@ -113,7 +118,12 @@
         "text": "Energy costs can account for ____ to forty per cent of total operating expenses.",
         "maxWords": 2,
         "answer": "twenty-five per cent",
-        "altAnswers": ["twenty-five", "25 per cent", "25%", "25 percent"],
+        "altAnswers": [
+          "twenty-five",
+          "25 per cent",
+          "25%",
+          "25 percent"
+        ],
         "explanation": "Paragraf 3: 'between twenty-five and forty per cent'.",
         "relevantPara": 2
       },
@@ -123,7 +133,11 @@
         "text": "In Singapore, researchers demonstrated rice can grow in just ___________ days under tailored light.",
         "maxWords": 2,
         "answer": "sixty",
-        "altAnswers": ["60", "sixty days", "60 days"],
+        "altAnswers": [
+          "60",
+          "sixty days",
+          "60 days"
+        ],
         "explanation": "Paragraf 5: 'just sixty days'.",
         "relevantPara": 4
       },
@@ -133,7 +147,10 @@
         "text": "Small vertical farms have been deployed in northern Canada to reduce dependence on ___________ produce.",
         "maxWords": 2,
         "answer": "flown-in",
-        "altAnswers": ["flown in", "flown-in produce"],
+        "altAnswers": [
+          "flown in",
+          "flown-in produce"
+        ],
         "explanation": "Paragraf 7: 'reducing dependence on flown-in produce'.",
         "relevantPara": 6
       },
@@ -266,7 +283,9 @@
         "text": "The proposed mechanism resembles a black-and-white camera fitted with ___________.",
         "maxWords": 2,
         "answer": "coloured filters",
-        "altAnswers": ["colored filters"],
+        "altAnswers": [
+          "colored filters"
+        ],
         "explanation": "Paragraf 4: 'a black-and-white camera fitted with coloured filters'.",
         "relevantPara": 3
       },
@@ -410,7 +429,10 @@
         "text": "At their peak in the 1970s, US sales exceeded ___________ million records per year.",
         "maxWords": 2,
         "answer": "three hundred",
-        "altAnswers": ["300", "300 million"],
+        "altAnswers": [
+          "300",
+          "300 million"
+        ],
         "explanation": "Paragraf 1: 'over three hundred million at the format's peak in the 1970s'.",
         "relevantPara": 0
       },
@@ -420,7 +442,9 @@
         "text": "Major artists currently wait between six and ___________ months to press an album.",
         "maxWords": 1,
         "answer": "twelve",
-        "altAnswers": ["12"],
+        "altAnswers": [
+          "12"
+        ],
         "explanation": "Paragraf 6: 'six to twelve months to have their albums pressed'.",
         "relevantPara": 5
       },
@@ -430,7 +454,9 @@
         "text": "Records are made from polyvinyl chloride, a ___________ plastic.",
         "maxWords": 2,
         "answer": "petroleum-based",
-        "altAnswers": ["petroleum based"],
+        "altAnswers": [
+          "petroleum based"
+        ],
         "explanation": "Paragraf 7: 'polyvinyl chloride, a petroleum-based plastic'.",
         "relevantPara": 6
       },
@@ -440,7 +466,10 @@
         "text": "Bio-based and recycled vinyl currently account for less than ___________ per cent of production.",
         "maxWords": 1,
         "answer": "one",
-        "altAnswers": ["1", "1%"],
+        "altAnswers": [
+          "1",
+          "1%"
+        ],
         "explanation": "Paragraf 7: 'less than one per cent of production'.",
         "relevantPara": 6
       },
@@ -591,7 +620,9 @@
         "text": "Rushed colonies were nearly ___________ times as likely to move to an inferior site.",
         "maxWords": 1,
         "answer": "three",
-        "altAnswers": ["3"],
+        "altAnswers": [
+          "3"
+        ],
         "explanation": "Paragraf 6: 'nearly three times as likely to move to an inferior site'.",
         "relevantPara": 5
       },
@@ -608,6 +639,334 @@
         "answer": "C",
         "explanation": "Paragraf terakhir: 'Engineers have already used ant-inspired decision rules to design distributed networks of small robots that select assembly sites or coordinate searches without central control'.",
         "relevantPara": 7
+      }
+    ]
+  },
+  {
+    "id": "p5-shipping-container",
+    "title": "The Box That Built Global Trade",
+    "difficulty": "Band 6–7",
+    "estimatedMinutes": 20,
+    "paragraphs": [
+      "For most of human history, loading a ship was a slow, dangerous, and expensive ordeal. Cargo arrived at the docks as a chaotic assortment of barrels, sacks, crates, and loose items, each of which had to be carried aboard and stowed by hand. This system, known as break-bulk shipping, could keep a vessel tied up in port for a week or more. Labour costs were enormous, theft was common, and goods were frequently damaged. By the middle of the twentieth century, the cost of moving cargo by sea had become a serious brake on international trade.",
+      "The breakthrough came not from a shipping company but from an American trucking entrepreneur named Malcom McLean. Frustrated by the hours he spent waiting for his trucks to be unloaded, McLean reasoned that it would be far more efficient to lift an entire truck trailer onto a ship without unpacking it. After years of refining the idea, he launched the first container voyage in 1956, when a converted tanker called the Ideal X carried fifty-eight metal boxes from Newark, New Jersey, to Houston, Texas. The containers were unloaded onto waiting trucks and driven away, untouched by dockworkers.",
+      "The savings were staggering. Studies later estimated that loading loose cargo cost around five dollars and eighty-six cents per ton, whereas loading the same goods in a container cost less than sixteen cents per ton. Ships spent hours rather than days in port, crews were smaller, and because the sealed boxes were never opened in transit, both theft and damage fell sharply. For the first time, the cost of shipping became almost trivial compared with the value of the goods being shipped.",
+      "Yet the new technology could not spread until the industry agreed on a common standard. In the early years, rival firms built containers of different sizes that could not be stacked together or carried on the same ships and cranes. Only in the late 1960s did international negotiators settle on standard dimensions — principally the twenty-foot and forty-foot boxes still used today. This agreement, though dull, was essential: it meant that a container loaded in one country could be handled by any port, ship, train, or truck in another.",
+      "Adoption was neither smooth nor universally welcomed. Containerisation demanded enormous investment in specialised cranes and vast areas of flat land, which many historic city-centre ports simply could not provide. Dockworkers' unions, correctly fearing mass job losses, resisted fiercely. As a result, some of the world's busiest traditional harbours declined, while new deep-water ports such as Oakland in California and Felixstowe in England rose rapidly to dominance by building container facilities from scratch.",
+      "The wider consequences reshaped the global economy. By making distance cheap, the container allowed manufacturers to break production into stages and locate each one wherever it was cheapest, often thousands of kilometres apart. The rise of factories in East Asia supplying consumers in Europe and North America would have been unthinkable without near-free shipping. The container, more than any single trade agreement, made the modern globalised supply chain possible.",
+      "The revolution was not without costs. Tens of thousands of dock labourers lost their livelihoods, and the communities built around old waterfronts withered. Critics also note that cheap shipping encouraged a pattern of long-distance trade with a significant environmental footprint, and that the constant repositioning of empty containers around the world is itself wasteful. Balancing these costs against the benefits of cheaper goods remains a matter of debate.",
+      "Today the steel box is so ordinary that it is almost invisible, yet few inventions have done more to shape modern life. Economists have argued that the container did more to stimulate global trade than all the tariff-cutting treaties of the same era combined. It is a striking reminder that the technologies which transform the world are not always glamorous; sometimes they are simply a well-designed box."
+    ],
+    "questions": [
+      {
+        "num": 1,
+        "type": "TFNG",
+        "text": "Break-bulk shipping allowed ships to be loaded quickly.",
+        "answer": "FALSE",
+        "explanation": "Paragraf 1: sistem break-bulk membuat kapal tertahan di pelabuhan seminggu atau lebih — jadi lambat, bukan cepat.",
+        "relevantPara": 0
+      },
+      {
+        "num": 2,
+        "type": "TFNG",
+        "text": "Malcom McLean worked in the shipping industry before inventing the container.",
+        "answer": "FALSE",
+        "explanation": "Paragraf 2: dia seorang 'trucking entrepreneur' (pengusaha truk), bukan dari industri pelayaran.",
+        "relevantPara": 1
+      },
+      {
+        "num": 3,
+        "type": "TFNG",
+        "text": "The Ideal X was a ship built specially to carry containers.",
+        "answer": "FALSE",
+        "explanation": "Paragraf 2: Ideal X adalah 'a converted tanker' (kapal tanker yang dimodifikasi), bukan dibangun khusus.",
+        "relevantPara": 1
+      },
+      {
+        "num": 4,
+        "type": "TFNG",
+        "text": "Containerisation reduced the theft of cargo.",
+        "answer": "TRUE",
+        "explanation": "Paragraf 3: karena kotak tersegel tidak pernah dibuka saat transit, 'both theft and damage fell sharply'.",
+        "relevantPara": 2
+      },
+      {
+        "num": 5,
+        "type": "TFNG",
+        "text": "Most old city-centre ports adapted to containers easily.",
+        "answer": "FALSE",
+        "explanation": "Paragraf 5: banyak pelabuhan kota lama 'simply could not provide' lahan/crane yang dibutuhkan, dan sebagian justru menurun.",
+        "relevantPara": 4
+      },
+      {
+        "num": 6,
+        "type": "MCQ",
+        "text": "Why was agreement on standard container sizes important?",
+        "options": [
+          "It reduced the price of steel",
+          "It allowed a container to be handled by any port, ship, train, or truck",
+          "It made containers cheaper to manufacture",
+          "It increased the size of ships"
+        ],
+        "answer": "B",
+        "explanation": "Paragraf 4: standar dimensi berarti kontainer yang dimuat di satu negara bisa ditangani port/ship/train/truck mana pun di negara lain.",
+        "relevantPara": 3
+      },
+      {
+        "num": 7,
+        "type": "MCQ",
+        "text": "Which ports rose to dominance because of containerisation?",
+        "options": [
+          "Old city-centre harbours",
+          "Newark and Houston",
+          "New deep-water ports such as Oakland and Felixstowe",
+          "Ports in East Asia only"
+        ],
+        "answer": "C",
+        "explanation": "Paragraf 5: pelabuhan air-dalam baru seperti Oakland dan Felixstowe naik pesat dengan membangun fasilitas kontainer 'from scratch'.",
+        "relevantPara": 4
+      },
+      {
+        "num": 8,
+        "type": "MCQ",
+        "text": "According to the passage, the container's greatest economic effect was to:",
+        "options": [
+          "eliminate all import tariffs",
+          "make globalised, multi-stage manufacturing supply chains possible",
+          "lower the price of steel boxes",
+          "create new jobs for dockworkers"
+        ],
+        "answer": "B",
+        "explanation": "Paragraf 6: dengan membuat jarak menjadi murah, kontainer memungkinkan rantai pasok global multi-tahap — 'made the modern globalised supply chain possible'.",
+        "relevantPara": 5
+      },
+      {
+        "num": 9,
+        "type": "MCQ",
+        "text": "The author's overall view of the shipping container is that it is:",
+        "options": [
+          "an overrated technology",
+          "a glamorous but impractical invention",
+          "an unglamorous invention with enormous impact",
+          "mainly harmful to the world economy"
+        ],
+        "answer": "C",
+        "explanation": "Paragraf 8: teknologi pengubah dunia 'are not always glamorous; sometimes they are simply a well-designed box.'",
+        "relevantPara": 6
+      },
+      {
+        "num": 10,
+        "type": "GAP",
+        "text": "Before containers, loading cargo by hand was known as ___________ shipping.",
+        "maxWords": 2,
+        "answer": "break-bulk",
+        "altAnswers": [
+          "break bulk",
+          "breakbulk"
+        ],
+        "explanation": "Paragraf 1: 'This system, known as break-bulk shipping'.",
+        "relevantPara": 0
+      },
+      {
+        "num": 11,
+        "type": "GAP",
+        "text": "The first container voyage in 1956 was made by a converted tanker called the ___________.",
+        "maxWords": 2,
+        "answer": "Ideal X",
+        "altAnswers": [
+          "Ideal-X",
+          "ideal x"
+        ],
+        "explanation": "Paragraf 2: 'a converted tanker called the Ideal X'.",
+        "relevantPara": 1
+      },
+      {
+        "num": 12,
+        "type": "GAP",
+        "text": "Loading loose cargo cost about ___________ dollars and eighty-six cents per ton.",
+        "maxWords": 1,
+        "answer": "five",
+        "altAnswers": [
+          "5"
+        ],
+        "explanation": "Paragraf 3: 'around five dollars and eighty-six cents per ton'.",
+        "relevantPara": 2
+      },
+      {
+        "num": 13,
+        "type": "GAP",
+        "text": "The two standard container lengths agreed in the late 1960s are the twenty-foot and ___________ boxes.",
+        "maxWords": 2,
+        "answer": "forty-foot",
+        "altAnswers": [
+          "forty foot",
+          "40-foot",
+          "40 foot"
+        ],
+        "explanation": "Paragraf 4: 'the twenty-foot and forty-foot boxes still used today'.",
+        "relevantPara": 3
+      }
+    ]
+  },
+  {
+    "id": "p6-standard-time",
+    "title": "The Invention of Standard Time",
+    "difficulty": "Band 6–7",
+    "estimatedMinutes": 20,
+    "paragraphs": [
+      "For most of human history, time was a local affair. Each town set its clocks by the sun, so that noon arrived at the moment the sun stood highest overhead. Because the sun reaches its peak a few minutes earlier in the east than in the west, two towns even a short distance apart kept slightly different times. For centuries this caused no difficulty, because travel and communication were too slow for the discrepancy to matter.",
+      "The railway changed everything. As lines spread across Britain and North America in the nineteenth century, trains could cover in a few hours distances that had once taken days. Suddenly the patchwork of local times became a serious problem. A single railway line might pass through dozens of towns, each keeping its own clock, making the publication of a reliable timetable almost impossible. Worse, on routes where trains ran in both directions on a single track, confusion over the time could — and occasionally did — cause fatal collisions.",
+      "Britain, with its dense rail network, acted first. From the 1840s the Great Western Railway and other companies began running their trains according to a single standard: the time kept at the Royal Observatory in Greenwich, which became known as 'railway time'. By 1855 the great majority of public clocks in Britain had been set to Greenwich Mean Time, although it did not become the country's legal standard until 1880.",
+      "In the much larger United States, the problem was greater still. In 1883 the American and Canadian railways, acting on their own initiative rather than waiting for governments, divided the continent into a small number of standard time zones. On 18 November of that year, remembered as 'the day of two noons', clocks in many cities were reset so that midday appeared to occur twice as the new standard took effect.",
+      "The final step was international. In 1884 delegates from twenty-five nations met in Washington for the International Meridian Conference. They agreed to treat the meridian passing through Greenwich as the prime meridian — the line of zero longitude from which all others would be measured — and endorsed the principle of dividing the globe into twenty-four time zones. The Canadian engineer Sandford Fleming, who had long campaigned for worldwide standard time, was among its most influential advocates.",
+      "Not everyone welcomed the change. Some objected that artificial 'clock time' was an affront to nature, or even to God, who had supposedly ordained that noon should be marked by the sun. A number of cities clung to their old local time for years in protest; Detroit, for example, did not finally adopt standard time until the early twentieth century. For ordinary people, the idea that the correct time might be decided by a distant observatory rather than the sun overhead took some getting used to.",
+      "Further refinements followed. Daylight saving time, which shifts the clock forward in summer to make better use of evening daylight, was introduced by several countries during the First World War as an energy-saving measure. Later in the twentieth century, mechanical and astronomical timekeeping gave way to extraordinarily precise atomic clocks, and Greenwich Mean Time was succeeded for scientific purposes by Coordinated Universal Time, known as UTC.",
+      "Today, standard time is so completely taken for granted that its origins are easily forgotten. Yet it was one of the most far-reaching inventions of the industrial age — a direct response to the speed of the railway and the telegraph. In agreeing to abandon the sun in favour of the clock, the nineteenth century quietly reorganised the daily rhythm of almost the entire human race."
+    ],
+    "questions": [
+      {
+        "num": 1,
+        "type": "TFNG",
+        "text": "Before the railways, differences in local time caused serious problems for most people.",
+        "answer": "FALSE",
+        "explanation": "Paragraf 1: selama berabad-abad perbedaan waktu lokal 'caused no difficulty' karena perjalanan masih lambat.",
+        "relevantPara": 0
+      },
+      {
+        "num": 2,
+        "type": "TFNG",
+        "text": "Confusion over time was linked to some railway accidents.",
+        "answer": "TRUE",
+        "explanation": "Paragraf 2: di jalur satu rel dua arah, kebingungan waktu 'could — and occasionally did — cause fatal collisions'.",
+        "relevantPara": 1
+      },
+      {
+        "num": 3,
+        "type": "TFNG",
+        "text": "Greenwich Mean Time became Britain’s legal standard as soon as the railways adopted it.",
+        "answer": "FALSE",
+        "explanation": "Paragraf 3: kereta pakai GMT sejak 1840-an, tapi baru jadi standar hukum nasional tahun 1880.",
+        "relevantPara": 2
+      },
+      {
+        "num": 4,
+        "type": "TFNG",
+        "text": "The American standard time zones were created by government legislation.",
+        "answer": "FALSE",
+        "explanation": "Paragraf 4: zona waktu dibuat oleh perusahaan kereta 'on their own initiative rather than waiting for governments'.",
+        "relevantPara": 3
+      },
+      {
+        "num": 5,
+        "type": "TFNG",
+        "text": "Standard time was accepted by everyone without objection.",
+        "answer": "FALSE",
+        "explanation": "Paragraf 6: 'Not everyone welcomed the change' — ada yang menolak dengan alasan melawan alam/Tuhan.",
+        "relevantPara": 5
+      },
+      {
+        "num": 6,
+        "type": "MCQ",
+        "text": "What turned differences in local time into a serious problem in the nineteenth century?",
+        "options": [
+          "the invention of the mechanical clock",
+          "the speed of railway travel",
+          "disagreements between churches",
+          "the move to atomic clocks"
+        ],
+        "answer": "B",
+        "explanation": "Paragraf 2: 'The railway changed everything' — kecepatan kereta membuat tambal-sulam waktu lokal jadi masalah.",
+        "relevantPara": 1
+      },
+      {
+        "num": 7,
+        "type": "MCQ",
+        "text": "What did the 1884 International Meridian Conference agree?",
+        "options": [
+          "that daylight saving time should begin",
+          "that Greenwich would be the prime meridian and the globe divided into 24 time zones",
+          "that only Britain would use GMT",
+          "that atomic clocks would replace the sun"
+        ],
+        "answer": "B",
+        "explanation": "Paragraf 5: Greenwich jadi prime meridian (garis bujur nol) dan prinsip 24 zona waktu disahkan.",
+        "relevantPara": 4
+      },
+      {
+        "num": 8,
+        "type": "MCQ",
+        "text": "Why did some people object to standard time?",
+        "options": [
+          "it was too expensive to introduce",
+          "they felt clock time was unnatural or against God’s order",
+          "it caused more train accidents",
+          "it gave an advantage to the United States"
+        ],
+        "answer": "B",
+        "explanation": "Paragraf 6: keberatan bahwa 'clock time' adalah penghinaan terhadap alam atau Tuhan.",
+        "relevantPara": 5
+      },
+      {
+        "num": 9,
+        "type": "MCQ",
+        "text": "Daylight saving time was first widely introduced:",
+        "options": [
+          "in the 1840s by British railways",
+          "at the 1884 conference",
+          "during the First World War to save energy",
+          "after the invention of atomic clocks"
+        ],
+        "answer": "C",
+        "explanation": "Paragraf 7: daylight saving diperkenalkan beberapa negara 'during the First World War as an energy-saving measure'.",
+        "relevantPara": 6
+      },
+      {
+        "num": 10,
+        "type": "GAP",
+        "text": "Each town once set its clocks by the ___________, so that noon came when it was highest.",
+        "maxWords": 1,
+        "answer": "sun",
+        "altAnswers": [
+          "the sun"
+        ],
+        "explanation": "Paragraf 1: 'Each town set its clocks by the sun'.",
+        "relevantPara": 0
+      },
+      {
+        "num": 11,
+        "type": "GAP",
+        "text": "British railways ran their trains on a single standard known as ___________ time.",
+        "maxWords": 1,
+        "answer": "railway",
+        "altAnswers": [
+          "railway time"
+        ],
+        "explanation": "Paragraf 3: standar tunggal itu 'became known as railway time'.",
+        "relevantPara": 2
+      },
+      {
+        "num": 12,
+        "type": "GAP",
+        "text": "18 November 1883 in North America is remembered as the day of ___________ noons.",
+        "maxWords": 1,
+        "answer": "two",
+        "altAnswers": [
+          "2"
+        ],
+        "explanation": "Paragraf 4: 'remembered as the day of two noons'.",
+        "relevantPara": 3
+      },
+      {
+        "num": 13,
+        "type": "GAP",
+        "text": "The Canadian engineer ___________ Fleming was a leading advocate of worldwide standard time.",
+        "maxWords": 1,
+        "answer": "Sandford",
+        "altAnswers": [
+          "Sanford"
+        ],
+        "explanation": "Paragraf 5: 'The Canadian engineer Sandford Fleming'.",
+        "relevantPara": 4
       }
     ]
   }

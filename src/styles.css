@@ -763,3 +763,57 @@ main {
 }
 
 .hidden { display: none !important; }
+
+/* ---- Gating / Upgrade (fitur berbayar) ----------------------------------- */
+.free-note {
+  background: var(--primary-soft);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 10px 14px;
+  margin: 0 0 14px;
+  font-size: .9rem;
+  color: var(--text);
+}
+.free-note a { color: var(--primary); font-weight: 600; }
+
+.passage-card.locked { opacity: .85; }
+.passage-card.locked .title { color: var(--text-muted); }
+.btn.lock-btn { white-space: nowrap; }
+
+.lock-card, .lock-inline { text-align: center; padding: 32px 24px; }
+.lock-emoji { font-size: 2.6rem; margin-bottom: 8px; }
+.lock-card h3, .lock-inline h3 { margin: 6px 0 8px; }
+.lock-card p, .lock-inline p { color: var(--text-muted); max-width: 480px; margin: 0 auto 18px; line-height: 1.6; }
+.lock-actions { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+
+/* ---- Upgrade page -------------------------------------------------------- */
+.upgrade-wrap { max-width: 640px; margin: 0 auto; padding: 40px 22px 80px; }
+.upgrade-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 34px 30px;
+  text-align: center;
+}
+.upgrade-price { font-size: 2.6rem; font-weight: 800; color: var(--text); margin: 4px 0; }
+.upgrade-price small { font-size: 1rem; font-weight: 500; color: var(--text-muted); }
+.upgrade-once { color: var(--success); font-weight: 600; margin-bottom: 22px; }
+.upgrade-benefits { list-style: none; padding: 0; margin: 0 auto 26px; max-width: 420px; text-align: left; }
+.upgrade-benefits li { padding: 9px 0; border-bottom: 1px solid var(--border); color: var(--text); display: flex; gap: 10px; }
+.upgrade-benefits li:last-child { border-bottom: 0; }
+.upgrade-benefits .ok { color: var(--success); font-weight: 700; }
+.upgrade-note { color: var(--text-muted); font-size: .85rem; margin-top: 16px; line-height: 1.6; }
+.upgrade-paid { background: var(--success-soft); border: 1px solid var(--success); border-radius: var(--radius); padding: 24px; text-align: center; }
+
+/* --- Mock test --- */
+.mock-banner {
+  position: fixed; left: 0; right: 0; bottom: 0; z-index: 60;
+  display: flex; align-items: center; justify-content: center; gap: 16px;
+  padding: 10px 16px; background: var(--gradient); color: #fff;
+  font-size: .92rem; box-shadow: 0 -2px 12px rgba(20, 25, 60, 0.18);
+}
+.mock-banner .link-btn { color: #fff; text-decoration: underline; opacity: .9; background: none; border: 0; cursor: pointer; font-size: .85rem; }
+.mock-score-row { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid var(--border); color: var(--text); }
+.mock-score-row:last-of-type { border-bottom: 0; }
+.mock-score-row strong { font-size: 1.25rem; }

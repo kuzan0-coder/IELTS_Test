@@ -199,6 +199,21 @@ async function handleSubmit() {
     return;
   }
 
+  // Penilaian AI = fitur berbayar. Esai tetap bisa ditulis & disimpan.
+  if (!(window.License ? await License.isPaid() : false)) {
+    document.getElementById('ai-result').innerHTML = `
+      <div class="ai-result-box lock-inline">
+        <div class="lock-emoji">🔒</div>
+        <h3>Penilaian AI adalah fitur berbayar</h3>
+        <p>Buka skor AI per kriteria IELTS (TR, CC, LR, GRA) plus contoh perbaikan
+        kalimat — sekali bayar, akses selamanya.</p>
+        <a href="upgrade.html" class="btn">Buka Akses Penuh</a>
+      </div>`;
+    return;
+  }
+
+  const inMock = new URLSearchParams(location.search).get('mock') === '1' && window.Mock;
+
   if (timerId) clearInterval(timerId);
   const btn = document.getElementById('submit-btn');
   btn.disabled = true;
@@ -224,20 +239,27 @@ async function handleSubmit() {
     if (res.ok) {
       const band = extractBand(res.text);
       if (band !== null) saveSession(currentTask, currentPrompt, band, wordCount);
+      if (inMock) Mock.record('writing', band);
       resultBox.innerHTML = `
         <div class="ai-result-box">
           <div class="ai-rendered">${markdownToHtml(res.text)}</div>
           <div style="margin-top:20px;display:flex;gap:8px">
-            <a href="writing.html" class="btn secondary">Latihan lagi</a>
-            <a href="index.html" class="btn secondary">Home</a>
+            ${inMock
+              ? `<button class="btn" onclick="Mock.advance()">Lihat hasil Mock Test →</button>`
+              : `<a href="writing.html" class="btn secondary">Latihan lagi</a>
+                 <a href="index.html" class="btn secondary">Home</a>`}
           </div>
         </div>
       `;
     } else {
-      resultBox.innerHTML = `<div class="ai-result-box" style="color:var(--error)">⚠️ ${res.error}</div>`;
+      resultBox.innerHTML = `<div class="ai-result-box" style="color:var(--error)">⚠️ ${res.error}` +
+        (inMock ? `<div style="margin-top:14px"><button class="btn" onclick="Mock.record('writing',null);Mock.advance()">Lewati & lihat hasil →</button></div>` : '') +
+        `</div>`;
     }
   } catch (err) {
-    resultBox.innerHTML = `<div class="ai-result-box" style="color:var(--error)">⚠️ ${err.message}</div>`;
+    resultBox.innerHTML = `<div class="ai-result-box" style="color:var(--error)">⚠️ ${err.message}` +
+      (inMock ? `<div style="margin-top:14px"><button class="btn" onclick="Mock.record('writing',null);Mock.advance()">Lewati & lihat hasil →</button></div>` : '') +
+      `</div>`;
   } finally {
     btn.disabled = false;
     btn.textContent = 'Submit lagi';
