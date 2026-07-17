@@ -4,6 +4,7 @@ let currentPrompt = null;
 let currentTask = null;
 let timerId = null;
 let secondsLeft = 0;
+let isPaid = false; // diisi dari License.isPaid() saat init
 
 init();
 
@@ -15,6 +16,9 @@ async function init() {
     main.innerHTML = `<div class="card"><h3>Error</h3><p>${err.message}</p></div>`;
     return;
   }
+
+  try { isPaid = window.License ? await License.isPaid() : false; }
+  catch (e) { isPaid = false; }
 
   const params = new URLSearchParams(window.location.search);
   const id = params.get('id');
@@ -35,7 +39,7 @@ async function init() {
 function renderPromptList() {
   main.innerHTML = `
     <div class="page-header">
-      <h2>✍️ Writing Practice</h2>
+      <h2>Writing Practice</h2>
       <div class="meta">${prompts.task1.length + prompts.task2.length} prompt tersedia</div>
     </div>
     <div class="card">
@@ -46,14 +50,17 @@ function renderPromptList() {
         <li>AI akan nilai per kriteria IELTS (TR, CC, LR, GRA) dan kasih band score.</li>
         <li>Tulis dulu dalam waktu, baru minta feedback.</li>
       </ul>
+      ${isPaid ? '' : `<p class="free-note">Penilaian AI Writing termasuk <strong>Akses Penuh</strong>.
+        Kamu tetap bisa berlatih menulis dengan timer &amp; word counter.
+        <a href="upgrade.html">Buka akses →</a></p>`}
     </div>
 
     <div class="card">
-      <h3>📊 Task 1 — Academic (20 menit)</h3>
+      <h3>Task 1 — Academic (20 menit)</h3>
       <div id="task1-list"></div>
     </div>
     <div class="card">
-      <h3>📝 Task 2 — Essay (40 menit)</h3>
+      <h3>Task 2 — Essay (40 menit)</h3>
       <div id="task2-list"></div>
     </div>
   `;
@@ -95,11 +102,14 @@ function renderEditor() {
   main.innerHTML = `
     <div class="page-header">
       <h2>${isTask1 ? currentPrompt.title : currentPrompt.type}</h2>
-      <div style="display:flex;gap:12px;align-items:center">
+      <div class="header-actions">
         <div class="timer" id="timer"></div>
-        <button class="btn" id="submit-btn">Submit & Get AI Feedback</button>
+        <button class="btn" id="submit-btn">${isPaid ? 'Submit & Get AI Feedback' : 'Selesai menulis'}</button>
       </div>
     </div>
+    ${isPaid ? '' : `<p class="free-note">Kamu menulis dalam <strong>mode latihan gratis</strong> —
+      timer &amp; word counter aktif, tapi penilaian AI per kriteria IELTS termasuk Akses Penuh.
+      <a href="upgrade.html">Buka akses →</a></p>`}
     <div class="writing-layout">
       <div class="prompt-card">
         <h3>Prompt</h3>
@@ -173,9 +183,9 @@ function startTimer() {
   timerId = setInterval(() => {
     secondsLeft--;
     updateTimer();
-    if (secondsLeft <= 0) {
-      clearInterval(timerId);
-      alert('Waktu habis! Submit sekarang untuk dapat feedback.');
+    if (secondsLeft === 0) {
+      const msg = 'Di tes asli, waktumu berhenti di sini. Kamu masih boleh lanjut — timer akan menghitung kelebihan waktunya.';
+      if (window.UI) UI.alert(msg, { title: 'Waktu habis' });
     }
   }, 1000);
 }
@@ -195,20 +205,23 @@ function updateTimer() {
 async function handleSubmit() {
   const essay = document.getElementById('essay').value.trim();
   if (essay.split(/\s+/).filter(Boolean).length < 50) {
-    alert('Tulis minimal 50 kata sebelum minta feedback.');
+    const msg = 'Tulis minimal 50 kata dulu supaya penilaiannya bermakna.';
+    if (window.UI) await UI.alert(msg, { title: 'Esai masih terlalu pendek' }); else alert(msg);
     return;
   }
 
   // Penilaian AI = fitur berbayar. Esai tetap bisa ditulis & disimpan.
   if (!(window.License ? await License.isPaid() : false)) {
-    document.getElementById('ai-result').innerHTML = `
+    const box = document.getElementById('ai-result');
+    box.innerHTML = `
       <div class="ai-result-box lock-inline">
         <div class="lock-emoji">🔒</div>
-        <h3>Penilaian AI adalah fitur berbayar</h3>
-        <p>Buka skor AI per kriteria IELTS (TR, CC, LR, GRA) plus contoh perbaikan
-        kalimat — sekali bayar, akses selamanya.</p>
+        <h3>Penilaian AI termasuk Akses Penuh</h3>
+        <p>Esaimu selesai — bagus! Untuk skor AI per kriteria IELTS (TR, CC, LR, GRA)
+        plus contoh perbaikan kalimat, buka Akses Penuh — sekali bayar, akses selamanya.</p>
         <a href="upgrade.html" class="btn">Buka Akses Penuh</a>
       </div>`;
+    box.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     return;
   }
 
@@ -220,7 +233,7 @@ async function handleSubmit() {
   btn.textContent = 'AI sedang menilai... (15-30 detik)';
 
   const resultBox = document.getElementById('ai-result');
-  resultBox.innerHTML = `<div class="ai-result-box loading"><p>🤖 Claude sedang menganalisis esaimu sesuai rubrik IELTS...</p></div>`;
+  resultBox.innerHTML = `<div class="ai-result-box loading"><p>AI sedang menganalisis esaimu sesuai rubrik IELTS…</p></div>`;
 
   const wordCount = essay.split(/\s+/).filter(Boolean).length;
   const promptText = currentTask === 'task1' ? currentPrompt.instructions : currentPrompt.prompt;
@@ -240,10 +253,14 @@ async function handleSubmit() {
       const band = extractBand(res.text);
       if (band !== null) saveSession(currentTask, currentPrompt, band, wordCount);
       if (inMock) Mock.record('writing', band);
+      const quotaNote = res.quota
+        ? `<div class="quota-note">Sisa penilaian AI bulan ini: <strong>${Math.max(0, res.quota.limit - res.quota.used)}</strong> dari ${res.quota.limit}. Kuota direset tiap awal bulan.</div>`
+        : '';
       resultBox.innerHTML = `
         <div class="ai-result-box">
           <div class="ai-rendered">${markdownToHtml(res.text)}</div>
-          <div style="margin-top:20px;display:flex;gap:8px">
+          ${quotaNote}
+          <div class="actions-row">
             ${inMock
               ? `<button class="btn" onclick="Mock.advance()">Lihat hasil Mock Test →</button>`
               : `<a href="writing.html" class="btn secondary">Latihan lagi</a>
@@ -252,12 +269,12 @@ async function handleSubmit() {
         </div>
       `;
     } else {
-      resultBox.innerHTML = `<div class="ai-result-box" style="color:var(--error)">⚠️ ${res.error}` +
+      resultBox.innerHTML = `<div class="ai-result-box error-text">⚠️ ${res.error}` +
         (inMock ? `<div style="margin-top:14px"><button class="btn" onclick="Mock.record('writing',null);Mock.advance()">Lewati & lihat hasil →</button></div>` : '') +
         `</div>`;
     }
   } catch (err) {
-    resultBox.innerHTML = `<div class="ai-result-box" style="color:var(--error)">⚠️ ${err.message}` +
+    resultBox.innerHTML = `<div class="ai-result-box error-text">⚠️ ${err.message}` +
       (inMock ? `<div style="margin-top:14px"><button class="btn" onclick="Mock.record('writing',null);Mock.advance()">Lewati & lihat hasil →</button></div>` : '') +
       `</div>`;
   } finally {

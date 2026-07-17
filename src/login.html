@@ -16,17 +16,19 @@
     <div class="auth-hero">
       <div class="hero-brand"><img class="brand-logo" src="assets/logo.png" alt="IELTS Prep"> IELTS Prep</div>
       <h1>Naikkan band score-mu, satu latihan setiap hari.</h1>
-      <p>Reading, Listening, Writing, Speaking, dan Vocabulary — lengkap dengan feedback AI dan tutorial video pilihan.</p>
+      <p>Coba gratis dulu: 1 passage Reading + 1 test Listening, plus Vocabulary,
+      Study Plan, dan Tips. Buka semua materi + penilaian AI Writing &amp; Speaking
+      dengan <strong>sekali bayar Rp&nbsp;99.000</strong> — tanpa langganan.</p>
       <ul class="hero-points">
-        <li><span class="check">✓</span> Skor & riwayat tersimpan aman di cloud</li>
-        <li><span class="check">✓</span> Akses dari HP maupun laptop, otomatis sinkron</li>
-        <li><span class="check">✓</span> Tutorial YouTube terkurasi per skill</li>
+        <li><span class="check">✓</span> Gratis: 1 passage Reading + 1 test Listening</li>
+        <li><span class="check">✓</span> Akses Penuh Rp 99.000 sekali bayar — semua materi + penilaian AI</li>
+        <li><span class="check">✓</span> Skor &amp; riwayat tersimpan di cloud, sinkron HP &amp; laptop</li>
       </ul>
     </div>
 
     <div class="auth-panel">
       <div class="auth-card">
-        <h2 id="form-title">Selamat datang 👋</h2>
+        <h2 id="form-title">Selamat datang</h2>
         <p class="auth-sub" id="form-sub">Masuk untuk lanjut latihan.</p>
 
         <!-- Login / signup form (shown when Supabase is configured) -->
@@ -69,15 +71,18 @@
           </form>
 
           <div class="auth-msg" id="auth-msg"></div>
+
+          <div class="auth-divider">atau</div>
+          <a href="index.html" class="btn secondary block auth-guest">Lihat-lihat dulu tanpa akun →</a>
         </div>
 
-        <!-- Local-mode notice (shown when Supabase is NOT configured yet) -->
+        <!-- Notice ketika layanan login sedang tidak tersedia -->
         <div id="local-notice" class="hidden">
           <div class="auth-msg info show" style="margin-top:0">
-            Login cloud belum diaktifkan. Isi <strong>src/js/config.js</strong> dengan kredensial Supabase untuk mengaktifkan akun
-            (lihat <strong>supabase-setup.sql</strong> &amp; README). Sementara ini app bisa dipakai dalam mode lokal.
+            Login sedang tidak tersedia. Kamu tetap bisa berlatih —
+            progres disimpan di perangkat ini.
           </div>
-          <a href="index.html" class="btn block" style="margin-top:16px">Lanjut tanpa login (mode lokal) →</a>
+          <a href="index.html" class="btn block" style="margin-top:16px">Mulai latihan →</a>
         </div>
       </div>
 

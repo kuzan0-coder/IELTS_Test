@@ -57,7 +57,7 @@ function renderTopicList() {
 
   main.innerHTML = `
     <div class="page-header">
-      <h2>📚 Vocabulary</h2>
+      <h2>Vocabulary</h2>
       <div class="meta">${totalWords} kata · ${totalLearned} sudah dihafal</div>
     </div>
 
@@ -103,9 +103,9 @@ function renderTopic() {
       <a href="vocabulary.html" class="btn secondary">← Pilih topik lain</a>
     </div>
     <div class="mode-tabs">
-      <button class="mode-tab ${currentMode === 'browse' ? 'active' : ''}" data-mode="browse">📖 Browse</button>
-      <button class="mode-tab ${currentMode === 'flashcard' ? 'active' : ''}" data-mode="flashcard">🎴 Flashcards</button>
-      <button class="mode-tab ${currentMode === 'quiz' ? 'active' : ''}" data-mode="quiz">📝 Quiz</button>
+      <button class="mode-tab ${currentMode === 'browse' ? 'active' : ''}" data-mode="browse">Browse</button>
+      <button class="mode-tab ${currentMode === 'flashcard' ? 'active' : ''}" data-mode="flashcard">Flashcards</button>
+      <button class="mode-tab ${currentMode === 'quiz' ? 'active' : ''}" data-mode="quiz">Quiz</button>
     </div>
     <div id="mode-content"></div>
   `;

@@ -67,19 +67,19 @@
     els.backLogin.classList.toggle('hidden', !isReset);
 
     els.submit.textContent = isReset ? 'Kirim link reset' : (isLogin ? 'Masuk' : 'Daftar');
-    els.title.textContent = isReset ? 'Reset password 🔑' : (isLogin ? 'Selamat datang 👋' : 'Buat akun baru');
+    els.title.textContent = isReset ? 'Reset password' : (isLogin ? 'Selamat datang' : 'Buat akun baru');
     els.sub.textContent = isReset
       ? 'Masukkan email akunmu, nanti kami kirim link untuk membuat password baru.'
       : (isLogin ? 'Masuk untuk lanjut latihan.' : 'Daftar gratis, mulai latihan dalam hitungan detik.');
     clearMsg();
   }
 
-  // --- Local mode: no Supabase configured ---------------------------------
+  // --- Layanan login tidak tersedia (konfigurasi belum aktif) --------------
   if (!configured) {
     els.forms.classList.add('hidden');
     els.localNotice.classList.remove('hidden');
-    els.title.textContent = 'Mode Lokal';
-    els.sub.textContent = 'Login cloud belum diaktifkan.';
+    els.title.textContent = 'Mulai latihan';
+    els.sub.textContent = 'Kamu bisa langsung berlatih tanpa akun.';
     return;
   }
 

@@ -21,7 +21,7 @@
 
   if (!configured) {
     els.form.classList.add('hidden');
-    showMsg('Fitur reset password belum aktif (Supabase belum dikonfigurasi).', 'info');
+    showMsg('Reset password sedang tidak tersedia. Coba lagi nanti.', 'info');
     return;
   }
 

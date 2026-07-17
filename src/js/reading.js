@@ -62,7 +62,7 @@ function renderLocked(p) {
 function renderPassageList() {
   main.innerHTML = `
     <div class="page-header">
-      <h2>📖 Pilih Passage</h2>
+      <h2>Pilih Passage</h2>
       <div class="meta">${passages.length} passage tersedia</div>
     </div>
     <div class="card">
@@ -71,12 +71,12 @@ function renderPassageList() {
         <li>Setiap passage berdurasi <strong>20 menit</strong>, 13 soal.</li>
         <li>Baca soal dulu sebelum cari di passage.</li>
         <li>Jawaban kosong = salah. Tebak kalau ragu.</li>
-        <li>Setelah submit, kamu bisa minta AI menjelaskan tiap jawaban (perlu Claude API key).</li>
+        <li>Setelah submit, AI bisa menjelaskan jawaban yang salah (fitur Akses Penuh).</li>
       </ul>
     </div>
     <div class="card">
       <h3>Passage tersedia</h3>
-      ${isPaid ? '' : '<p class="free-note">🎁 Versi gratis: passage pertama. <a href="upgrade.html">Buka semua →</a></p>'}
+      ${isPaid ? '' : '<p class="free-note">Versi gratis: passage pertama. <a href="upgrade.html">Buka semua →</a></p>'}
       <div id="passage-list"></div>
     </div>
   `;
@@ -106,7 +106,7 @@ function renderPractice() {
   main.innerHTML = `
     <div class="page-header">
       <h2>${currentPassage.title}</h2>
-      <div style="display:flex;gap:12px;align-items:center">
+      <div class="header-actions">
         <div class="timer" id="timer">⏱ 20:00</div>
         <button class="btn" id="submit-btn">Selesai & Nilai</button>
       </div>
@@ -121,7 +121,7 @@ function renderPractice() {
     </div>
   `;
 
-  document.getElementById('submit-btn').addEventListener('click', handleSubmit);
+  document.getElementById('submit-btn').addEventListener('click', () => handleSubmit(false));
   attachAnswerListeners();
   startTimer();
 }
@@ -185,7 +185,7 @@ function startTimer() {
     updateTimer();
     if (secondsLeft <= 0) {
       clearInterval(timerId);
-      handleSubmit();
+      handleSubmit(true); // waktu habis: langsung nilai tanpa konfirmasi
     }
   }, 1000);
 }
@@ -202,11 +202,16 @@ function updateTimer() {
   else if (secondsLeft <= 300) el.classList.add('warning');
 }
 
-function handleSubmit() {
+async function handleSubmit(auto) {
   if (timerId) clearInterval(timerId);
-  if (!confirm('Yakin selesai? Jawaban tidak bisa diubah setelah ini.')) {
-    if (secondsLeft > 0) startTimer();
-    return;
+  if (!auto) {
+    const ok = window.UI
+      ? await UI.confirm('Jawaban tidak bisa diubah setelah dinilai.', { title: 'Selesai & nilai jawaban?', okText: 'Ya, nilai sekarang' })
+      : confirm('Yakin selesai? Jawaban tidak bisa diubah setelah ini.');
+    if (!ok) {
+      if (secondsLeft > 0) startTimer();
+      return;
+    }
   }
 
   const results = currentPassage.questions.map((q) => {
@@ -277,7 +282,7 @@ function saveSession(passage, correct, total, band) {
 function renderResult(results, correctCount, band, inMock) {
   const total = results.length;
   const targetBand = 6.5;
-  const verdict = band >= targetBand ? '🎉 Sudah mencapai target!' : `Masih ${(targetBand - band).toFixed(1)} band dari target ${targetBand}.`;
+  const verdict = band >= targetBand ? 'Sudah mencapai target!' : `Masih ${(targetBand - band).toFixed(1)} band dari target ${targetBand}.`;
 
   main.innerHTML = `
     <div class="page-header">
@@ -291,18 +296,18 @@ function renderResult(results, correctCount, band, inMock) {
     </div>
     <div class="result-banner">
       <div>
-        <div style="font-size:14px;opacity:0.9">Band Score</div>
+        <div class="label">Band Score</div>
         <div class="band">${band.toFixed(1)}</div>
-        <div style="margin-top:6px">${verdict}</div>
+        <div class="sub">${verdict}</div>
       </div>
-      <div style="text-align:right">
-        <div style="font-size:14px;opacity:0.9">Skor</div>
-        <div style="font-size:32px;font-weight:700">${correctCount} / ${total}</div>
+      <div class="right">
+        <div class="label">Skor</div>
+        <div class="score-num">${correctCount} / ${total}</div>
       </div>
     </div>
     <div class="card">
-      <h3>📋 Review per Soal</h3>
-      <p style="color:var(--text-muted);font-size:13px">Klik "Jelaskan dengan AI" pada soal yang kamu salah untuk dapat penjelasan strategi.</p>
+      <h3>Review per Soal</h3>
+      <p class="muted" style="font-size:13px">Klik "Jelaskan dengan AI" pada soal yang kamu salah untuk dapat penjelasan strategi.</p>
       <div id="review-list"></div>
     </div>
   `;
@@ -323,7 +328,7 @@ function renderResult(results, correctCount, band, inMock) {
       <div class="answer-line"><em>${r.q.explanation}</em></div>
       ${!r.correct ? `
         <div style="margin-top:8px">
-          <button class="btn secondary" data-num="${r.q.num}" data-action="ai-explain" style="font-size:12px;padding:6px 12px">🤖 Jelaskan dengan AI</button>
+          <button class="btn secondary" data-num="${r.q.num}" data-action="ai-explain" style="font-size:12px;padding:6px 12px">Jelaskan dengan AI</button>
         </div>
         <div class="ai-box" id="ai-${r.q.num}" style="display:none"></div>
       ` : ''}

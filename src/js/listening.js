@@ -79,14 +79,14 @@ function loadVoices() {
 function renderTestList() {
   main.innerHTML = `
     <div class="page-header">
-      <h2>🎧 Listening Practice</h2>
+      <h2>Listening Practice</h2>
       <div class="meta">${tests.length} test tersedia</div>
     </div>
     <div class="card">
       <h3>Cara latihan</h3>
       <ul class="tip-list">
         <li>4 section, total ~30 menit + 10 menit transfer time.</li>
-        <li>Klik <strong>Play</strong> untuk dengar audio. Audio pakai browser TTS (gratis).</li>
+        <li>Klik <strong>Play</strong> untuk mendengar audio.</li>
         <li><strong>Bisa di-pause</strong> kalau perlu, tapi di tes asli tidak ada pause.</li>
         <li>Baca soal saat audio mulai, tulis jawaban sambil dengar.</li>
         <li>Section 1-2 lebih mudah (booking, tour), Section 3-4 lebih sulit (akademik).</li>
@@ -94,7 +94,7 @@ function renderTestList() {
     </div>
     <div class="card">
       <h3>Tes tersedia</h3>
-      ${isPaid ? '' : '<p class="free-note">🎁 Versi gratis: test pertama. <a href="upgrade.html">Buka semua →</a></p>'}
+      ${isPaid ? '' : '<p class="free-note">Versi gratis: test pertama. <a href="upgrade.html">Buka semua →</a></p>'}
       <div id="test-list"></div>
     </div>
   `;
@@ -130,7 +130,7 @@ function renderSection() {
   main.innerHTML = `
     <div class="page-header">
       <h2>${currentTest.title} — Section ${currentSection.section}</h2>
-      <div style="display:flex;gap:10px">
+      <div class="header-actions">
         <button class="btn secondary" id="prev-btn" ${currentSectionIdx === 0 ? 'disabled' : ''}>← Section sebelumnya</button>
         <button class="btn" id="next-btn">${isLast ? 'Selesai & Nilai' : 'Section berikutnya →'}</button>
       </div>
@@ -239,7 +239,7 @@ function playAudio() {
   if (!voicesReady) {
     loadVoices();
     if (!voicesReady) {
-      document.getElementById('audio-status').textContent = '⚠️ Voice belum siap, coba klik Play lagi dalam beberapa detik.';
+      document.getElementById('audio-status').textContent = 'Suara belum siap — coba klik Play lagi dalam beberapa detik.';
       return;
     }
   }
@@ -249,7 +249,7 @@ function playAudio() {
     userInitiatedPause = false;
     isPlaying = true;
     toggleButtons(true);
-    document.getElementById('audio-status').textContent = '🔊 Resumed';
+    document.getElementById('audio-status').textContent = 'Audio dilanjutkan';
     return;
   }
 
@@ -265,7 +265,7 @@ function speakNext() {
   if (scriptIdx >= currentSection.script.length) {
     isPlaying = false;
     toggleButtons(false);
-    document.getElementById('audio-status').textContent = '✅ Audio selesai. Lanjut isi soal atau klik 🔁 Restart untuk dengar lagi.';
+    document.getElementById('audio-status').textContent = 'Audio selesai. Lanjut isi soal, atau klik Restart untuk dengar lagi.';
     document.getElementById('audio-progress').style.width = '100%';
     return;
   }
@@ -281,7 +281,7 @@ function speakNext() {
     scriptIdx++;
     const pct = (scriptIdx / currentSection.script.length) * 100;
     document.getElementById('audio-progress').style.width = pct + '%';
-    document.getElementById('audio-status').textContent = `🔊 Line ${scriptIdx} / ${currentSection.script.length}`;
+    document.getElementById('audio-status').textContent = `Memutar audio… (${scriptIdx} / ${currentSection.script.length})`;
     if (isPlaying) {
       // Small pause between lines for natural dialog flow
       setTimeout(speakNext, 350);
@@ -290,7 +290,7 @@ function speakNext() {
 
   utterance.onerror = (e) => {
     if (e.error === 'interrupted' || e.error === 'canceled') return;
-    document.getElementById('audio-status').textContent = '⚠️ Audio error: ' + e.error;
+    document.getElementById('audio-status').textContent = 'Audio bermasalah: ' + e.error + '. Klik Restart untuk mencoba lagi.';
     isPlaying = false;
     toggleButtons(false);
   };
@@ -304,7 +304,7 @@ function pauseAudio() {
     window.speechSynthesis.pause();
     userInitiatedPause = true;
     isPlaying = false;
-    document.getElementById('audio-status').textContent = '⏸ Paused';
+    document.getElementById('audio-status').textContent = 'Audio dijeda';
     toggleButtons(false);
   }
 }
@@ -327,9 +327,12 @@ function toggleButtons(playing) {
   document.getElementById('restart-btn').style.display = 'inline-block';
 }
 
-function handleSubmit() {
+async function handleSubmit() {
   stopAudio();
-  if (!confirm('Submit semua jawaban dan lihat hasil?')) return;
+  const ok = window.UI
+    ? await UI.confirm('Semua jawaban dari 4 section akan dinilai.', { title: 'Submit & lihat hasil?', okText: 'Ya, nilai sekarang' })
+    : confirm('Submit semua jawaban dan lihat hasil?');
+  if (!ok) return;
 
   const allResults = [];
   currentTest.sections.forEach((sec) => {
@@ -398,7 +401,7 @@ function saveSession(test, correct, total, band) {
 
 function renderResult(results, correctCount, band, inMock) {
   const targetBand = 6.5;
-  const verdict = band >= targetBand ? '🎉 Sudah mencapai target!' : `Masih ${(targetBand - band).toFixed(1)} band dari target ${targetBand}.`;
+  const verdict = band >= targetBand ? 'Sudah mencapai target!' : `Masih ${(targetBand - band).toFixed(1)} band dari target ${targetBand}.`;
 
   main.innerHTML = `
     <div class="page-header">
@@ -412,17 +415,17 @@ function renderResult(results, correctCount, band, inMock) {
     </div>
     <div class="result-banner">
       <div>
-        <div style="font-size:14px;opacity:0.9">Band Score</div>
+        <div class="label">Band Score</div>
         <div class="band">${band.toFixed(1)}</div>
-        <div style="margin-top:6px">${verdict}</div>
+        <div class="sub">${verdict}</div>
       </div>
-      <div style="text-align:right">
-        <div style="font-size:14px;opacity:0.9">Skor</div>
-        <div style="font-size:32px;font-weight:700">${correctCount} / ${results.length}</div>
+      <div class="right">
+        <div class="label">Skor</div>
+        <div class="score-num">${correctCount} / ${results.length}</div>
       </div>
     </div>
     <div class="card">
-      <h3>📋 Review per Section</h3>
+      <h3>Review per Section</h3>
       <div id="review-list"></div>
     </div>
   `;

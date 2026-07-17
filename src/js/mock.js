@@ -60,12 +60,15 @@
     const bar = document.createElement('div');
     bar.className = 'mock-banner';
     bar.innerHTML =
-      `<span>📝 <strong>Mock Test</strong> — Section ${s.step + 1}/${PLAN.length}: ${cur ? cur.label : ''}</span>` +
+      `<span><strong>Mock Test</strong> — Section ${s.step + 1}/${PLAN.length}: ${cur ? cur.label : ''}</span>` +
       `<button type="button" id="mock-quit" class="link-btn">Keluar mock</button>`;
     document.body.appendChild(bar);
     const q = document.getElementById('mock-quit');
-    if (q) q.addEventListener('click', () => {
-      if (confirm('Keluar dari mock test? Progres mock akan dihapus.')) { Mock.abort(); location.href = 'mock.html'; }
+    if (q) q.addEventListener('click', async () => {
+      const ok = window.UI
+        ? await UI.confirm('Progres mock test akan dihapus.', { title: 'Keluar dari mock test?', okText: 'Keluar', danger: true })
+        : confirm('Keluar dari mock test? Progres mock akan dihapus.');
+      if (ok) { Mock.abort(); location.href = 'mock.html'; }
     });
   }
 
@@ -92,17 +95,17 @@
       };
       root.innerHTML =
         `<div class="result-banner">
-          <div><div style="font-size:14px;opacity:.9">Estimasi Band Keseluruhan</div>
+          <div><div class="label">Estimasi Band Keseluruhan</div>
             <div class="band">${ov !== null ? ov.toFixed(1) : '—'}</div>
-            <div style="margin-top:6px">Rata-rata section yang dinilai (dibulatkan ke 0.5)</div></div>
+            <div class="sub">Rata-rata section yang dinilai (dibulatkan ke 0.5)</div></div>
         </div>
         <div class="card">
           <h3>Rincian skor mock</h3>
-          ${row('listening', '🎧 Listening')}
-          ${row('reading', '📖 Reading')}
-          ${row('writing', '✍️ Writing Task 2')}
-          <p style="color:var(--text-muted);margin-top:12px">Skor Writing berasal dari penilaian AI; bila AI dilewati/gagal, ditampilkan "—".</p>
-          <div style="margin-top:16px;display:flex;gap:8px">
+          ${row('listening', 'Listening')}
+          ${row('reading', 'Reading')}
+          ${row('writing', 'Writing Task 2')}
+          <p class="muted" style="margin-top:12px">Skor Writing berasal dari penilaian AI; bila AI dilewati/gagal, ditampilkan "—".</p>
+          <div class="actions-row">
             <button class="btn" id="mock-restart" type="button">Ulangi Mock Test</button>
             <a href="index.html" class="btn secondary">Home</a>
           </div>
@@ -117,13 +120,16 @@
         `<div class="card">
           <h3>Mock Test sedang berjalan</h3>
           <p>Kamu di Section ${s.step + 1}/${PLAN.length}: <strong>${cur.label}</strong>.</p>
-          <div style="display:flex;gap:8px;margin-top:12px">
+          <div class="actions-row" style="margin-top:12px">
             <a href="${cur.url}" class="btn">Lanjutkan Section ${s.step + 1}</a>
             <button class="btn secondary" id="mock-abort" type="button">Batalkan</button>
           </div>
         </div>`;
-      document.getElementById('mock-abort').addEventListener('click', () => {
-        if (confirm('Batalkan mock test?')) { Mock.abort(); renderMockPage(root); }
+      document.getElementById('mock-abort').addEventListener('click', async () => {
+        const ok = window.UI
+          ? await UI.confirm('Progres mock test akan dihapus.', { title: 'Batalkan mock test?', okText: 'Batalkan mock', danger: true })
+          : confirm('Batalkan mock test?');
+        if (ok) { Mock.abort(); renderMockPage(root); }
       });
       return;
     }
@@ -131,7 +137,7 @@
     // Intro
     root.innerHTML =
       `<div class="card">
-        <h3>🎯 Mini Mock Test (~90 menit)</h3>
+        <h3>Mini Mock Test (~90 menit)</h3>
         <p>Simulasi ujian beruntun dalam satu sesi, lalu skor gabungan:</p>
         <ol class="tip-list">
           <li><strong>Listening</strong> — 1 test (40 soal)</li>

@@ -15,7 +15,7 @@
 
   function videoCard(v) {
     const title = esc(v.title || 'Tutorial');
-    const channel = v.channel ? `<div class="t-channel">📺 ${esc(v.channel)}</div>` : '';
+    const channel = v.channel ? `<div class="t-channel">${esc(v.channel)}</div>` : '';
     const desc = v.desc ? `<div class="t-desc">${esc(v.desc)}</div>` : '';
 
     // (a) Embedded player.
@@ -65,7 +65,7 @@
       const data = await res.json();
       const sections = (data.sections || []).filter((s) => (s.videos || []).length);
       if (!sections.length) {
-        root.innerHTML = '<div class="empty-state"><div class="empty-ico">🎬</div><p>Belum ada tutorial. Tambahkan di data/tutorials.json.</p></div>';
+        root.innerHTML = '<div class="empty-state"><div class="empty-ico">🎬</div><p>Belum ada tutorial untuk saat ini. Cek lagi nanti, ya.</p></div>';
         return;
       }
       root.innerHTML = sections.map(sectionBlock).join('');

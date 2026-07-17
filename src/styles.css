@@ -130,7 +130,14 @@ aside {
 /* Old markup keeps <h1>; hide it when app-shell injects .brand */
 aside h1 { font-size: 18px; margin: 0 0 22px; color: var(--primary); }
 
-aside nav { display: flex; flex-direction: column; gap: 2px; overflow-y: auto; }
+aside nav {
+  display: flex; flex-direction: column; gap: 2px; overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--border) transparent;
+}
+aside nav::-webkit-scrollbar { width: 5px; }
+aside nav::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+aside nav::-webkit-scrollbar-track { background: transparent; }
 
 aside nav a {
   display: flex;
@@ -144,7 +151,20 @@ aside nav a {
   font-weight: 500;
   transition: background 0.15s, color 0.15s, transform 0.05s;
 }
-aside nav a .nav-ico { font-size: 17px; width: 22px; text-align: center; }
+aside nav a .nav-ico { width: 22px; display: grid; place-items: center; flex-shrink: 0; }
+aside nav a .nav-ico svg { width: 17px; height: 17px; display: block; }
+
+.nav-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  opacity: 0.75;
+  margin: 14px 13px 4px;
+  user-select: none;
+}
+aside nav .nav-label:first-child { margin-top: 0; }
 aside nav a:hover { background: var(--surface-2); color: var(--text); }
 aside nav a:active { transform: translateX(1px); }
 aside nav a.active {
@@ -162,6 +182,44 @@ aside nav a.active .nav-ico { filter: drop-shadow(0 1px 1px rgba(0,0,0,0.2)); }
   flex-direction: column;
   gap: 10px;
 }
+
+/* CTA utama "Buka Akses Penuh" di sidebar (hilang setelah user membayar) */
+.upgrade-cta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  padding: 11px 14px;
+  border-radius: var(--radius-sm);
+  background: var(--gradient);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: none;
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.08s, box-shadow 0.15s;
+}
+.upgrade-cta:hover { transform: translateY(-1px); box-shadow: var(--shadow); }
+.upgrade-cta svg { width: 16px; height: 16px; flex-shrink: 0; }
+
+/* Tombol Masuk di sidebar untuk pengunjung yang belum login */
+.login-cta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 14px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--primary);
+  color: var(--primary);
+  background: transparent;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background 0.15s;
+}
+.login-cta:hover { background: var(--primary-soft); }
+.login-cta svg { width: 16px; height: 16px; flex-shrink: 0; }
 
 /* User box */
 .user-box {
@@ -204,7 +262,9 @@ aside nav a.active .nav-ico { filter: drop-shadow(0 1px 1px rgba(0,0,0,0.2)); }
   transition: background 0.15s, color 0.15s;
 }
 .theme-toggle:hover { background: var(--surface-2); color: var(--text); }
-.theme-toggle .ico { font-size: 16px; }
+.theme-toggle .ico { display: inline-grid; place-items: center; vertical-align: -3px; }
+.theme-toggle .ico svg { width: 15px; height: 15px; display: block; }
+.user-box .logout-btn svg { width: 16px; height: 16px; display: block; }
 
 main {
   padding: 34px 44px;
@@ -756,6 +816,7 @@ main {
   .layout { grid-template-columns: 1fr; }
   aside { position: static; height: auto; flex-direction: column; }
   aside nav { flex-direction: row; flex-wrap: wrap; }
+  aside nav .nav-label { display: none; } /* label grup tidak relevan saat nav jadi baris */
   main { max-height: none; padding: 24px 18px; }
   .reading-layout, .writing-layout, .listening-layout { grid-template-columns: 1fr; }
   .auth-wrap { grid-template-columns: 1fr; }
@@ -805,6 +866,53 @@ main {
 .upgrade-benefits .ok { color: var(--success); font-weight: 700; }
 .upgrade-note { color: var(--text-muted); font-size: .85rem; margin-top: 16px; line-height: 1.6; }
 .upgrade-paid { background: var(--success-soft); border: 1px solid var(--success); border-radius: var(--radius); padding: 24px; text-align: center; }
+
+/* ---- Modal (pengganti confirm/alert bawaan browser) ---------------------- */
+.modal-overlay {
+  position: fixed; inset: 0; z-index: 120;
+  background: rgba(10, 12, 25, 0.55);
+  display: grid; place-items: center;
+  padding: 20px;
+  animation: modal-fade 0.15s ease;
+}
+.modal {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-lg);
+  padding: 24px;
+  width: 100%; max-width: 400px;
+  animation: modal-pop 0.16s ease;
+}
+.modal h3 { margin: 0 0 8px; font-size: 17px; }
+.modal p { margin: 0 0 18px; color: var(--text-muted); line-height: 1.6; font-size: 14px; }
+.modal-actions { display: flex; gap: 10px; justify-content: flex-end; }
+@keyframes modal-fade { from { opacity: 0; } to { opacity: 1; } }
+@keyframes modal-pop { from { transform: translateY(6px) scale(0.98); opacity: 0; } to { transform: none; opacity: 1; } }
+
+/* ---- Sisa kuota AI -------------------------------------------------------- */
+.quota-note {
+  margin-top: 14px;
+  padding: 10px 14px;
+  background: var(--primary-soft);
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  color: var(--text);
+}
+
+/* ---- Utilitas (pengganti inline style) ------------------------------------ */
+.header-actions { display: flex; gap: 12px; align-items: center; }
+.card-head-row { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
+.card-head-row h3 { margin: 0; }
+.muted { color: var(--text-muted); }
+.small-note { font-size: 12px; color: var(--text-muted); }
+.target-note { margin-top: 14px; padding: 12px; background: var(--surface-2); border-radius: 8px; font-size: 13px; }
+.actions-row { display: flex; gap: 8px; margin-top: 16px; flex-wrap: wrap; }
+.error-text { color: var(--error); }
+.result-banner .label { font-size: 14px; opacity: 0.9; }
+.result-banner .sub { margin-top: 6px; }
+.result-banner .right { text-align: right; }
+.result-banner .score-num { font-size: 32px; font-weight: 700; }
 
 /* --- Mock test --- */
 .mock-banner {

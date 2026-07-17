@@ -22,13 +22,12 @@
           const local = user.email.split('@')[0];
           name = local.charAt(0).toUpperCase() + local.slice(1);
         }
-        if (name) el.textContent = `Halo ${name} 👋`;
+        if (name) el.textContent = `Halo, ${name}!`;
       }
     } catch (e) { /* biarkan sapaan default */ }
   })();
 
   const SKILLS = ['reading', 'listening', 'writing', 'speaking'];
-  const skillIcon = { reading: '📖', listening: '🎧', writing: '✍️', speaking: '🗣️' };
 
   const skillStatsEl = document.getElementById('skill-stats');
   const overallEl = document.getElementById('overall-avg');
@@ -64,9 +63,9 @@
       card.style.margin = '0';
       card.innerHTML = `
         <div class="stat">
-          <span class="stat-label">${skillIcon[skill]} ${cap(skill)}</span>
+          <span class="stat-label">${cap(skill)}</span>
           <span class="stat-value">${display}${trend}</span>
-          <span style="font-size:12px;color:var(--text-muted)">${history.length} sesi</span>
+          <span class="small-note">${history.length} sesi</span>
         </div>
         ${history.length > 0 ? `<button class="reset-skill-btn" data-skill="${skill}" title="Reset skor ${skill}">🗑️</button>` : ''}
       `;
@@ -77,7 +76,10 @@
     skillStatsEl.querySelectorAll('.reset-skill-btn').forEach((btn) => {
       btn.addEventListener('click', async () => {
         const skill = btn.dataset.skill;
-        if (confirm(`Reset semua skor & riwayat ${skill}? Tindakan ini tidak bisa dibatalkan.`)) {
+        const ok = window.UI
+          ? await UI.confirm(`Semua skor & riwayat ${cap(skill)} akan dihapus dan tidak bisa dikembalikan.`, { title: `Reset riwayat ${cap(skill)}?`, okText: 'Hapus', danger: true })
+          : confirm(`Reset semua skor & riwayat ${skill}?`);
+        if (ok) {
           await Store.clearSkill(skill);
           render();
         }
@@ -95,7 +97,7 @@
     overallEl.innerHTML = '';
     if (skillsWithData.length === 4) {
       const avg = Object.values(latestPerSkill).reduce((a, b) => a + b, 0) / 4;
-      const target = avg >= 6.5 ? '🎉 sudah mencapai target!' : `kurang ${(6.5 - avg).toFixed(1)} band dari target`;
+      const target = avg >= 6.5 ? 'sudah mencapai target!' : `kurang ${(6.5 - avg).toFixed(1)} band dari target`;
       overallEl.innerHTML = `Skor rata-rata sekarang: <strong>${avg.toFixed(1)}</strong> — ${target}`;
     } else {
       const missing = SKILLS.filter((s) => !latestPerSkill[s]);
@@ -105,9 +107,12 @@
     if (allSessions.length > 0) {
       const resetAll = document.createElement('button');
       resetAll.className = 'reset-all-btn';
-      resetAll.textContent = '🗑️ Reset semua data';
+      resetAll.textContent = 'Reset semua data';
       resetAll.addEventListener('click', async () => {
-        if (confirm('Reset SEMUA skor dan riwayat dari ke-4 skill? Tindakan ini tidak bisa dibatalkan.')) {
+        const ok = window.UI
+          ? await UI.confirm('SEMUA skor dan riwayat dari ke-4 skill akan dihapus dan tidak bisa dikembalikan.', { title: 'Reset semua data?', okText: 'Hapus semua', danger: true })
+          : confirm('Reset SEMUA skor dan riwayat dari ke-4 skill?');
+        if (ok) {
           await Store.clearAll();
           render();
         }
@@ -126,7 +131,7 @@
         const extra = `${h.correct !== undefined ? ' · ' + h.correct + '/' + h.total + ' benar' : ''}${h.wordCount ? ' · ' + h.wordCount + ' kata' : ''}${h.duration ? ' · ' + h.duration + ' detik' : ''}`;
         item.innerHTML = `
           <div>
-            <div class="title">${skillIcon[h.skill]} ${cap(h.skill)} — ${subTitle}</div>
+            <div class="title">${cap(h.skill)} — ${subTitle}</div>
             <div class="desc">${new Date(h.date).toLocaleString('id-ID')}${extra}</div>
           </div>
           <div class="stat-value" style="font-size:24px">${h.band.toFixed(1)}</div>

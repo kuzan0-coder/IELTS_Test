@@ -59,7 +59,7 @@
     const counts = { all: allSessions.length };
     SKILLS.forEach((s) => (counts[s] = allSessions.filter((x) => x.skill === s).length));
     const chips = [{ key: 'all', label: 'Semua' }]
-      .concat(SKILLS.map((s) => ({ key: s, label: `${SKILL_META[s].icon} ${SKILL_META[s].label}` })));
+      .concat(SKILLS.map((s) => ({ key: s, label: SKILL_META[s].label })));
 
     el.filters.innerHTML = chips.map((c) =>
       `<button class="filter-chip ${c.key === activeFilter ? 'active' : ''}" data-key="${c.key}">${c.label} (${counts[c.key] || 0})</button>`
@@ -101,14 +101,16 @@
       </div>`).join('');
   }
 
-  function renderBadge() {
-    const cloud = window.Auth && Auth.isConfigured();
+  async function renderBadge() {
+    let cloud = false;
+    try { cloud = !!(window.Auth && Auth.isConfigured() && await Auth.getSessionUser()); }
+    catch (e) { cloud = false; }
     if (cloud) {
       el.badge.className = 'sync-badge cloud';
-      el.badge.textContent = '☁️ Tersimpan di cloud';
+      el.badge.textContent = 'Tersimpan di cloud';
     } else {
       el.badge.className = 'sync-badge local';
-      el.badge.textContent = '💾 Mode lokal (perangkat ini)';
+      el.badge.textContent = 'Data di perangkat ini';
     }
   }
 
@@ -122,7 +124,10 @@
   }
 
   el.resetAll.addEventListener('click', async () => {
-    if (!confirm('Hapus SEMUA riwayat latihan? Tindakan ini tidak bisa dibatalkan.')) return;
+    const ok = window.UI
+      ? await UI.confirm('SEMUA riwayat latihan akan dihapus dan tidak bisa dikembalikan.', { title: 'Hapus semua riwayat?', okText: 'Hapus semua', danger: true })
+      : confirm('Hapus SEMUA riwayat latihan?');
+    if (!ok) return;
     await Store.clearAll();
     await load();
   });

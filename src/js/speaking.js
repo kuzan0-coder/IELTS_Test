@@ -2,6 +2,7 @@ const main = document.getElementById('main-content');
 let cards = null;
 let currentCard = null;
 let currentPart = null;
+let isPaid = false; // diisi dari License.isPaid() saat init
 let mediaRecorder = null;
 let audioChunks = [];
 let audioBlob = null;
@@ -23,6 +24,9 @@ async function init() {
     return;
   }
 
+  try { isPaid = window.License ? await License.isPaid() : false; }
+  catch (e) { isPaid = false; }
+
   const params = new URLSearchParams(window.location.search);
   const id = params.get('id');
   const part = params.get('part');
@@ -41,17 +45,20 @@ async function init() {
 function renderCardList() {
   main.innerHTML = `
     <div class="page-header">
-      <h2>🗣️ Speaking Practice</h2>
+      <h2>Speaking Practice</h2>
       <div class="meta">${cards.part1.length + cards.part2.length + cards.part3.length} topik tersedia</div>
     </div>
     <div class="card">
       <h3>Cara latihan</h3>
       <ul class="tip-list">
         <li>Klik mic untuk mulai rekam. Bicara natural.</li>
-        <li><strong>Transkrip otomatis</strong> muncul saat kamu bicara (pakai browser Web Speech API — gratis).</li>
+        <li><strong>Transkrip otomatis</strong> muncul saat kamu bicara.</li>
         <li>Setelah selesai, AI nilai transkrip per kriteria IELTS.</li>
-        <li><strong>Catatan:</strong> AI tidak bisa nilai pronunciation dari teks. Untuk itu pakai native speaker (italki/Tandem).</li>
+        <li><strong>Catatan:</strong> AI tidak bisa nilai pronunciation dari teks. Untuk itu latihan dengan native speaker.</li>
       </ul>
+      ${isPaid ? '' : `<p class="free-note">Feedback AI Speaking termasuk <strong>Akses Penuh</strong>.
+        Kamu tetap bisa berlatih rekam + transkrip otomatis.
+        <a href="upgrade.html">Buka akses →</a></p>`}
     </div>
     <div class="card">
       <h3>Part 1 — Introduction (4-5 menit)</h3>
@@ -96,13 +103,13 @@ function renderPractice() {
   if (currentPart === 'part2') {
     promptHTML = `
       <div class="cue-card">
-        <div class="cue-title">📝 ${currentCard.title}</div>
+        <div class="cue-title">${currentCard.title}</div>
         <div>You should say:</div>
         <ul>${currentCard.bullets.map((b) => `<li>${b}</li>`).join('')}</ul>
         <div style="margin-top:10px;font-size:13px"><strong>Persiapan:</strong> 1 menit · <strong>Bicara:</strong> 1.5-2 menit</div>
       </div>
       <div class="card" id="prep-card" style="display:none">
-        <h3>⏳ Waktu Persiapan</h3>
+        <h3>Waktu Persiapan</h3>
         <p>Catat ide singkat sebelum bicara.</p>
         <textarea id="prep-notes" style="width:100%;min-height:100px;padding:10px;border:1px solid var(--border);border-radius:6px;font-family:inherit"></textarea>
         <div style="margin-top:10px;font-size:18px;font-weight:600" id="prep-timer">01:00</div>
@@ -121,10 +128,12 @@ function renderPractice() {
 
   main.innerHTML = `
     <div class="page-header">
-      <h2>🗣️ ${partLabel}: ${currentCard.title || currentCard.topic}</h2>
+      <h2>${partLabel}: ${currentCard.title || currentCard.topic}</h2>
       <a href="speaking.html" class="btn secondary">Kembali</a>
     </div>
     <div class="speaking-layout">
+      ${isPaid ? '' : `<p class="free-note">Mode latihan gratis — rekam &amp; transkrip aktif,
+        feedback AI termasuk Akses Penuh. <a href="upgrade.html">Buka akses →</a></p>`}
       ${promptHTML}
       <div class="record-controls">
         ${currentPart === 'part2' ? `<button class="btn" id="start-prep-btn">Mulai 1 menit Persiapan</button>` : ''}
@@ -134,10 +143,10 @@ function renderPractice() {
         <audio id="audio-playback" controls style="display:none;width:100%"></audio>
       </div>
       <div class="card">
-        <h3>📝 Live Transkrip</h3>
+        <h3>Live Transkrip</h3>
         <div class="transcript-box empty" id="transcript">Transkrip akan muncul di sini saat kamu bicara...</div>
-        <div style="margin-top:12px;display:flex;gap:8px">
-          <button class="btn" id="submit-btn" disabled>Submit untuk AI Feedback</button>
+        <div class="actions-row" style="margin-top:12px">
+          <button class="btn" id="submit-btn" disabled>${isPaid ? 'Submit untuk AI Feedback' : 'Selesai latihan'}</button>
           <button class="btn secondary" id="reset-btn">Reset & Rekam Ulang</button>
         </div>
       </div>
@@ -208,7 +217,7 @@ async function setupRecording() {
         recordingStartTime = Date.now();
         btn.classList.add('recording');
         btn.textContent = '⏹';
-        statusEl.textContent = '🔴 Sedang merekam...';
+        statusEl.textContent = '● Sedang merekam…';
         statusEl.classList.add('live');
         recordingTimerId = setInterval(() => {
           const elapsed = Math.floor((Date.now() - recordingStartTime) / 1000);
@@ -219,14 +228,14 @@ async function setupRecording() {
 
         startRecognition();
       } catch (err) {
-        statusEl.textContent = '⚠️ Tidak bisa akses mic: ' + err.message;
+        statusEl.textContent = 'Tidak bisa mengakses mikrofon — izinkan akses mic di browser lalu coba lagi.';
       }
     } else {
       mediaRecorder.stop();
       isRecording = false;
       btn.classList.remove('recording');
       btn.textContent = '🎤';
-      statusEl.textContent = '✅ Rekaman selesai. Cek transkrip & submit untuk feedback.';
+      statusEl.textContent = 'Rekaman selesai. Cek transkrip lalu lanjut di bawah.';
       statusEl.classList.remove('live');
       clearInterval(recordingTimerId);
       stopRecognition();
@@ -237,7 +246,7 @@ async function setupRecording() {
 function startRecognition() {
   const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
   if (!SpeechRecognition) {
-    document.getElementById('transcript').textContent = '⚠️ Browser tidak support speech recognition. Kamu bisa ketik transkrip manual setelah rekam selesai.';
+    document.getElementById('transcript').textContent = 'Browser ini belum mendukung transkrip otomatis. Gunakan Chrome/Edge terbaru untuk hasil terbaik.';
     return;
   }
 
@@ -282,20 +291,23 @@ function stopRecognition() {
 async function handleSubmit() {
   const transcript = liveTranscript.trim();
   if (transcript.length < 20) {
-    alert('Transkrip terlalu pendek. Rekam lagi atau ketik manual di kolom transkrip.');
+    const msg = 'Transkrip masih terlalu pendek — coba rekam lagi dan bicara sedikit lebih panjang.';
+    if (window.UI) await UI.alert(msg, { title: 'Transkrip terlalu pendek' }); else alert(msg);
     return;
   }
 
   // Penilaian AI = fitur berbayar. Latihan rekam/transkrip tetap bisa dipakai.
   if (!(window.License ? await License.isPaid() : false)) {
-    document.getElementById('ai-result').innerHTML = `
+    const box = document.getElementById('ai-result');
+    box.innerHTML = `
       <div class="ai-result-box lock-inline">
         <div class="lock-emoji">🔒</div>
-        <h3>Penilaian AI adalah fitur berbayar</h3>
-        <p>Buka feedback AI untuk Speaking (Fluency, Lexical, Grammar) plus contoh
-        jawaban band 7 — sekali bayar, akses selamanya.</p>
+        <h3>Feedback AI termasuk Akses Penuh</h3>
+        <p>Latihanmu selesai — bagus! Untuk feedback AI Speaking (Fluency, Lexical,
+        Grammar) plus contoh jawaban band 7, buka Akses Penuh — sekali bayar, akses selamanya.</p>
         <a href="upgrade.html" class="btn">Buka Akses Penuh</a>
       </div>`;
+    box.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     return;
   }
 
@@ -307,7 +319,7 @@ async function handleSubmit() {
   const question = currentCard.title || currentCard.questions.join(' / ');
 
   const resultBox = document.getElementById('ai-result');
-  resultBox.innerHTML = `<div class="ai-result-box loading"><p>🤖 Claude sedang menganalisis jawabanmu...</p></div>`;
+  resultBox.innerHTML = `<div class="ai-result-box loading"><p>AI sedang menganalisis jawabanmu…</p></div>`;
 
   try {
     const res = await window.ielts.getAIFeedback({
@@ -323,20 +335,24 @@ async function handleSubmit() {
     if (res.ok) {
       const band = extractBand(res.text);
       if (band !== null) saveSession(currentPart, currentCard, band, duration);
+      const quotaNote = res.quota
+        ? `<div class="quota-note">Sisa penilaian AI bulan ini: <strong>${Math.max(0, res.quota.limit - res.quota.used)}</strong> dari ${res.quota.limit}. Kuota direset tiap awal bulan.</div>`
+        : '';
       resultBox.innerHTML = `
         <div class="ai-result-box">
           <div class="ai-rendered">${markdownToHtml(res.text)}</div>
-          <div style="margin-top:20px;display:flex;gap:8px">
+          ${quotaNote}
+          <div class="actions-row">
             <a href="speaking.html" class="btn secondary">Topik lain</a>
             <a href="index.html" class="btn secondary">Home</a>
           </div>
         </div>
       `;
     } else {
-      resultBox.innerHTML = `<div class="ai-result-box" style="color:var(--error)">⚠️ ${res.error}</div>`;
+      resultBox.innerHTML = `<div class="ai-result-box error-text">⚠️ ${res.error}</div>`;
     }
   } catch (err) {
-    resultBox.innerHTML = `<div class="ai-result-box" style="color:var(--error)">⚠️ ${err.message}</div>`;
+    resultBox.innerHTML = `<div class="ai-result-box error-text">⚠️ ${err.message}</div>`;
   } finally {
     btn.disabled = false;
     btn.textContent = 'Submit lagi';

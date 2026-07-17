@@ -13,7 +13,7 @@
     if (/already registered/i.test(msg)) return 'Email ini sudah terdaftar. Coba login.';
     if (/Password should be at least/i.test(msg)) return 'Password minimal 6 karakter.';
     if (/Unable to validate email address/i.test(msg)) return 'Format email tidak valid.';
-    if (/Email not confirmed/i.test(msg)) return 'Email belum dikonfirmasi. Cek inbox kamu, atau matikan "Confirm email" di Supabase.';
+    if (/Email not confirmed/i.test(msg)) return 'Email belum dikonfirmasi. Cek inbox (termasuk folder Spam) untuk link konfirmasinya, lalu coba masuk lagi.';
     if (/For security purposes|rate ?limit|after \d+ seconds/i.test(msg)) return 'Terlalu sering mencoba. Tunggu sebentar (±60 detik) lalu coba lagi.';
     if (/Auth session missing|session.*not.*found|token.*expired|link.*expired|otp.*expired/i.test(msg)) return 'Sesi reset tidak valid atau sudah kedaluwarsa. Minta link reset baru dari halaman masuk.';
     if (/New password should be different/i.test(msg)) return 'Password baru harus berbeda dari password lama.';
@@ -31,7 +31,7 @@
     },
 
     async signUp(email, password, meta) {
-      if (!configured) return { ok: false, error: 'Supabase belum dikonfigurasi.' };
+      if (!configured) return { ok: false, error: 'Login sedang tidak tersedia. Coba lagi nanti.' };
       // Data profil tambahan (nama, no HP) disimpan di user_metadata.
       const profile = {};
       if (meta && meta.name) profile.full_name = meta.name;
@@ -46,7 +46,7 @@
     },
 
     async signIn(email, password) {
-      if (!configured) return { ok: false, error: 'Supabase belum dikonfigurasi.' };
+      if (!configured) return { ok: false, error: 'Login sedang tidak tersedia. Coba lagi nanti.' };
       const { data, error } = await SB.auth.signInWithPassword({ email, password });
       if (error) return { ok: false, error: mapAuthError(error) };
       return { ok: true, user: data.user };
@@ -59,7 +59,7 @@
 
     /** Kirim email berisi link untuk membuat password baru. */
     async requestPasswordReset(email) {
-      if (!configured) return { ok: false, error: 'Supabase belum dikonfigurasi.' };
+      if (!configured) return { ok: false, error: 'Login sedang tidak tersedia. Coba lagi nanti.' };
       const redirectTo = location.origin + '/reset-password';
       const { error } = await SB.auth.resetPasswordForEmail(email, { redirectTo });
       if (error) return { ok: false, error: mapAuthError(error) };
@@ -68,7 +68,7 @@
 
     /** Set password baru untuk user yang sedang dalam sesi recovery. */
     async updatePassword(newPassword) {
-      if (!configured) return { ok: false, error: 'Supabase belum dikonfigurasi.' };
+      if (!configured) return { ok: false, error: 'Login sedang tidak tersedia. Coba lagi nanti.' };
       const { error } = await SB.auth.updateUser({ password: newPassword });
       if (error) return { ok: false, error: mapAuthError(error) };
       return { ok: true };

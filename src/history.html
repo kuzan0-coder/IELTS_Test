@@ -5,10 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>History — IELTS Prep</title>
   <link rel="stylesheet" href="styles.css">
+  <link rel="icon" type="image/png" href="assets/logo.png">
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="js/config.js"></script>
   <script src="js/auth.js"></script>
   <script src="js/store.js"></script>
+  <script src="js/license.js"></script>
   <script src="js/theme.js"></script>
   <script src="js/app-shell.js"></script>
 </head>
@@ -17,7 +19,7 @@
     <aside></aside>
     <main>
       <div class="page-header">
-        <h2>📊 Riwayat Latihan</h2>
+        <h2>Riwayat Latihan</h2>
         <span class="sync-badge" id="sync-badge"></span>
       </div>
 
@@ -27,15 +29,16 @@
       </div>
 
       <div class="card">
-        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px">
-          <h3 style="margin:0">Semua Sesi</h3>
-          <button class="reset-all-btn" id="reset-all">🗑️ Reset semua riwayat</button>
+        <div class="card-head-row">
+          <h3>Semua Sesi</h3>
+          <button class="reset-all-btn" id="reset-all">Reset semua riwayat</button>
         </div>
         <div class="filter-row" id="filters"></div>
         <div id="history-list"></div>
       </div>
     </main>
   </div>
+  <script src="js/ui.js"></script>
   <script src="js/history.js"></script>
 </body>
 </html>

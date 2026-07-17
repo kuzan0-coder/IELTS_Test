@@ -14,9 +14,11 @@
   const BENEFITS = [
     'Semua passage Reading (bukan cuma 1)',
     'Semua test Listening lengkap',
+    'Mock Test — simulasi ujian beruntun + skor gabungan',
     'Penilaian AI Writing per kriteria (TR, CC, LR, GRA)',
     'Feedback AI Speaking + contoh jawaban band 7',
     'Penjelasan AI untuk tiap jawaban Reading',
+    'Kuota penilaian AI 60×/bulan — cukup untuk 2 latihan/hari',
     'Akses selamanya — sekali bayar, tanpa langganan'
   ];
 
@@ -89,9 +91,26 @@
       + '<a href="upgrade.html">refresh halaman ini</a> sebentar lagi.';
   }
 
+  /** true jika ada sesi login aktif. */
+  async function isLoggedIn() {
+    try {
+      if (!window.SB || !window.SB.auth) return false;
+      const { data } = await window.SB.auth.getSession();
+      return !!(data && data.session);
+    } catch (e) { return false; }
+  }
+
   async function startCheckout() {
     const btn = document.getElementById('buy-btn');
     const note = document.getElementById('buy-note');
+
+    // Pembelian butuh akun (lisensi menempel ke akun). Arahkan login dulu.
+    if (!(await isLoggedIn())) {
+      note.textContent = 'Kamu perlu masuk / daftar dulu supaya akses menempel di akunmu. Mengarahkan…';
+      setTimeout(() => { location.href = 'login.html?next=upgrade.html'; }, 900);
+      return;
+    }
+
     setBtn(btn, true, 'Memproses…');
     try {
       const res = await fetch('/api/payment/create', { method: 'POST', headers: await authHeaders() });

@@ -16,59 +16,48 @@
 </head>
 <body>
   <div class="layout">
-    <aside>
-      <h1>IELTS Prep</h1>
-      <nav>
-        <a href="index.html" class="active">Home</a>
-        <a href="reading.html">Reading</a>
-        <a href="listening.html">Listening</a>
-        <a href="writing.html">Writing</a>
-        <a href="speaking.html">Speaking</a>
-        <a href="vocabulary.html">Vocabulary</a>
-        <a href="plan.html">Study Plan</a>
-        <a href="tips.html">Tips & Tricks</a>
-      </nav>
-    </aside>
+    <aside></aside>
     <main>
       <div class="page-header">
-        <h2 id="greeting">Halo 👋</h2>
+        <h2 id="greeting">Halo!</h2>
         <div class="meta" id="today-date"></div>
       </div>
 
       <div class="card">
-        <h3>📊 Skor terkini per skill</h3>
+        <h3>Skor terkini per skill</h3>
         <div class="grid-2" id="skill-stats"></div>
-        <div style="margin-top:14px;padding:12px;background:var(--surface-2);border-radius:8px;font-size:13px">
+        <div class="target-note">
           <strong>Target rata-rata: 6.5</strong> · <span id="overall-avg">—</span>
         </div>
       </div>
 
       <div class="card">
-        <h3>🎯 Mulai latihan</h3>
-        <p style="color: var(--text-muted)">Pilih skill yang mau dilatih hari ini.</p>
+        <h3>Mulai latihan</h3>
+        <p class="muted">Pilih skill yang mau dilatih hari ini.</p>
         <div class="btn-row">
-          <a href="reading.html" class="btn">📖 Reading</a>
-          <a href="listening.html" class="btn">🎧 Listening</a>
-          <a href="writing.html" class="btn">✍️ Writing</a>
-          <a href="speaking.html" class="btn">🗣️ Speaking</a>
-          <a href="vocabulary.html" class="btn">📚 Vocabulary</a>
-          <a href="tutorials.html" class="btn secondary">▶️ Tutorial</a>
-          <a href="plan.html" class="btn secondary">📅 Study Plan</a>
-          <a href="tips.html" class="btn secondary">💡 Tips</a>
+          <a href="reading.html" class="btn">Reading</a>
+          <a href="listening.html" class="btn">Listening</a>
+          <a href="writing.html" class="btn">Writing</a>
+          <a href="speaking.html" class="btn">Speaking</a>
+          <a href="vocabulary.html" class="btn">Vocabulary</a>
+          <a href="tutorials.html" class="btn secondary">Tutorial</a>
+          <a href="plan.html" class="btn secondary">Study Plan</a>
+          <a href="tips.html" class="btn secondary">Tips</a>
         </div>
       </div>
 
       <div class="card">
-        <div style="display:flex;justify-content:space-between;align-items:center">
-          <h3 style="margin:0">📋 Riwayat Sesi Terakhir</h3>
+        <div class="card-head-row">
+          <h3>Riwayat Sesi Terakhir</h3>
           <a href="history.html" class="btn secondary" style="padding:7px 14px">Lihat semua →</a>
         </div>
         <div id="history-list" style="margin-top:14px">
-          <p style="color: var(--text-muted)">Belum ada sesi. Mulai latihan pertamamu!</p>
+          <p class="muted">Belum ada sesi. Mulai latihan pertamamu!</p>
         </div>
       </div>
     </main>
   </div>
+  <script src="js/ui.js"></script>
   <script src="js/home.js"></script>
 </body>
 </html>
