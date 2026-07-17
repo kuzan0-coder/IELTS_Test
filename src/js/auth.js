@@ -9,6 +9,7 @@
 
   function mapAuthError(err) {
     const msg = (err && err.message) || String(err || 'Terjadi kesalahan');
+    if (/Failed to fetch|NetworkError|fetch failed|Load failed/i.test(msg)) return 'Tidak bisa terhubung ke server. Cek koneksi internetmu, lalu coba lagi beberapa saat lagi.';
     if (/Invalid login credentials/i.test(msg)) return 'Email atau password salah.';
     if (/already registered/i.test(msg)) return 'Email ini sudah terdaftar. Coba login.';
     if (/Password should be at least/i.test(msg)) return 'Password minimal 6 karakter.';
