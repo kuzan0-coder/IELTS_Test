@@ -121,6 +121,17 @@
         throw new Error(data.error || `Gagal memulai pembayaran (${res.status}).`);
       }
 
+      // Server masih memakai Midtrans SANDBOX (mode uji coba) — pembayaran
+      // sungguhan belum bisa diproses. Jangan tampilkan popup uji coba ke
+      // calon pembeli; beri pesan jelas. (Bypass untuk tes internal: ?testpay=1)
+      const isSandbox = (data.snapUrl || '').includes('sandbox');
+      const allowTest = new URLSearchParams(location.search).get('testpay') === '1';
+      if (isSandbox && !allowTest) {
+        note.textContent = 'Pembayaran online sedang disiapkan dan akan dibuka dalam 1-2 hari. Coba lagi nanti, ya!';
+        setBtn(btn, false, `Beli Akses — ${PRICE_LABEL}`);
+        return;
+      }
+
       await loadSnap(data.snapUrl, data.clientKey);
       window.snap.pay(data.token, {
         onSuccess: () => waitForLicense(note),
