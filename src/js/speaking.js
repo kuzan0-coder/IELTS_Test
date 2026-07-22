@@ -349,10 +349,10 @@ async function handleSubmit() {
         </div>
       `;
     } else {
-      resultBox.innerHTML = `<div class="ai-result-box error-text">⚠️ ${res.error}</div>`;
+      resultBox.innerHTML = `<div class="ai-result-box error-text">${res.error}</div>`;
     }
   } catch (err) {
-    resultBox.innerHTML = `<div class="ai-result-box error-text">⚠️ ${err.message}</div>`;
+    resultBox.innerHTML = `<div class="ai-result-box error-text">${err.message}</div>`;
   } finally {
     btn.disabled = false;
     btn.textContent = 'Submit lagi';

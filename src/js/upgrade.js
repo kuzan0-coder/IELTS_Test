@@ -80,9 +80,14 @@
     btn.textContent = text;
   }
 
+  function setNote(note, text, kind) {
+    note.textContent = text;
+    note.className = 'upgrade-note' + (kind ? ' ' + kind : '');
+  }
+
   // Setelah bayar, lisensi ditulis webhook (bisa telat beberapa detik). Poll.
   async function waitForLicense(note) {
-    note.textContent = '✅ Pembayaran diterima — mengaktifkan akses…';
+    setNote(note, 'Pembayaran diterima — mengaktifkan akses…', 'success');
     for (let i = 0; i < 8; i++) {
       if (await License.isPaid(true)) { location.href = 'upgrade.html'; return; }
       await new Promise((r) => setTimeout(r, 2000));
@@ -135,12 +140,12 @@
       await loadSnap(data.snapUrl, data.clientKey);
       window.snap.pay(data.token, {
         onSuccess: () => waitForLicense(note),
-        onPending: () => { note.textContent = 'Menunggu pembayaranmu diselesaikan…'; setBtn(btn, false, `Beli Akses — ${PRICE_LABEL}`); },
-        onError: () => { note.textContent = '⚠️ Pembayaran gagal. Coba lagi.'; setBtn(btn, false, `Beli Akses — ${PRICE_LABEL}`); },
+        onPending: () => { setNote(note, 'Menunggu pembayaranmu diselesaikan…'); setBtn(btn, false, `Beli Akses — ${PRICE_LABEL}`); },
+        onError: () => { setNote(note, 'Pembayaran gagal. Coba lagi.', 'error'); setBtn(btn, false, `Beli Akses — ${PRICE_LABEL}`); },
         onClose: () => { setBtn(btn, false, `Beli Akses — ${PRICE_LABEL}`); }
       });
     } catch (err) {
-      note.textContent = '⚠️ ' + (err.message || String(err));
+      setNote(note, err.message || String(err), 'error');
       setBtn(btn, false, `Beli Akses — ${PRICE_LABEL}`);
     }
   }

@@ -372,12 +372,12 @@ async function handleAIExplain(num, results, btn) {
       box.textContent = res.text;
     } else {
       box.className = 'ai-box error';
-      box.textContent = '⚠️ ' + res.error;
+      box.textContent = res.error;
       btn.disabled = false;
     }
   } catch (err) {
     box.className = 'ai-box error';
-    box.textContent = '⚠️ ' + err.message;
+    box.textContent = err.message;
     btn.disabled = false;
   }
 }

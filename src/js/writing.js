@@ -269,12 +269,12 @@ async function handleSubmit() {
         </div>
       `;
     } else {
-      resultBox.innerHTML = `<div class="ai-result-box error-text">⚠️ ${res.error}` +
+      resultBox.innerHTML = `<div class="ai-result-box error-text">${res.error}` +
         (inMock ? `<div style="margin-top:14px"><button class="btn" onclick="Mock.record('writing',null);Mock.advance()">Lewati & lihat hasil →</button></div>` : '') +
         `</div>`;
     }
   } catch (err) {
-    resultBox.innerHTML = `<div class="ai-result-box error-text">⚠️ ${err.message}` +
+    resultBox.innerHTML = `<div class="ai-result-box error-text">${err.message}` +
       (inMock ? `<div style="margin-top:14px"><button class="btn" onclick="Mock.record('writing',null);Mock.advance()">Lewati & lihat hasil →</button></div>` : '') +
       `</div>`;
   } finally {

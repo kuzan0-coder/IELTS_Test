@@ -865,6 +865,8 @@ main {
 .upgrade-benefits li:last-child { border-bottom: 0; }
 .upgrade-benefits .ok { color: var(--success); font-weight: 700; }
 .upgrade-note { color: var(--text-muted); font-size: .85rem; margin-top: 16px; line-height: 1.6; }
+.upgrade-note.success { color: var(--success); }
+.upgrade-note.error { color: var(--error); }
 .upgrade-paid { background: var(--success-soft); border: 1px solid var(--success); border-radius: var(--radius); padding: 24px; text-align: center; }
 
 /* ---- Modal (pengganti confirm/alert bawaan browser) ---------------------- */
