@@ -1,0 +1,65 @@
+# =============================================================================
+# Heartbeat KEDUA untuk Supabase — independen dari Vercel Cron.
+#
+# KENAPA ADA DUA: project free-tier Supabase di-pause setelah ~7 hari tanpa
+# aktivitas, dan sekali paused DNS-nya hilang sehingga tidak ada keep-alive
+# yang bisa membangunkannya lagi — harus restore manual dari dashboard.
+# Cron Vercel di vercel.json bersifat best-effort (plan Hobby) dan gagal
+# secara diam-diam. Workflow ini jalan di infrastruktur yang berbeda dan
+# SENGAJA MEMBUAT JOB GAGAL kalau database tidak merespons, supaya GitHub
+# mengirim email ke pemilik repo. Lebih baik berisik daripada mati diam-diam.
+#
+# Jadwal sengaja dibuat berjauhan dari cron Vercel (03:00 UTC) supaya kedua
+# heartbeat tidak jatuh di jam yang sama.
+#
+# CATATAN: URL + anon key di bawah memang publik (sudah ada di
+# src/js/config.js dan terkirim ke setiap browser). Yang menjaga data adalah
+# Row Level Security, bukan kerahasiaan key ini. Jadi aman ditulis di sini
+# dan workflow ini tidak butuh setup secret apa pun.
+#
+# PERINGATAN GITHUB: scheduled workflow otomatis dinonaktifkan setelah 60 hari
+# tanpa aktivitas commit di repo. Kalau repo ini pernah menganggur selama itu,
+# aktifkan lagi di tab Actions (atau jalankan manual lewat "Run workflow").
+# =============================================================================
+name: Supabase keep-alive
+
+on:
+  schedule:
+    # 15:00 UTC = 22:00 WIB, setiap hari.
+    - cron: '0 15 * * *'
+  workflow_dispatch: # tombol "Run workflow" untuk tes manual kapan saja.
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Sentuh database Supabase
+        env:
+          SUPABASE_URL: https://tupznjdqcuoffaaeinfe.supabase.co
+          SUPABASE_ANON_KEY: sb_publishable__ZhdUcqpbPiKHwIOr4ukHA_AnctP2ql
+        run: |
+          set -euo pipefail
+
+          # Query seringan mungkin yang tetap menyentuh Postgres. Dengan anon
+          # key + RLS aktif hasilnya array kosong — itu justru yang diinginkan:
+          # database benar-benar dieksekusi, tanpa membocorkan data siapa pun.
+          status=$(curl -sS -o /tmp/body.txt -w '%{http_code}' \
+            --max-time 30 --retry 3 --retry-delay 10 --retry-all-errors \
+            "$SUPABASE_URL/rest/v1/practice_sessions?select=id&limit=1" \
+            -H "apikey: $SUPABASE_ANON_KEY" \
+            -H "Authorization: Bearer $SUPABASE_ANON_KEY")
+
+          echo "HTTP $status"
+          head -c 300 /tmp/body.txt || true
+          echo
+
+          # 200 = normal. 401/403 juga berarti project HIDUP (PostgREST menjawab),
+          # jadi tujuan keep-alive tetap tercapai. Yang menandakan bahaya adalah
+          # kegagalan jaringan/DNS (curl gagal total, sudah ditangkap set -e)
+          # atau 5xx yang menetap setelah retry.
+          case "$status" in
+            200|401|403) echo "OK — Supabase hidup." ;;
+            *) echo "GAGAL — Supabase membalas $status. Cek dashboard: project mungkin paused." >&2
+               exit 1 ;;
+          esac
