@@ -6,8 +6,8 @@
 
   // Where to go after a successful login (sanitised: same-folder .html only).
   function safeNext() {
-    const raw = new URLSearchParams(location.search).get('next') || 'index.html';
-    return /^[a-z0-9_-]+\.html$/i.test(raw) ? raw : 'index.html';
+    const raw = new URLSearchParams(location.search).get('next') || 'home.html';
+    return /^[a-z0-9_-]+\.html$/i.test(raw) ? raw : 'home.html';
   }
 
   const els = {

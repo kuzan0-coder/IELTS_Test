@@ -107,7 +107,7 @@
           <p class="muted" style="margin-top:12px">Skor Writing berasal dari penilaian AI; bila AI dilewati/gagal, ditampilkan "—".</p>
           <div class="actions-row">
             <button class="btn" id="mock-restart" type="button">Ulangi Mock Test</button>
-            <a href="index.html" class="btn secondary">Home</a>
+            <a href="home.html" class="btn secondary">Home</a>
           </div>
         </div>`;
       document.getElementById('mock-restart').addEventListener('click', () => { Mock.abort(); Mock.start(); });

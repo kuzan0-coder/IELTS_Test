@@ -410,7 +410,7 @@ function renderResult(results, correctCount, band, inMock) {
         ${inMock
           ? `<button class="btn" onclick="Mock.advance()">Lanjut ke section berikutnya →</button>`
           : `<a href="listening.html" class="btn secondary">Latihan lagi</a>
-             <a href="index.html" class="btn secondary">Home</a>`}
+             <a href="home.html" class="btn secondary">Home</a>`}
       </div>
     </div>
     <div class="result-banner">

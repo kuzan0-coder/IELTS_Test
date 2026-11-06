@@ -28,7 +28,7 @@
         <div class="lock-emoji">🎉</div>
         <h2>Kamu sudah punya Akses Penuh</h2>
         <p style="color:var(--text-muted);margin:8px 0 18px">Semua fitur sudah terbuka. Selamat belajar!</p>
-        <a href="index.html" class="btn">Ke Dashboard</a>
+        <a href="home.html" class="btn">Ke Dashboard</a>
       </div>`;
   }
 

@@ -44,6 +44,6 @@
       return;
     }
     showMsg('Password berhasil diubah! Mengarahkan ke Home…', 'success');
-    setTimeout(() => location.replace('index.html'), 1500);
+    setTimeout(() => location.replace('home.html'), 1500);
   });
 })();

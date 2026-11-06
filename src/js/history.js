@@ -85,7 +85,7 @@
         <div class="empty-state">
           <div class="empty-ico">🗂️</div>
           <p>Belum ada sesi di kategori ini.<br>Mulai latihan, hasilnya akan muncul di sini.</p>
-          <a href="index.html" class="btn" style="margin-top:8px">Mulai latihan</a>
+          <a href="home.html" class="btn" style="margin-top:8px">Mulai latihan</a>
         </div>`;
       return;
     }

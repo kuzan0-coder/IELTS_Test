@@ -344,7 +344,7 @@ async function handleSubmit() {
           ${quotaNote}
           <div class="actions-row">
             <a href="speaking.html" class="btn secondary">Topik lain</a>
-            <a href="index.html" class="btn secondary">Home</a>
+            <a href="home.html" class="btn secondary">Home</a>
           </div>
         </div>
       `;

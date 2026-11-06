@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kalkulator Band Score IELTS (Listening, Reading, Overall) — IELTS Prep</title>
+  <meta name="description" content="Kalkulator band IELTS gratis: ubah jumlah jawaban benar Listening & Reading (Academic/General Training) menjadi band, dan hitung overall band dengan aturan pembulatan IELTS.">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="id_ID">
+  <meta property="og:title" content="Kalkulator Band Score IELTS — Gratis">
+  <meta property="og:description" content="Konversi jawaban benar Listening/Reading ke band dan hitung overall band IELTS-mu.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="landing.css">
+  <link rel="icon" type="image/png" href="assets/favicon.png">
+  <script>document.documentElement.classList.add('lp-js');</script>
+  <script src="js/theme.js"></script>
+</head>
+<body>
+  <header class="lp-nav">
+    <div class="lp-container lp-nav-inner">
+      <a class="lp-brand" href="index.html"><img src="assets/logo.png" alt=""><span>IELTS Prep</span></a>
+      <nav class="lp-links" aria-label="Navigasi utama">
+        <a href="index.html#fitur">Fitur</a>
+        <a href="index.html#harga">Harga</a>
+        <a href="kalkulator-band.html">Kalkulator Band</a>
+        <a href="index.html#faq">FAQ</a>
+      </nav>
+      <div class="lp-nav-actions">
+        <button class="lp-icon-btn" id="lp-theme" type="button" aria-label="Ganti tema terang/gelap"></button>
+        <a class="lp-ghost" id="nav-login" href="login.html">Masuk</a>
+        <a class="btn" href="home.html" data-cta-authed="Buka dashboard">Coba gratis</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="lp-main">
+    <section class="calc-hero">
+      <div class="lp-container">
+        <span class="lp-eyebrow"><span class="dot"></span>Alat gratis</span>
+        <h1>Kalkulator Band Score <span class="lp-grad">IELTS</span></h1>
+        <p>Ubah jumlah jawaban benar menjadi band, atau hitung overall band dari empat skill — dengan aturan pembulatan yang dipakai IELTS.</p>
+      </div>
+    </section>
+
+    <div class="lp-container">
+      <div class="calc-card">
+        <div class="calc-tabs" role="tablist" aria-label="Jenis kalkulator">
+          <button class="calc-tab" role="tab" type="button" data-tab="overall" aria-controls="panel-overall">Overall</button>
+          <button class="calc-tab" role="tab" type="button" data-tab="listening" aria-controls="panel-listening">Listening</button>
+          <button class="calc-tab" role="tab" type="button" data-tab="academic" aria-controls="panel-academic">Reading Academic</button>
+          <button class="calc-tab" role="tab" type="button" data-tab="general" aria-controls="panel-general">Reading General</button>
+        </div>
+
+        <!-- Overall -->
+        <div class="calc-panel" id="panel-overall" role="tabpanel">
+          <div class="calc-grid4">
+            <div class="calc-field"><label for="ov-l">Listening</label><select id="ov-l"></select></div>
+            <div class="calc-field"><label for="ov-r">Reading</label><select id="ov-r"></select></div>
+            <div class="calc-field"><label for="ov-w">Writing</label><select id="ov-w"></select></div>
+            <div class="calc-field"><label for="ov-s">Speaking</label><select id="ov-s"></select></div>
+          </div>
+          <div class="calc-result" aria-live="polite">
+            <div class="calc-band"><span>Overall</span><b id="ov-band">—</b></div>
+            <div class="calc-result-text">
+              <strong id="ov-title">—</strong>
+              <p id="ov-desc"></p>
+            </div>
+          </div>
+          <p class="calc-note">Aturan pembulatan: rata-rata berakhiran .25 dibulatkan ke atas menjadi .5, dan .75 dibulatkan ke atas ke angka bulat berikutnya.</p>
+        </div>
+
+        <!-- Listening / Reading: diisi oleh band-calculator.js -->
+        <div class="calc-panel" id="panel-listening" role="tabpanel" data-raw="listening" hidden></div>
+        <div class="calc-panel" id="panel-academic" role="tabpanel" data-raw="academic" hidden></div>
+        <div class="calc-panel" id="panel-general" role="tabpanel" data-raw="general" hidden></div>
+      </div>
+
+      <article class="calc-content">
+        <h2>Cara menghitung band score IELTS</h2>
+        <p>Listening dan Reading masing-masing terdiri dari 40 soal. Jumlah jawaban benarmu (<em>raw score</em>)
+        dikonversi menjadi band 1–9 memakai tabel konversi. Tabel Reading Academic dan General Training berbeda:
+        General Training butuh lebih banyak jawaban benar untuk band yang sama karena teksnya lebih mudah.</p>
+        <p>Writing dan Speaking dinilai examiner berdasarkan empat kriteria band descriptor. Overall band adalah
+        rata-rata keempat skill, lalu dibulatkan ke 0.5 terdekat — misalnya rata-rata 6.25 menjadi 6.5,
+        dan 6.75 menjadi 7.0.</p>
+        <h2>Seberapa akurat kalkulator ini?</h2>
+        <p>Tabel di sini adalah tabel perkiraan yang umum dipakai untuk latihan. Pada ujian sungguhan, batas
+        nilai bisa sedikit bergeser antar-versi tes, jadi anggap hasilnya sebagai perkiraan — bukan skor resmi.</p>
+      </article>
+
+      <div class="calc-cta">
+        <div class="lp-tool">
+          <div class="lp-tool-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4h7a3 3 0 0 1 3 3v13a3 3 0 0 0-3-3H2z"/><path d="M22 4h-7a3 3 0 0 0-3 3v13a3 3 0 0 1 3-3h7z"/></svg></div>
+          <div class="lp-tool-body">
+            <div class="lp-kicker">Coba sekarang</div>
+            <h3>Belum tahu skor aslimu?</h3>
+            <p>Kerjakan 1 passage Reading gratis — 20 menit, 13 soal, band langsung keluar. Tanpa daftar.</p>
+          </div>
+          <a href="reading.html" class="btn lp-btn-lg">Mulai latihan →</a>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="lp-footer">
+    <div class="lp-container">
+      <div class="lp-footer-grid">
+        <div class="lp-footer-brand">
+          <a class="lp-brand" href="index.html"><img src="assets/logo.png" alt=""><span>IELTS Prep</span></a>
+          <p class="lp-footer-about">Platform latihan IELTS dengan skor band otomatis dan feedback AI dalam Bahasa Indonesia.</p>
+        </div>
+        <div>
+          <h4>Produk</h4>
+          <ul>
+            <li><a href="index.html#fitur">Fitur</a></li>
+            <li><a href="index.html#harga">Harga</a></li>
+            <li><a href="kalkulator-band.html">Kalkulator Band</a></li>
+            <li><a href="login.html">Masuk / Daftar</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Legal</h4>
+          <ul>
+            <li><a href="terms.html">Syarat &amp; Ketentuan</a></li>
+            <li><a href="privacy.html">Kebijakan Privasi</a></li>
+            <li><a href="refund.html">Kebijakan Refund</a></li>
+          </ul>
+        </div>
+      </div>
+      <p class="lp-disclaimer">IELTS adalah merek dagang terdaftar milik British Council, IDP: IELTS Australia, dan
+      Cambridge University Press &amp; Assessment. IELTS Prep adalah platform latihan independen yang tidak
+      berafiliasi dengan, disponsori, atau didukung oleh pemilik merek tersebut. Skor di aplikasi ini adalah
+      estimasi, bukan skor resmi. © 2026 IELTS Prep.</p>
+    </div>
+  </footer>
+
+  <script src="js/landing.js"></script>
+  <script src="js/band-calculator.js"></script>
+</body>
+</html>

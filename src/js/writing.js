@@ -264,7 +264,7 @@ async function handleSubmit() {
             ${inMock
               ? `<button class="btn" onclick="Mock.advance()">Lihat hasil Mock Test →</button>`
               : `<a href="writing.html" class="btn secondary">Latihan lagi</a>
-                 <a href="index.html" class="btn secondary">Home</a>`}
+                 <a href="home.html" class="btn secondary">Home</a>`}
           </div>
         </div>
       `;

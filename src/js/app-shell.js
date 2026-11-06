@@ -37,7 +37,7 @@
   const NAV_GROUPS = [
     {
       label: '',
-      items: [{ href: 'index.html', label: 'Home', ico: 'home', match: ['index', ''] }]
+      items: [{ href: 'home.html', label: 'Home', ico: 'home' }]
     },
     {
       label: 'Latihan',
@@ -65,8 +65,7 @@
   ];
 
   function currentKey() {
-    let p = (location.pathname.split('/').pop() || 'index.html').replace('.html', '');
-    return p === '' ? 'index' : p;
+    return (location.pathname.split('/').pop() || 'home.html').replace('.html', '');
   }
 
   function buildNav() {
@@ -114,7 +113,7 @@
     }
     if (CONFIG.isConfigured) {
       // Tamu: boleh berlatih, tapi tawarkan login untuk simpan progres di cloud.
-      const next = encodeURIComponent(location.pathname.split('/').pop() || 'index.html');
+      const next = encodeURIComponent(location.pathname.split('/').pop() || 'home.html');
       return `<a class="login-cta" href="login.html?next=${next}">${ICONS.login}<span>Masuk / Daftar</span></a>
         <div class="small-note" style="text-align:center">Progres tamu tersimpan di perangkat ini</div>`;
     }
@@ -131,7 +130,7 @@
     const aside = document.querySelector('aside');
     if (!aside) return;
     aside.innerHTML =
-      `<div class="brand"><img class="brand-logo" src="assets/logo.png" alt="IELTS Prep"><span class="brand-name">IELTS Prep</span></div>` +
+      `<a class="brand" href="index.html" title="Halaman depan"><img class="brand-logo" src="assets/logo.png" alt="IELTS Prep"><span class="brand-name">IELTS Prep</span></a>` +
       `<nav>${buildNav()}</nav>` +
       `<div class="sidebar-footer">` +
         `<a class="upgrade-cta" id="upgrade-cta" href="upgrade.html">${ICONS.sparkle}<span>Buka Akses Penuh</span></a>` +

@@ -125,6 +125,7 @@ aside {
   box-shadow: var(--shadow-sm);
 }
 .auth-hero .hero-brand .brand-logo { height: 46px; width: 46px; }
+a.brand { text-decoration: none; color: inherit; }
 .brand .brand-name { background: var(--gradient); -webkit-background-clip: text; background-clip: text; color: transparent; }
 
 /* Old markup keeps <h1>; hide it when app-shell injects .brand */
