@@ -6,96 +6,106 @@
   <title>Masuk — IELTS Prep</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,96,600;1,36,400&family=Plus+Jakarta+Sans:wght@400..700&display=swap">
+  <link rel="stylesheet" href="landing.css">
   <link rel="icon" type="image/png" href="assets/favicon.png">
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="js/config.js"></script>
   <script src="js/auth.js"></script>
   <script src="js/theme.js"></script>
 </head>
-<body>
-  <div class="auth-wrap">
-    <div class="auth-hero">
-      <div class="hero-brand"><img class="brand-logo" src="assets/logo.png" alt="IELTS Prep"> IELTS Prep</div>
-      <h1>Naikkan band score-mu, satu latihan setiap hari.</h1>
-      <p>Coba gratis dulu: 1 passage Reading + 1 test Listening, plus Vocabulary,
-      Study Plan, dan Tips. Buka semua materi + penilaian AI Writing &amp; Speaking
-      dengan <strong>sekali bayar Rp&nbsp;99.000</strong> — tanpa langganan.</p>
-      <ul class="hero-points">
-        <li><span class="check">✓</span> Gratis: 1 passage Reading + 1 test Listening</li>
-        <li><span class="check">✓</span> Akses Penuh Rp 99.000 sekali bayar — semua materi + penilaian AI</li>
-        <li><span class="check">✓</span> Skor &amp; riwayat tersimpan di cloud, sinkron HP &amp; laptop</li>
-      </ul>
-    </div>
-
-    <div class="auth-panel">
-      <div class="auth-card">
-        <h2 id="form-title">Selamat datang</h2>
-        <p class="auth-sub" id="form-sub">Masuk untuk lanjut latihan.</p>
-
-        <!-- Login / signup form (shown when Supabase is configured) -->
-        <div id="auth-forms">
-          <div class="auth-tabs">
-            <button class="auth-tab active" id="tab-login" type="button">Masuk</button>
-            <button class="auth-tab" id="tab-signup" type="button">Daftar</button>
-          </div>
-
-          <form id="auth-form" autocomplete="on">
-            <div class="field signup-only hidden" id="field-name">
-              <label for="name">Nama</label>
-              <input type="text" id="name" placeholder="Nama kamu" autocomplete="name">
-            </div>
-            <div class="field">
-              <label for="email">Email</label>
-              <input type="email" id="email" placeholder="kamu@email.com" required autocomplete="email">
-            </div>
-            <div class="field signup-only hidden" id="field-phone">
-              <label for="phone">No. HP <span style="color:var(--text-muted);font-weight:400">(opsional)</span></label>
-              <input type="tel" id="phone" placeholder="08xxxxxxxxxx" autocomplete="tel">
-            </div>
-            <div class="field" id="field-password">
-              <label for="password">Password</label>
-              <div class="password-wrap">
-                <input type="password" id="password" placeholder="Minimal 6 karakter" required minlength="6" autocomplete="current-password">
-                <button type="button" class="pw-toggle" data-target="password" aria-label="Tampilkan password">👁️</button>
-              </div>
-            </div>
-            <div class="field signup-only hidden" id="field-password2">
-              <label for="password2">Konfirmasi Password</label>
-              <div class="password-wrap">
-                <input type="password" id="password2" placeholder="Ketik ulang password" autocomplete="new-password">
-                <button type="button" class="pw-toggle" data-target="password2" aria-label="Tampilkan password">👁️</button>
-              </div>
-            </div>
-            <div id="forgot-row"><button type="button" class="link-btn" id="forgot-link">Lupa password?</button></div>
-            <button type="button" class="link-btn hidden" id="back-login" style="margin-bottom:10px">← Kembali ke Masuk</button>
-            <button class="btn block" id="submit-btn" type="submit">Masuk</button>
-          </form>
-
-          <div class="auth-msg" id="auth-msg"></div>
-
-          <div class="auth-divider">atau</div>
-          <a href="home.html" class="btn secondary block auth-guest">Lihat-lihat dulu tanpa akun →</a>
+<body class="lp-body">
+  <div class="lp-auth">
+    <aside class="lp-auth-side">
+      <a class="lp-brand" href="index.html"><img src="assets/logo.png" alt="" width="32" height="32"><span>IELTS Prep</span></a>
+      <div class="lp-auth-pitch">
+        <h1 class="lp-h2">Satu latihan sehari, <span class="lp-nowrap"><span class="lp-pen-word">dikoreksi<svg viewBox="0 0 300 24" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M4 15 C 60 8, 130 5, 190 9 S 280 17, 296 8"/></svg></span></span> sampai kamu paham.</h1>
+        <div class="lp-auth-note">
+          <h2>Yang kamu dapat</h2>
+          <ul>
+            <li><b>Gratis:</b> 1 passage Reading + 1 tes Listening, plus Vocabulary, Study Plan &amp; Tips.</li>
+            <li><b>Akses Penuh Rp 99.000, sekali bayar:</b> semua materi, Mock Test, dan koreksi AI Writing &amp; Speaking.</li>
+            <li>Skor &amp; riwayat tersimpan di cloud — sinkron di HP dan laptop.</li>
+          </ul>
         </div>
+      </div>
+      <p class="lp-auth-side-foot">Platform latihan independen, bukan aplikasi resmi IELTS.</p>
+    </aside>
 
-        <!-- Notice ketika layanan login sedang tidak tersedia -->
-        <div id="local-notice" class="hidden">
-          <div class="auth-msg info show" style="margin-top:0">
-            Login sedang tidak tersedia. Kamu tetap bisa berlatih —
-            progres disimpan di perangkat ini.
+    <main class="lp-auth-main">
+      <div class="lp-auth-top">
+        <a class="lp-brand" href="index.html"><img src="assets/logo.png" alt="" width="32" height="32"><span>IELTS Prep</span></a>
+        <a class="lp-textlink" href="index.html">← Beranda</a>
+      </div>
+
+      <div class="lp-auth-center">
+        <div class="auth-card">
+          <h2 id="form-title">Selamat datang</h2>
+          <p class="auth-sub" id="form-sub">Masuk untuk lanjut latihan.</p>
+
+          <!-- Form masuk / daftar / reset (mode diatur login.js) -->
+          <div id="auth-forms">
+            <div class="auth-tabs">
+              <button class="auth-tab active" id="tab-login" type="button">Masuk</button>
+              <button class="auth-tab" id="tab-signup" type="button">Daftar</button>
+            </div>
+
+            <form id="auth-form" autocomplete="on">
+              <div class="field signup-only hidden" id="field-name">
+                <label for="name">Nama</label>
+                <input type="text" id="name" placeholder="Nama kamu" autocomplete="name">
+              </div>
+              <div class="field">
+                <label for="email">Email</label>
+                <input type="email" id="email" placeholder="kamu@email.com" required autocomplete="email">
+              </div>
+              <div class="field signup-only hidden" id="field-phone">
+                <label for="phone">No. HP <span class="opt">(opsional)</span></label>
+                <input type="tel" id="phone" placeholder="08xxxxxxxxxx" autocomplete="tel">
+              </div>
+              <div class="field" id="field-password">
+                <label for="password">Password</label>
+                <div class="password-wrap">
+                  <input type="password" id="password" placeholder="Minimal 6 karakter" required minlength="6" autocomplete="current-password">
+                  <button type="button" class="pw-toggle" data-target="password" aria-label="Tampilkan password"></button>
+                </div>
+              </div>
+              <div class="field signup-only hidden" id="field-password2">
+                <label for="password2">Konfirmasi password</label>
+                <div class="password-wrap">
+                  <input type="password" id="password2" placeholder="Ketik ulang password" autocomplete="new-password">
+                  <button type="button" class="pw-toggle" data-target="password2" aria-label="Tampilkan password"></button>
+                </div>
+              </div>
+              <div id="forgot-row"><button type="button" class="link-btn" id="forgot-link">Lupa password?</button></div>
+              <button type="button" class="link-btn hidden" id="back-login">← Kembali ke Masuk</button>
+              <button class="lp-btn lp-btn-block" id="submit-btn" type="submit">Masuk</button>
+            </form>
+
+            <div class="auth-msg" id="auth-msg" role="status" aria-live="polite"></div>
+
+            <div class="auth-divider">atau</div>
+            <a href="home.html" class="lp-btn lp-btn-line lp-btn-block">Lihat-lihat dulu tanpa akun <span class="arr" aria-hidden="true">→</span></a>
           </div>
-          <a href="home.html" class="btn block" style="margin-top:16px">Mulai latihan →</a>
+
+          <!-- Muncul jika layanan login sedang tidak tersedia -->
+          <div id="local-notice" class="hidden">
+            <div class="auth-msg info show">
+              Login sedang tidak tersedia. Kamu tetap bisa berlatih —
+              progres disimpan di perangkat ini.
+            </div>
+            <a href="home.html" class="lp-btn lp-btn-block lp-local-cta">Mulai latihan <span class="arr" aria-hidden="true">→</span></a>
+          </div>
         </div>
       </div>
 
-      <p class="auth-legal" style="text-align:center;margin-top:18px;color:var(--text-muted);font-size:.85rem;line-height:1.6">
+      <p class="auth-legal">
         Dengan mendaftar, kamu menyetujui
         <a href="terms.html">Syarat &amp; Ketentuan</a> dan
         <a href="privacy.html">Kebijakan Privasi</a> kami.<br>
         <a href="refund.html">Kebijakan Refund</a>
       </p>
-    </div>
+    </main>
   </div>
 
   <script src="js/pw-toggle.js"></script>

@@ -143,10 +143,10 @@ function renderSection() {
     <div class="audio-player">
       <div class="audio-info">Section ${currentSection.section} of ${currentTest.sections.length}</div>
       <button class="play-btn" id="play-btn">▶ Play Audio</button>
-      <button class="play-btn" id="pause-btn" style="display:none;background:#fff;color:var(--primary)">⏸ Pause</button>
-      <button class="play-btn" id="restart-btn" style="display:none;background:rgba(255,255,255,0.2);color:#fff">🔁 Restart</button>
+      <button class="play-btn" id="pause-btn" style="display:none">⏸ Pause</button>
+      <button class="play-btn secondary" id="restart-btn" style="display:none">🔁 Restart</button>
       <div class="audio-progress"><div class="audio-progress-fill" id="audio-progress"></div></div>
-      <div id="audio-status" style="margin-top:8px;font-size:13px;opacity:0.9">Klik Play untuk mulai</div>
+      <div id="audio-status" class="small-note" style="margin-top:8px">Klik Play untuk mulai</div>
     </div>
 
     <div class="questions">
