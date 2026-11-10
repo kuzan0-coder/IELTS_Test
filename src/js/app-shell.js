@@ -20,6 +20,7 @@
     listening: `<svg ${SVG_ATTRS}><path d="M4 13a8 8 0 0 1 16 0"/><rect x="3" y="13" width="4" height="7" rx="2"/><rect x="17" y="13" width="4" height="7" rx="2"/></svg>`,
     writing: `<svg ${SVG_ATTRS}><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg>`,
     speaking: `<svg ${SVG_ATTRS}><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10a7 7 0 0 0 14 0"/><path d="M12 17v4"/></svg>`,
+    chat: `<svg ${SVG_ATTRS}><path d="M21 12a8.5 8.5 0 0 1-12.4 7.6L3 21l1.4-5.4A8.5 8.5 0 1 1 21 12z"/><path d="M9 10.5v3"/><path d="M12 8.5v7"/><path d="M15 10.5v3"/></svg>`,
     mock: `<svg ${SVG_ATTRS}><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r="0.5"/></svg>`,
     vocabulary: `<svg ${SVG_ATTRS}><path d="m12 2 10 6-10 6L2 8z"/><path d="m2 14 10 6 10-6"/></svg>`,
     tutorials: `<svg ${SVG_ATTRS}><circle cx="12" cy="12" r="9"/><path d="m10 8 6 4-6 4z"/></svg>`,
@@ -46,6 +47,7 @@
         { href: 'listening.html', label: 'Listening', ico: 'listening' },
         { href: 'writing.html', label: 'Writing', ico: 'writing' },
         { href: 'speaking.html', label: 'Speaking', ico: 'speaking' },
+        { href: 'ai-speaking.html', label: 'Ngobrol AI', ico: 'chat' },
         { href: 'mock.html', label: 'Mock Test', ico: 'mock' },
         { href: 'vocabulary.html', label: 'Vocabulary', ico: 'vocabulary' }
       ]

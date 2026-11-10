@@ -34,6 +34,24 @@ if (!window.ielts) {
       } catch (err) {
         return { ok: false, error: err.message || String(err) };
       }
+    },
+
+    // Token sementara untuk AI Examiner (Gemini Live). payload: { mode } untuk
+    // tes baru, atau { ticket } untuk menyambung ulang tes yang sedang berjalan.
+    async getLiveToken(payload) {
+      try {
+        const res = await fetch('/api/ai/live-token', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', ...(await authHeader()) },
+          body: JSON.stringify(payload)
+        });
+        const body = await res.json().catch(() => null);
+        if (body && (body.ok || body.error)) return body;
+        if (res.status === 401) return { ok: false, error: 'Silakan login dulu untuk memakai AI Examiner.' };
+        return { ok: false, error: `Server error ${res.status}` };
+      } catch (err) {
+        return { ok: false, error: err.message || String(err) };
+      }
     }
   };
 }

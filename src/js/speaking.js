@@ -48,6 +48,14 @@ function renderCardList() {
       <h2>Speaking Practice</h2>
       <div class="meta">${cards.part1.length + cards.part2.length + cards.part3.length} topik tersedia</div>
     </div>
+    <div class="card ex-promo">
+      <div>
+        <div class="ex-tag">Baru</div>
+        <h3>Ngobrol AI: latihan bicara dengan suara</h3>
+        <p>Pilih teman ngobrol dengan kepribadian berbeda, atau simulasi tes Part 1–3 dengan examiner AI.</p>
+      </div>
+      <a href="ai-speaking.html" class="btn">Coba sekarang</a>
+    </div>
     <div class="card">
       <h3>Cara latihan</h3>
       <ul class="tip-list">

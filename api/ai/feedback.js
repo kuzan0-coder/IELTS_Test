@@ -88,6 +88,12 @@ module.exports = async (req, res) => {
   }
 };
 
+// Dipakai ulang oleh api/ai/live-token.js (AI Examiner) supaya aturan login,
+// lisensi, dan kuota tetap satu sumber.
+module.exports.verifyUser = verifyUser;
+module.exports.hasLicense = hasLicense;
+module.exports.consumeQuota = consumeQuota;
+
 // --- Keamanan & kontrol biaya -------------------------------------------------
 
 /** Verifikasi access token Supabase dari header Authorization. */
