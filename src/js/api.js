@@ -47,7 +47,7 @@ if (!window.ielts) {
         });
         const body = await res.json().catch(() => null);
         if (body && (body.ok || body.error)) return body;
-        if (res.status === 401) return { ok: false, error: 'Silakan login dulu untuk memakai AI Examiner.' };
+        if (res.status === 401) return { ok: false, error: 'Silakan login dulu untuk memakai Ngobrol AI.' };
         return { ok: false, error: `Server error ${res.status}` };
       } catch (err) {
         return { ok: false, error: err.message || String(err) };

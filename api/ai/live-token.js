@@ -71,14 +71,14 @@ module.exports = async (req, res) => {
 
   const user = await verifyUser(req);
   if (!user) {
-    res.status(401).json({ ok: false, error: 'Silakan login dulu untuk memakai AI Examiner.' });
+    res.status(401).json({ ok: false, error: 'Silakan login dulu untuk memakai Ngobrol AI.' });
     return;
   }
 
   if ((process.env.REQUIRE_PAID_LICENSE || '').toLowerCase() === 'true') {
     const paid = await hasLicense(user.id);
     if (!paid) {
-      res.status(403).json({ ok: false, error: 'AI Examiner adalah fitur berbayar. Upgrade dulu untuk membukanya.' });
+      res.status(403).json({ ok: false, error: 'Ngobrol AI adalah fitur berbayar. Upgrade dulu untuk membukanya.' });
       return;
     }
   }
