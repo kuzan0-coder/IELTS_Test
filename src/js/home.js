@@ -27,6 +27,26 @@
     } catch (e) { /* biarkan sapaan default */ }
   })();
 
+  // Kartu "Materi belajar": progres per perangkat (lihat materi.js) + materi berikutnya.
+  (async function renderLessons() {
+    const text = document.getElementById('home-lessons-text');
+    const btn = document.getElementById('home-lessons-btn');
+    if (!text || !btn) return;
+    try {
+      const { lessons } = await (await fetch('data/lessons.json')).json();
+      let progress = {};
+      try { progress = JSON.parse(localStorage.getItem('ielts-lessons-progress') || '{}') || {}; } catch (_) { /* kosong */ }
+      const done = lessons.filter((l) => progress[l.id]).length;
+      const next = lessons.find((l) => !progress[l.id]);
+      if (!done) return; // belum mulai: biarkan teks ajakan default
+      text.textContent = next
+        ? `${done} dari ${lessons.length} materi selesai. Berikutnya: ${next.title}.`
+        : `Semua ${lessons.length} materi selesai. Materi baru akan menyusul.`;
+      btn.textContent = next ? 'Lanjut belajar' : 'Lihat materi';
+      if (next) btn.href = `materi.html?id=${encodeURIComponent(next.id)}`;
+    } catch (_) { /* biarkan teks default */ }
+  })();
+
   const SKILLS = ['reading', 'listening', 'writing', 'speaking'];
 
   const skillStatsEl = document.getElementById('skill-stats');
