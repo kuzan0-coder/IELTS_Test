@@ -18,8 +18,16 @@
     if (/For security purposes|rate ?limit|after \d+ seconds/i.test(msg)) return 'Terlalu sering mencoba. Tunggu sebentar (±60 detik) lalu coba lagi.';
     if (/Auth session missing|session.*not.*found|token.*expired|link.*expired|otp.*expired/i.test(msg)) return 'Sesi reset tidak valid atau sudah kedaluwarsa. Minta link reset baru dari halaman masuk.';
     if (/New password should be different/i.test(msg)) return 'Password baru harus berbeda dari password lama.';
+    if (/Email address not authorized|Error sending (confirmation|recovery|magic link)? ?e?mail/i.test(msg)) {
+      return 'Email konfirmasi sedang tidak bisa dikirim. Coba lagi nanti, atau hubungi admin.';
+    }
+    if (/Signups not allowed/i.test(msg)) return 'Pendaftaran akun baru sedang ditutup.';
     return msg;
   }
+
+  // Link di email (konfirmasi & reset) kembali ke situs yang sedang dipakai.
+  // Alamat ini harus terdaftar di Supabase > Authentication > URL Configuration.
+  const confirmRedirect = () => location.origin + '/login';
 
   window.Auth = {
     isConfigured: () => !!configured,
@@ -38,12 +46,26 @@
       if (meta && meta.name) profile.full_name = meta.name;
       if (meta && meta.phone) profile.phone = meta.phone;
       const { data, error } = await SB.auth.signUp({
-        email, password, options: { data: profile }
+        email, password, options: { data: profile, emailRedirectTo: confirmRedirect() }
       });
       if (error) return { ok: false, error: mapAuthError(error) };
+      // Saat "Confirm email" aktif, Supabase tidak memberi error untuk email yang
+      // sudah terdaftar (mencegah tebak-tebakan email): user dikembalikan tanpa
+      // identities dan tidak ada email yang dikirim.
+      if (data.user && Array.isArray(data.user.identities) && data.user.identities.length === 0) {
+        return { ok: false, error: 'Email ini sudah terdaftar. Silakan masuk, atau pakai "Lupa password?" kalau lupa.' };
+      }
       // Kalau "Confirm email" aktif, session null sampai user klik link email.
       const needsConfirm = !data.session;
       return { ok: true, needsConfirm, user: data.user };
+    },
+
+    /** Kirim ulang email konfirmasi pendaftaran. */
+    async resendConfirmation(email) {
+      if (!configured) return { ok: false, error: 'Login sedang tidak tersedia. Coba lagi nanti.' };
+      const { error } = await SB.auth.resend({ type: 'signup', email, options: { emailRedirectTo: confirmRedirect() } });
+      if (error) return { ok: false, error: mapAuthError(error) };
+      return { ok: true };
     },
 
     async signIn(email, password) {

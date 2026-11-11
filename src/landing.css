@@ -563,6 +563,7 @@ body.lp-body {
 .auth-msg.success { border-left-color: var(--lp-teal); background: rgba(9, 116, 99, 0.09); }
 [data-theme="dark"] .auth-msg.error { background: rgba(245, 131, 91, 0.12); }
 [data-theme="dark"] .auth-msg.success { background: rgba(97, 198, 177, 0.12); }
+.auth-msg .auth-resend { margin-top: 8px; font-size: 14px; }
 .auth-divider { display: flex; align-items: center; gap: 14px; margin: 22px 0; font-size: 0.85rem; color: var(--lp-ink-3); }
 .auth-divider::before, .auth-divider::after { content: ""; flex: 1; height: 1px; background: var(--lp-rule); }
 .auth-legal { margin: 0; text-align: center; font-size: 0.85rem; line-height: 1.7; color: var(--lp-ink-3); }

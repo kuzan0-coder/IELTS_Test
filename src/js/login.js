@@ -42,6 +42,26 @@
   }
   function clearMsg() { els.msg.className = 'auth-msg'; }
 
+  /** Tambahkan tombol "Kirim ulang email konfirmasi" di bawah pesan. */
+  function offerResend(email) {
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'link-btn auth-resend';
+    btn.textContent = 'Kirim ulang email konfirmasi';
+    btn.addEventListener('click', async () => {
+      btn.disabled = true;
+      btn.textContent = 'Mengirim…';
+      const r = await Auth.resendConfirmation(email);
+      if (r.ok) {
+        showMsg('Email konfirmasi dikirim ulang ke ' + email + '. Cek inbox dan folder Spam/Promosi.', 'success');
+      } else {
+        showMsg(r.error, 'error');
+      }
+    });
+    els.msg.appendChild(document.createElement('br'));
+    els.msg.appendChild(btn);
+  }
+
   function setMode(next) {
     mode = next;
     const isLogin = mode === 'login';
@@ -146,12 +166,15 @@
 
     if (!res.ok) {
       showMsg(res.error, 'error');
+      if (mode === 'login' && /belum dikonfirmasi/i.test(res.error)) offerResend(email);
       return;
     }
 
     if (mode === 'signup' && res.needsConfirm) {
-      showMsg('Akun dibuat! Cek email kamu untuk konfirmasi, lalu masuk.', 'success');
+      // setMode() menghapus pesan, jadi pindah ke tab Masuk dulu baru tampilkan pesan.
       setMode('login');
+      showMsg('Akun dibuat! Kami mengirim link konfirmasi ke ' + email + '. Buka email itu (cek juga folder Spam/Promosi), klik link-nya, lalu kamu otomatis masuk.', 'success');
+      offerResend(email);
       return;
     }
 
@@ -160,4 +183,14 @@
   });
 
   setMode('login');
+
+  // Link dari email yang gagal/kedaluwarsa kembali ke sini dengan #error=…
+  const hash = new URLSearchParams(location.hash.slice(1));
+  if (hash.get('error')) {
+    const detail = (hash.get('error_code') || '') + ' ' + (hash.get('error_description') || '');
+    showMsg(/expired|invalid/i.test(detail)
+      ? 'Link di email sudah kedaluwarsa atau sudah pernah dipakai. Coba masuk dulu; kalau ditolak karena email belum dikonfirmasi, minta kirim ulang dari sini.'
+      : 'Link di email tidak bisa dipakai (' + (hash.get('error_description') || hash.get('error')) + '). Coba masuk, atau minta link baru.', 'error');
+    history.replaceState(null, '', location.pathname + location.search);
+  }
 })();
