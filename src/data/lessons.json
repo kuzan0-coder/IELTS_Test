@@ -1,5 +1,5 @@
 {
-  "_howto": "Materi belajar (gratis). Tiap materi: blocks (isi) + quiz + practice. Tipe block: p, h, list, table, note, compare, passage, worked, marked, listen. Teks mendukung **tebal** dan *miring*. Di block 'marked', bagian bisa berupa teks biasa atau {s, fix} (dicoret+perbaikan), {good} (bagus), {wave, ref} (bermasalah + catatan ke-ref), {tag, text} (label pena), {br:true} (baris baru).",
+  "_howto": "Materi belajar (gratis). Tiap materi: blocks (isi) + quiz + practice. Tipe block: p, h, list, table, note, compare, passage, worked, marked, listen, plan. Teks mendukung **tebal** dan *miring*. Di block marked, bagian bisa berupa teks biasa atau {s, fix} (dicoret+perbaikan), {good, ref?} (bagus), {wave, ref} (bermasalah + catatan ke-ref), {tag, text?} (label pena), {br:true} (baris baru). Block worked: answer TRUE/FALSE/NOT GIVEN/TEPAT/PENGECOH. Block listen: hideText:true menyembunyikan teks di balik tombol. Block plan: cells = grid denah; sel satu huruf tampil sebagai lokasi. quiz bisa punya intro, passage, atau blocks (block apa pun di atas soal).",
   "lessons": [
     {
       "id": "kenalan-ielts",
@@ -8,39 +8,355 @@
       "summary": "Format keempat tes, cara skor overall dibulatkan, dan berapa band yang biasanya diminta.",
       "minutes": 5,
       "blocks": [
-        { "type": "p", "text": "IELTS mengukur empat kemampuan bahasa Inggris: **Listening, Reading, Writing, dan Speaking**. Ada dua jenis tes: **Academic** untuk kuliah dan beasiswa, dan **General Training** untuk kerja atau pindah negara. Listening dan Speaking sama untuk keduanya; Reading dan Writing berbeda. Situs ini fokus ke **IELTS Academic**." },
-        { "type": "h", "text": "Format tes" },
-        { "type": "table", "head": ["Bagian", "Waktu", "Isi"], "rows": [
-          ["Listening", "±30 menit", "4 bagian, 40 soal. Rekaman hanya diputar **sekali**."],
-          ["Reading", "60 menit", "3 teks panjang, 40 soal. Tidak ada waktu tambahan untuk memindahkan jawaban."],
-          ["Writing", "60 menit", "Task 1: jelaskan grafik atau diagram (min. 150 kata). Task 2: esai (min. 250 kata)."],
-          ["Speaking", "11–14 menit", "Wawancara langsung dengan examiner, terdiri dari 3 Part."]
-        ] },
-        { "type": "note", "title": "Catatan", "text": "Listening, Reading, dan Writing dikerjakan berurutan di hari yang sama tanpa jeda. Speaking bisa di hari yang sama atau di hari lain yang berdekatan, tergantung jadwal tempat tes." },
-        { "type": "h", "text": "Skor band 0–9" },
-        { "type": "p", "text": "Tiap bagian mendapat band 0–9 dengan kelipatan 0.5. **Band overall** adalah rata-rata keempatnya, lalu dibulatkan ke 0.5 terdekat. Kalau rata-ratanya tepat di tengah (**.25** atau **.75**), pembulatannya **ke atas**." },
-        { "type": "table", "head": ["L", "R", "W", "S", "Rata-rata", "Overall"], "rows": [
-          ["6.5", "6.5", "5.5", "6.0", "6.125", "**6.0** (turun)"],
-          ["6.5", "6.5", "6.0", "6.0", "6.25", "**6.5** (naik)"],
-          ["7.5", "7.0", "6.5", "6.0", "6.75", "**7.0** (naik)"]
-        ] },
-        { "type": "p", "text": "Listening dan Reading dinilai dari jumlah jawaban benar (dari 40), lalu dikonversi ke band. Sebagai gambaran, sekitar 30 jawaban benar di Listening setara band 7. Writing dan Speaking dinilai examiner memakai empat kriteria, yang dibahas di materi Writing dan Speaking." },
-        { "type": "note", "title": "Jangan korbankan Task 2", "text": "Dalam nilai Writing, **Task 2 bobotnya dua kali Task 1**. Kalau waktu mepet, pastikan esai Task 2 selesai." },
-        { "type": "h", "text": "Berapa band yang kamu butuhkan?" },
-        { "type": "p", "text": "Tergantung tujuanmu. Banyak universitas dan beasiswa meminta overall **6.0–7.0**, sering dengan nilai minimum per bagian (misalnya tidak boleh ada bagian di bawah 6.0). Selalu cek syarat resmi kampus atau beasiswa yang kamu tuju." }
+        {
+          "type": "p",
+          "text": "IELTS mengukur empat kemampuan bahasa Inggris: **Listening, Reading, Writing, dan Speaking**. Ada dua jenis tes: **Academic** untuk kuliah dan beasiswa, dan **General Training** untuk kerja atau pindah negara. Listening dan Speaking sama untuk keduanya; Reading dan Writing berbeda. Situs ini fokus ke **IELTS Academic**."
+        },
+        {
+          "type": "h",
+          "text": "Format tes"
+        },
+        {
+          "type": "table",
+          "head": [
+            "Bagian",
+            "Waktu",
+            "Isi"
+          ],
+          "rows": [
+            [
+              "Listening",
+              "±30 menit",
+              "4 bagian, 40 soal. Rekaman hanya diputar **sekali**."
+            ],
+            [
+              "Reading",
+              "60 menit",
+              "3 teks panjang, 40 soal. Tidak ada waktu tambahan untuk memindahkan jawaban."
+            ],
+            [
+              "Writing",
+              "60 menit",
+              "Task 1: jelaskan grafik atau diagram (min. 150 kata). Task 2: esai (min. 250 kata)."
+            ],
+            [
+              "Speaking",
+              "11–14 menit",
+              "Wawancara langsung dengan examiner, terdiri dari 3 Part."
+            ]
+          ]
+        },
+        {
+          "type": "note",
+          "title": "Catatan",
+          "text": "Listening, Reading, dan Writing dikerjakan berurutan di hari yang sama tanpa jeda. Speaking bisa di hari yang sama atau di hari lain yang berdekatan, tergantung jadwal tempat tes."
+        },
+        {
+          "type": "h",
+          "text": "Skor band 0–9"
+        },
+        {
+          "type": "p",
+          "text": "Tiap bagian mendapat band 0–9 dengan kelipatan 0.5. **Band overall** adalah rata-rata keempatnya, lalu dibulatkan ke 0.5 terdekat. Kalau rata-ratanya tepat di tengah (**.25** atau **.75**), pembulatannya **ke atas**."
+        },
+        {
+          "type": "table",
+          "head": [
+            "L",
+            "R",
+            "W",
+            "S",
+            "Rata-rata",
+            "Overall"
+          ],
+          "rows": [
+            [
+              "6.5",
+              "6.5",
+              "5.5",
+              "6.0",
+              "6.125",
+              "**6.0** (turun)"
+            ],
+            [
+              "6.5",
+              "6.5",
+              "6.0",
+              "6.0",
+              "6.25",
+              "**6.5** (naik)"
+            ],
+            [
+              "7.5",
+              "7.0",
+              "6.5",
+              "6.0",
+              "6.75",
+              "**7.0** (naik)"
+            ]
+          ]
+        },
+        {
+          "type": "p",
+          "text": "Listening dan Reading dinilai dari jumlah jawaban benar (dari 40), lalu dikonversi ke band. Sebagai gambaran, sekitar 30 jawaban benar di Listening setara band 7. Writing dan Speaking dinilai examiner memakai empat kriteria, yang dibahas di materi Writing dan Speaking."
+        },
+        {
+          "type": "note",
+          "title": "Jangan korbankan Task 2",
+          "text": "Dalam nilai Writing, **Task 2 bobotnya dua kali Task 1**. Kalau waktu mepet, pastikan esai Task 2 selesai."
+        },
+        {
+          "type": "h",
+          "text": "Berapa band yang kamu butuhkan?"
+        },
+        {
+          "type": "p",
+          "text": "Tergantung tujuanmu. Banyak universitas dan beasiswa meminta overall **6.0–7.0**, sering dengan nilai minimum per bagian (misalnya tidak boleh ada bagian di bawah 6.0). Selalu cek syarat resmi kampus atau beasiswa yang kamu tuju."
+        }
       ],
       "quiz": {
         "questions": [
-          { "q": "Berapa lama waktu tes Reading?", "options": ["30 menit", "40 menit", "60 menit", "90 menit"], "answer": 2, "explain": "Reading berlangsung 60 menit untuk 3 teks dan 40 soal, tanpa waktu tambahan untuk memindahkan jawaban." },
-          { "q": "Skormu: Listening 6.5, Reading 6.5, Writing 6.0, Speaking 6.0. Berapa band overall-mu?", "options": ["6.0", "6.25", "6.5", "7.0"], "answer": 2, "explain": "Rata-ratanya 6.25. Karena tepat di .25, dibulatkan ke atas menjadi 6.5. Band overall selalu kelipatan 0.5, jadi 6.25 tidak mungkin muncul di sertifikat." },
-          { "q": "Dalam nilai Writing, bagian mana yang bobotnya lebih besar?", "options": ["Task 1", "Task 2", "Sama besar"], "answer": 1, "explain": "Task 2 bobotnya dua kali Task 1." },
-          { "q": "Berapa kali rekaman Listening diputar?", "options": ["Sekali", "Dua kali", "Boleh diulang sesukanya"], "answer": 0, "explain": "Rekaman hanya diputar sekali, jadi kamu harus menjawab sambil mendengar." },
-          { "q": "Seperti apa bentuk tes Speaking?", "options": ["Merekam jawaban ke komputer tanpa examiner", "Wawancara langsung dengan examiner", "Membaca teks dengan suara keras"], "answer": 1, "explain": "Speaking selalu berupa wawancara dengan examiner manusia, terdiri dari 3 Part, selama 11–14 menit." }
+          {
+            "q": "Berapa lama waktu tes Reading?",
+            "options": [
+              "30 menit",
+              "40 menit",
+              "60 menit",
+              "90 menit"
+            ],
+            "answer": 2,
+            "explain": "Reading berlangsung 60 menit untuk 3 teks dan 40 soal, tanpa waktu tambahan untuk memindahkan jawaban."
+          },
+          {
+            "q": "Skormu: Listening 6.5, Reading 6.5, Writing 6.0, Speaking 6.0. Berapa band overall-mu?",
+            "options": [
+              "6.0",
+              "6.25",
+              "6.5",
+              "7.0"
+            ],
+            "answer": 2,
+            "explain": "Rata-ratanya 6.25. Karena tepat di .25, dibulatkan ke atas menjadi 6.5. Band overall selalu kelipatan 0.5, jadi 6.25 tidak mungkin muncul di sertifikat."
+          },
+          {
+            "q": "Dalam nilai Writing, bagian mana yang bobotnya lebih besar?",
+            "options": [
+              "Task 1",
+              "Task 2",
+              "Sama besar"
+            ],
+            "answer": 1,
+            "explain": "Task 2 bobotnya dua kali Task 1."
+          },
+          {
+            "q": "Berapa kali rekaman Listening diputar?",
+            "options": [
+              "Sekali",
+              "Dua kali",
+              "Boleh diulang sesukanya"
+            ],
+            "answer": 0,
+            "explain": "Rekaman hanya diputar sekali, jadi kamu harus menjawab sambil mendengar."
+          },
+          {
+            "q": "Seperti apa bentuk tes Speaking?",
+            "options": [
+              "Merekam jawaban ke komputer tanpa examiner",
+              "Wawancara langsung dengan examiner",
+              "Membaca teks dengan suara keras"
+            ],
+            "answer": 1,
+            "explain": "Speaking selalu berupa wawancara dengan examiner manusia, terdiri dari 3 Part, selama 11–14 menit."
+          }
         ]
       },
       "practice": [
-        { "label": "Hitung band-mu", "href": "kalkulator-band.html" },
-        { "label": "Coba Mock Test", "href": "mock.html" }
+        {
+          "label": "Hitung band-mu",
+          "href": "kalkulator-band.html"
+        },
+        {
+          "label": "Coba Mock Test",
+          "href": "mock.html"
+        }
+      ]
+    },
+    {
+      "id": "reading-skim-scan",
+      "skill": "reading",
+      "title": "Skimming, scanning, dan parafrase",
+      "summary": "Membaca cepat tanpa membaca semuanya: kapan skimming, kapan scanning, dan cara mengenali jawaban yang diparafrase.",
+      "minutes": 6,
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Tes Reading memberi **60 menit** untuk 3 teks panjang dan 40 soal. Membaca setiap kata dengan teliti hampir mustahil. Dua teknik ini membantumu membaca dengan tujuan."
+        },
+        {
+          "type": "compare",
+          "items": [
+            {
+              "title": "SKIMMING",
+              "tone": "teal",
+              "text": "Membaca cepat untuk menangkap **gambaran umum**: judul, kalimat pertama tiap paragraf, dan kata yang menonjol. Dipakai di awal, sekitar 2–3 menit per teks."
+            },
+            {
+              "title": "SCANNING",
+              "tone": "navy",
+              "text": "Mencari **informasi spesifik** seperti nama, angka, tahun, atau istilah. Mata melompat mencari kata itu tanpa membaca kalimat lain."
+            }
+          ]
+        },
+        {
+          "type": "h",
+          "text": "Urutan kerja yang disarankan"
+        },
+        {
+          "type": "list",
+          "ordered": true,
+          "items": [
+            "**Skim** teks 2–3 menit: apa topiknya, dan apa isi tiap paragraf secara kasar.",
+            "Baca **soal** dan garis bawahi kata kunci, terutama nama, angka, dan istilah.",
+            "**Scan** untuk menemukan lokasi jawaban.",
+            "Baca **teliti** 1–3 kalimat di sekitar lokasi itu, lalu jawab."
+          ]
+        },
+        {
+          "type": "note",
+          "title": "Pakai kata “jangkar”",
+          "text": "Nama orang, nama tempat, angka, tahun, dan istilah teknis **jarang diparafrase**. Kata-kata ini paling cepat ditemukan saat scanning, jadi pakai sebagai jangkar untuk menemukan lokasi jawaban."
+        },
+        {
+          "type": "h",
+          "text": "Mengenali parafrase"
+        },
+        {
+          "type": "p",
+          "text": "Kata di soal hampir tidak pernah sama persis dengan kata di teks. Teks memakai **sinonim**, **bentuk kata lain**, atau **struktur kalimat berbeda** untuk menyampaikan makna yang sama."
+        },
+        {
+          "type": "table",
+          "head": [
+            "Di soal",
+            "Di teks",
+            "Jenis parafrase"
+          ],
+          "rows": [
+            [
+              "*increase*",
+              "*rise, grow, go up*",
+              "Sinonim"
+            ],
+            [
+              "*the decision was difficult*",
+              "*it was hard to decide*",
+              "Bentuk kata lain"
+            ],
+            [
+              "*most people*",
+              "*the majority of the population*",
+              "Ungkapan lain"
+            ],
+            [
+              "*the company employed 200 staff*",
+              "*200 people worked for the firm*",
+              "Struktur kalimat lain"
+            ],
+            [
+              "*not expensive*",
+              "*affordable*",
+              "Negatif menjadi positif"
+            ]
+          ]
+        },
+        {
+          "type": "marked",
+          "label": "Contoh: menemukan jawaban yang diparafrase",
+          "prompt": "Soal: What did researchers find about city birds?",
+          "parts": [
+            "“",
+            {
+              "good": "Ornithologists",
+              "ref": 1
+            },
+            " observed that ",
+            {
+              "good": "birds living in urban areas",
+              "ref": 2
+            },
+            " ",
+            {
+              "good": "sing at a higher pitch",
+              "ref": 3
+            },
+            " than birds in the countryside, probably so that they can be heard over traffic noise.”"
+          ],
+          "notes": [
+            "*Ornithologists* (ahli burung) = *researchers* di soal.",
+            "*Birds living in urban areas* = *city birds*.",
+            "Inilah jawabannya. Perhatikan: tidak ada satu pun kata kunci soal yang muncul persis sama di teks."
+          ]
+        }
+      ],
+      "quiz": {
+        "questions": [
+          {
+            "q": "Kamu ingin tahu topik umum sebuah paragraf dengan cepat. Teknik apa yang dipakai?",
+            "options": [
+              "Skimming",
+              "Scanning",
+              "Membaca kata per kata"
+            ],
+            "answer": 0,
+            "explain": "Skimming dipakai untuk menangkap gambaran umum dan ide utama."
+          },
+          {
+            "q": "Soal menanyakan tahun berdirinya sebuah museum. Cara apa yang paling cepat?",
+            "options": [
+              "Skimming seluruh teks",
+              "Scanning mencari angka tahun",
+              "Membaca seluruh teks dari awal"
+            ],
+            "answer": 1,
+            "explain": "Angka tahun mudah dikenali mata. Scanning langsung membawamu ke lokasinya."
+          },
+          {
+            "q": "Di soal tertulis “the number of visitors rose”. Ungkapan mana di teks yang kemungkinan besar bermakna sama?",
+            "options": [
+              "visitor numbers went up",
+              "visitors were rarely counted",
+              "the museum had many rooms"
+            ],
+            "answer": 0,
+            "explain": "*Rose* = *went up*, dan *the number of visitors* = *visitor numbers*. Maknanya sama dengan kata yang berbeda."
+          },
+          {
+            "q": "“The project was not cheap” paling dekat maknanya dengan…",
+            "options": [
+              "The project was costly.",
+              "The project was free.",
+              "The project was finished."
+            ],
+            "answer": 0,
+            "explain": "*Not cheap* = *costly* (mahal). Ini parafrase dari negatif menjadi positif."
+          },
+          {
+            "q": "Kata mana yang paling mudah dipakai sebagai “jangkar” saat scanning?",
+            "options": [
+              "important",
+              "1987",
+              "different"
+            ],
+            "answer": 1,
+            "explain": "Angka tahun hampir tidak pernah diparafrase, jadi mudah ditemukan apa adanya."
+          }
+        ]
+      },
+      "practice": [
+        {
+          "label": "Latihan Reading",
+          "href": "reading.html"
+        }
       ]
     },
     {
@@ -50,46 +366,301 @@
       "summary": "Cara membedakan FALSE dan NOT GIVEN, jebakan kata seperti “only” dan “most”, plus latihan singkat.",
       "minutes": 7,
       "blocks": [
-        { "type": "p", "text": "Soal **True/False/Not Given** (TFNG) muncul di hampir setiap tes Reading. Kamu diberi beberapa pernyataan, lalu memutuskan hubungan tiap pernyataan dengan isi teks." },
-        { "type": "compare", "items": [
-          { "title": "TRUE", "tone": "teal", "text": "Teks menyatakan hal yang **sama**, biasanya dengan kata yang berbeda (diparafrase)." },
-          { "title": "FALSE", "tone": "pen", "text": "Teks menyatakan **kebalikannya** atau membantah pernyataan itu." },
-          { "title": "NOT GIVEN", "tone": "navy", "text": "Teks **tidak memberi informasi** untuk memastikan benar atau salahnya." }
-        ] },
-        { "type": "note", "title": "Kunci terpenting", "text": "Bedakan FALSE dan NOT GIVEN dengan satu pertanyaan: **“Apakah teks membantah pernyataan ini?”** Kalau ya, jawabannya FALSE. Kalau teks hanya **diam** soal itu, jawabannya NOT GIVEN." },
-        { "type": "p", "text": "Ada juga variasi **Yes/No/Not Given**. Cara kerjanya sama, tapi yang dinilai adalah *pendapat penulis*, bukan fakta." },
-        { "type": "h", "text": "Langkah mengerjakan" },
-        { "type": "list", "ordered": true, "items": [
-          "Garis bawahi kata kunci di pernyataan, terutama **kata pembatas**: *all, only, most, always, never, more than, first*.",
-          "Cari bagian teks yang dibahas. Urutan soal TFNG mengikuti urutan teks.",
-          "Bandingkan **makna**, bukan kata per kata. Jawaban TRUE hampir selalu diparafrase.",
-          "Periksa kata pembatas: *most schools* tidak sama dengan *only schools*.",
-          "Jangan pakai pengetahuan umummu. Yang dihitung hanya isi teks."
-        ] },
-        { "type": "h", "text": "Contoh dibahas" },
-        { "type": "passage", "title": "Rooftop gardens", "text": "In 2015, the city council of Rivertown launched a rooftop garden scheme. Within three years, more than 200 buildings had joined, most of them schools and offices. The council hoped the gardens would keep buildings cooler in summer, and early measurements suggest that roof temperatures fell by up to 8°C.\n\nHowever, residents of apartment blocks were slower to take part, mainly because of concerns about the cost of repairing older roofs." },
-        { "type": "worked", "items": [
-          { "statement": "The scheme began in 2015.", "answer": "TRUE", "why": "Teks: “In 2015, the city council … *launched* a rooftop garden scheme.” *Launched* = *began*: parafrase dengan makna sama." },
-          { "statement": "Only schools took part in the scheme.", "answer": "FALSE", "why": "Teks: “*most of them schools and offices*”. Ada kantor juga, jadi kata *only* dibantah oleh teks." },
-          { "statement": "The gardens lowered the city's electricity bills.", "answer": "NOT GIVEN", "why": "Teks hanya membahas suhu atap. Tagihan listrik tidak disebut sama sekali. Masuk akal secara logika, tapi teks diam, jadi NOT GIVEN." },
-          { "statement": "Apartment residents joined the scheme quickly.", "answer": "FALSE", "why": "Teks: “*slower to take part*”, berlawanan langsung dengan *quickly*." },
-          { "statement": "The council paid for repairs to older roofs.", "answer": "NOT GIVEN", "why": "Teks menyebut *kekhawatiran* soal biaya perbaikan, tapi tidak mengatakan siapa yang membayar." }
-        ] }
+        {
+          "type": "p",
+          "text": "Soal **True/False/Not Given** (TFNG) muncul di hampir setiap tes Reading. Kamu diberi beberapa pernyataan, lalu memutuskan hubungan tiap pernyataan dengan isi teks."
+        },
+        {
+          "type": "compare",
+          "items": [
+            {
+              "title": "TRUE",
+              "tone": "teal",
+              "text": "Teks menyatakan hal yang **sama**, biasanya dengan kata yang berbeda (diparafrase)."
+            },
+            {
+              "title": "FALSE",
+              "tone": "pen",
+              "text": "Teks menyatakan **kebalikannya** atau membantah pernyataan itu."
+            },
+            {
+              "title": "NOT GIVEN",
+              "tone": "navy",
+              "text": "Teks **tidak memberi informasi** untuk memastikan benar atau salahnya."
+            }
+          ]
+        },
+        {
+          "type": "note",
+          "title": "Kunci terpenting",
+          "text": "Bedakan FALSE dan NOT GIVEN dengan satu pertanyaan: **“Apakah teks membantah pernyataan ini?”** Kalau ya, jawabannya FALSE. Kalau teks hanya **diam** soal itu, jawabannya NOT GIVEN."
+        },
+        {
+          "type": "p",
+          "text": "Ada juga variasi **Yes/No/Not Given**. Cara kerjanya sama, tapi yang dinilai adalah *pendapat penulis*, bukan fakta."
+        },
+        {
+          "type": "h",
+          "text": "Langkah mengerjakan"
+        },
+        {
+          "type": "list",
+          "ordered": true,
+          "items": [
+            "Garis bawahi kata kunci di pernyataan, terutama **kata pembatas**: *all, only, most, always, never, more than, first*.",
+            "Cari bagian teks yang dibahas. Urutan soal TFNG mengikuti urutan teks.",
+            "Bandingkan **makna**, bukan kata per kata. Jawaban TRUE hampir selalu diparafrase.",
+            "Periksa kata pembatas: *most schools* tidak sama dengan *only schools*.",
+            "Jangan pakai pengetahuan umummu. Yang dihitung hanya isi teks."
+          ]
+        },
+        {
+          "type": "h",
+          "text": "Contoh dibahas"
+        },
+        {
+          "type": "passage",
+          "title": "Rooftop gardens",
+          "text": "In 2015, the city council of Rivertown launched a rooftop garden scheme. Within three years, more than 200 buildings had joined, most of them schools and offices. The council hoped the gardens would keep buildings cooler in summer, and early measurements suggest that roof temperatures fell by up to 8°C.\n\nHowever, residents of apartment blocks were slower to take part, mainly because of concerns about the cost of repairing older roofs."
+        },
+        {
+          "type": "worked",
+          "items": [
+            {
+              "statement": "The scheme began in 2015.",
+              "answer": "TRUE",
+              "why": "Teks: “In 2015, the city council … *launched* a rooftop garden scheme.” *Launched* = *began*: parafrase dengan makna sama."
+            },
+            {
+              "statement": "Only schools took part in the scheme.",
+              "answer": "FALSE",
+              "why": "Teks: “*most of them schools and offices*”. Ada kantor juga, jadi kata *only* dibantah oleh teks."
+            },
+            {
+              "statement": "The gardens lowered the city's electricity bills.",
+              "answer": "NOT GIVEN",
+              "why": "Teks hanya membahas suhu atap. Tagihan listrik tidak disebut sama sekali. Masuk akal secara logika, tapi teks diam, jadi NOT GIVEN."
+            },
+            {
+              "statement": "Apartment residents joined the scheme quickly.",
+              "answer": "FALSE",
+              "why": "Teks: “*slower to take part*”, berlawanan langsung dengan *quickly*."
+            },
+            {
+              "statement": "The council paid for repairs to older roofs.",
+              "answer": "NOT GIVEN",
+              "why": "Teks menyebut *kekhawatiran* soal biaya perbaikan, tapi tidak mengatakan siapa yang membayar."
+            }
+          ]
+        }
       ],
       "quiz": {
         "intro": "Baca teks ini, lalu tentukan jawaban tiap pernyataan.",
-        "passage": { "title": "Coffee in Indonesia", "text": "Indonesia is one of the world's largest coffee producers. Most of its coffee is robusta, which grows well at lower altitudes, while arabica is grown mainly in highland areas such as Aceh and North Sumatra.\n\nKopi luwak, a coffee made from beans that have been eaten and passed by civets, is famous among tourists. However, many animal welfare groups have criticised the way the civets are kept." },
+        "passage": {
+          "title": "Coffee in Indonesia",
+          "text": "Indonesia is one of the world's largest coffee producers. Most of its coffee is robusta, which grows well at lower altitudes, while arabica is grown mainly in highland areas such as Aceh and North Sumatra.\n\nKopi luwak, a coffee made from beans that have been eaten and passed by civets, is famous among tourists. However, many animal welfare groups have criticised the way the civets are kept."
+        },
         "questions": [
-          { "q": "Indonesia produces more robusta than arabica.", "options": ["TRUE", "FALSE", "NOT GIVEN"], "answer": 0, "explain": "“*Most* of its coffee is robusta”, jadi robusta lebih banyak. Ini parafrase dengan makna yang sama." },
-          { "q": "Arabica is grown only in Aceh.", "options": ["TRUE", "FALSE", "NOT GIVEN"], "answer": 1, "explain": "Teks menyebut “*such as Aceh and North Sumatra*”. Ada daerah lain, jadi kata *only* dibantah." },
-          { "q": "Kopi luwak is the most expensive coffee in the world.", "options": ["TRUE", "FALSE", "NOT GIVEN"], "answer": 2, "explain": "Teks hanya bilang kopi luwak terkenal di kalangan turis. Harga tidak dibahas sama sekali." },
-          { "q": "Animal welfare groups support the way civets are kept.", "options": ["TRUE", "FALSE", "NOT GIVEN"], "answer": 1, "explain": "Teks: “*criticised* the way the civets are kept”. Mengkritik adalah kebalikan dari mendukung." },
-          { "q": "Robusta was first brought to Indonesia by the Dutch.", "options": ["TRUE", "FALSE", "NOT GIVEN"], "answer": 2, "explain": "Mungkin kamu tahu sejarahnya, tapi teks sama sekali tidak membahas asal-usul robusta. Pengetahuan umum tidak dihitung." }
+          {
+            "q": "Indonesia produces more robusta than arabica.",
+            "options": [
+              "TRUE",
+              "FALSE",
+              "NOT GIVEN"
+            ],
+            "answer": 0,
+            "explain": "“*Most* of its coffee is robusta”, jadi robusta lebih banyak. Ini parafrase dengan makna yang sama."
+          },
+          {
+            "q": "Arabica is grown only in Aceh.",
+            "options": [
+              "TRUE",
+              "FALSE",
+              "NOT GIVEN"
+            ],
+            "answer": 1,
+            "explain": "Teks menyebut “*such as Aceh and North Sumatra*”. Ada daerah lain, jadi kata *only* dibantah."
+          },
+          {
+            "q": "Kopi luwak is the most expensive coffee in the world.",
+            "options": [
+              "TRUE",
+              "FALSE",
+              "NOT GIVEN"
+            ],
+            "answer": 2,
+            "explain": "Teks hanya bilang kopi luwak terkenal di kalangan turis. Harga tidak dibahas sama sekali."
+          },
+          {
+            "q": "Animal welfare groups support the way civets are kept.",
+            "options": [
+              "TRUE",
+              "FALSE",
+              "NOT GIVEN"
+            ],
+            "answer": 1,
+            "explain": "Teks: “*criticised* the way the civets are kept”. Mengkritik adalah kebalikan dari mendukung."
+          },
+          {
+            "q": "Robusta was first brought to Indonesia by the Dutch.",
+            "options": [
+              "TRUE",
+              "FALSE",
+              "NOT GIVEN"
+            ],
+            "answer": 2,
+            "explain": "Mungkin kamu tahu sejarahnya, tapi teks sama sekali tidak membahas asal-usul robusta. Pengetahuan umum tidak dihitung."
+          }
         ]
       },
       "practice": [
-        { "label": "Latihan TFNG: The Rise of Vertical Farming", "href": "reading.html?id=p1-vertical-farming" },
-        { "label": "Tips Reading lainnya", "href": "tips.html" }
+        {
+          "label": "Latihan TFNG: The Rise of Vertical Farming",
+          "href": "reading.html?id=p1-vertical-farming"
+        },
+        {
+          "label": "Tips Reading lainnya",
+          "href": "tips.html"
+        }
+      ]
+    },
+    {
+      "id": "reading-headings",
+      "skill": "reading",
+      "title": "Matching Headings: memilih judul paragraf",
+      "summary": "Cara menangkap ide utama paragraf, menghindari heading pengecoh, dan urutan kerja yang hemat waktu.",
+      "minutes": 6,
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Di soal **Matching Headings**, kamu diberi daftar judul (heading) untuk dipasangkan dengan paragraf. Jumlah heading selalu **lebih banyak** daripada paragrafnya, jadi pasti ada heading pengecoh."
+        },
+        {
+          "type": "note",
+          "title": "Prinsip utama",
+          "text": "Heading merangkum **ide utama seluruh paragraf**, bukan satu detail di dalamnya."
+        },
+        {
+          "type": "h",
+          "text": "Langkah mengerjakan"
+        },
+        {
+          "type": "list",
+          "ordered": true,
+          "items": [
+            "Baca daftar heading dulu dan pahami bedanya. Garis bawahi kata pembeda, misalnya *causes* dan *effects*, atau *past* dan *future*.",
+            "Baca **kalimat pertama** dan **kalimat terakhir** paragraf. Ide utama sering ada di sana.",
+            "Kalau belum jelas, baca cepat bagian tengahnya.",
+            "Pilih heading yang mencakup **keseluruhan** paragraf. Kalau ragu di antara dua heading, pilih yang lebih umum.",
+            "Coret heading yang sudah dipakai, karena biasanya tiap heading hanya dipakai sekali.",
+            "Kerjakan paragraf yang paling mudah dulu, lalu kembali ke yang sulit."
+          ]
+        },
+        {
+          "type": "note",
+          "title": "Hati-hati dengan kata yang sama",
+          "text": "Heading yang memakai kata **persis sama** dengan isi paragraf sering kali justru pengecoh. Heading yang benar biasanya parafrase dari ide utamanya."
+        },
+        {
+          "type": "h",
+          "text": "Contoh dibahas"
+        },
+        {
+          "type": "passage",
+          "title": "Paragraph B",
+          "text": "Many people assume that remote work began with the internet. In fact, cottage industries in eighteenth-century Europe already allowed weavers and spinners to work from home. What the internet changed was the type of work that could be done remotely, not the idea itself."
+        },
+        {
+          "type": "worked",
+          "items": [
+            {
+              "statement": "i. How the internet invented remote work",
+              "answer": "PENGECOH",
+              "why": "Paragraf justru membantah anggapan ini: kerja dari rumah sudah ada jauh sebelum internet."
+            },
+            {
+              "statement": "ii. Weaving in eighteenth-century Europe",
+              "answer": "PENGECOH",
+              "why": "Ini hanya **detail contoh**, bukan ide utama. Kata *eighteenth-century* sama persis dengan teks, dan itu tanda bahaya."
+            },
+            {
+              "statement": "iii. An older history than people think",
+              "answer": "TEPAT",
+              "why": "Merangkum seluruh paragraf: kerja jarak jauh punya sejarah lebih tua dari dugaan orang, dan internet hanya mengubah jenis pekerjaannya."
+            },
+            {
+              "statement": "iv. The future of remote work",
+              "answer": "PENGECOH",
+              "why": "Paragraf membahas masa lalu, bukan masa depan."
+            }
+          ]
+        }
+      ],
+      "quiz": {
+        "intro": "Baca paragraf ini, lalu jawab soal-soalnya.",
+        "passage": {
+          "title": "Paragraph C",
+          "text": "Cities around the world are planting more trees, and the reasons go beyond beauty. Trees lower street temperatures on hot days, absorb rainwater that would otherwise flood drains, and filter some of the pollution from traffic. Several studies have also linked green streets with lower levels of stress among residents."
+        },
+        "questions": [
+          {
+            "q": "Heading mana yang paling tepat untuk Paragraph C?",
+            "options": [
+              "Why trees make cities beautiful",
+              "The practical benefits of urban trees",
+              "How trees absorb rainwater",
+              "The cost of planting trees"
+            ],
+            "answer": 1,
+            "explain": "Paragraf membahas suhu, banjir, polusi, dan stres, yaitu manfaat praktis pohon kota. Keindahan disebut hanya untuk dikesampingkan (*go beyond beauty*), dan biaya tidak dibahas."
+          },
+          {
+            "q": "Kenapa “How trees absorb rainwater” kurang tepat?",
+            "options": [
+              "Karena bertentangan dengan teks",
+              "Karena hanya satu detail, bukan ide utama",
+              "Karena tidak disebut di teks"
+            ],
+            "answer": 1,
+            "explain": "Air hujan memang disebut, tapi hanya satu dari beberapa manfaat. Heading harus mencakup seluruh paragraf."
+          },
+          {
+            "q": "Bagian paragraf mana yang sebaiknya dibaca lebih dulu?",
+            "options": [
+              "Kalimat pertama dan terakhir",
+              "Kata-kata yang dicetak miring",
+              "Bagian tengah saja"
+            ],
+            "answer": 0,
+            "explain": "Ide utama paling sering muncul di kalimat pertama atau kalimat terakhir paragraf."
+          },
+          {
+            "q": "Ada 8 heading untuk 6 paragraf. Artinya…",
+            "options": [
+              "Ada 2 heading yang tidak dipakai",
+              "Dua paragraf memakai 2 heading",
+              "Ada soal yang salah cetak"
+            ],
+            "answer": 0,
+            "explain": "Heading sengaja dibuat lebih banyak. Dua sisanya adalah pengecoh."
+          },
+          {
+            "q": "Sebuah heading memakai kata yang persis sama dengan satu kalimat di paragraf. Sikap terbaik?",
+            "options": [
+              "Langsung pilih karena pasti benar",
+              "Waspada: cek apakah itu ide utama atau hanya detail",
+              "Abaikan heading itu sama sekali"
+            ],
+            "answer": 1,
+            "explain": "Kata yang sama persis sering menjadi jebakan detail. Pastikan heading itu merangkum seluruh paragraf."
+          }
+        ]
+      },
+      "practice": [
+        {
+          "label": "Latihan Reading",
+          "href": "reading.html"
+        }
       ]
     },
     {
@@ -99,56 +670,768 @@
       "summary": "Kenali saat pembicara meralat jawabannya, dan hindari salah ejaan nama, angka, serta tanggal.",
       "minutes": 6,
       "blocks": [
-        { "type": "p", "text": "Banyak jawaban Listening salah bukan karena tidak terdengar, tapi karena **tertipu** atau **salah tulis**. Rekaman sengaja menyebut jawaban yang “hampir benar” lebih dulu (disebut **distractor**), lalu meralatnya." },
-        { "type": "h", "text": "Kenali distractor" },
-        { "type": "p", "text": "Ciri paling umum: pembicara mengganti pilihan, meralat ucapannya, atau menyebut sesuatu yang sudah tidak berlaku. Waspadai kata-kata sinyal ini:" },
-        { "type": "list", "items": [
-          "*actually, sorry, I mean, no wait*: ralat langsung",
-          "*on second thoughts, instead, rather than*: berganti pilihan",
-          "*that was before, not any more, it used to*: info lama yang sudah tidak berlaku"
-        ] },
-        { "type": "listen", "title": "Dengarkan percakapan ini", "lines": [
-          { "who": "Receptionist", "text": "Good evening, Riverside Restaurant. How can I help?" },
-          { "who": "Caller", "text": "Hi, I'd like to book a table for Friday evening, for six people." },
-          { "who": "Receptionist", "text": "Friday... I'm afraid we're fully booked on Friday." },
-          { "who": "Caller", "text": "Oh. Then could we make it Saturday? And actually, there'll be eight of us now." },
-          { "who": "Receptionist", "text": "Saturday for eight, no problem. Can I take your name?" },
-          { "who": "Caller", "text": "Harlow. That's H, A, R, L, O, W." }
-        ] },
-        { "type": "marked", "label": "Formulir yang benar", "parts": [
-          { "tag": "Day" }, { "s": "Friday", "fix": "Saturday" }, { "br": true },
-          { "tag": "People" }, { "s": "6", "fix": "8" }, { "br": true },
-          { "tag": "Name" }, { "good": "Harlow" }
-        ], "notes": [
-          "*Friday* dan *six* disebut lebih dulu, tapi keduanya diralat. Jawaban yang benar adalah yang **terakhir dikonfirmasi**.",
-          "Nama dieja huruf per huruf. Tulis persis seperti ejaannya."
-        ] },
-        { "type": "h", "text": "Ejaan, angka, dan tanggal" },
-        { "type": "list", "items": [
-          "**Alfabet yang sering tertukar** oleh penutur Indonesia: **A** (dibaca “ei”), **E** (“ii”), **I** (“ai”); **G** (“dzhii”) dan **J** (“dzhei”); **Y** (“wai”).",
-          "**“Double”**: *double T* = TT, *double five* = 55.",
-          "**-teen atau -ty**: thir**TEEN** (tekanan di belakang) dan **THIR**ty (tekanan di depan).",
-          "**Nol** dalam nomor telepon sering dibaca “oh”.",
-          "**Tanggal** boleh ditulis *3 March* atau *March 3*, tapi ejaan bulan harus benar.",
-          "**Batas kata**: kalau instruksinya *NO MORE THAN TWO WORDS*, jawaban 3 kata dianggap salah walau isinya benar. Kata *the* juga dihitung."
-        ] },
-        { "type": "listen", "title": "Dengarkan bedanya", "lines": [
-          { "who": "", "text": "Fifteen. Fifty. Thirteen. Thirty." },
-          { "who": "", "text": "The tour costs thirteen pounds, not thirty." }
-        ] },
-        { "type": "note", "title": "Tips", "text": "Tulis jawaban sambil mendengar, tapi **tunggu kalimatnya selesai** sebelum yakin. Kalau ada kata *actually* atau *sorry*, siapkan pensil untuk mengganti jawaban." }
+        {
+          "type": "p",
+          "text": "Banyak jawaban Listening salah bukan karena tidak terdengar, tapi karena **tertipu** atau **salah tulis**. Rekaman sengaja menyebut jawaban yang “hampir benar” lebih dulu (disebut **distractor**), lalu meralatnya."
+        },
+        {
+          "type": "h",
+          "text": "Kenali distractor"
+        },
+        {
+          "type": "p",
+          "text": "Ciri paling umum: pembicara mengganti pilihan, meralat ucapannya, atau menyebut sesuatu yang sudah tidak berlaku. Waspadai kata-kata sinyal ini:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "*actually, sorry, I mean, no wait*: ralat langsung",
+            "*on second thoughts, instead, rather than*: berganti pilihan",
+            "*that was before, not any more, it used to*: info lama yang sudah tidak berlaku"
+          ]
+        },
+        {
+          "type": "listen",
+          "title": "Dengarkan percakapan ini",
+          "lines": [
+            {
+              "who": "Receptionist",
+              "text": "Good evening, Riverside Restaurant. How can I help?"
+            },
+            {
+              "who": "Caller",
+              "text": "Hi, I'd like to book a table for Friday evening, for six people."
+            },
+            {
+              "who": "Receptionist",
+              "text": "Friday... I'm afraid we're fully booked on Friday."
+            },
+            {
+              "who": "Caller",
+              "text": "Oh. Then could we make it Saturday? And actually, there'll be eight of us now."
+            },
+            {
+              "who": "Receptionist",
+              "text": "Saturday for eight, no problem. Can I take your name?"
+            },
+            {
+              "who": "Caller",
+              "text": "Harlow. That's H, A, R, L, O, W."
+            }
+          ]
+        },
+        {
+          "type": "marked",
+          "label": "Formulir yang benar",
+          "parts": [
+            {
+              "tag": "Day"
+            },
+            {
+              "s": "Friday",
+              "fix": "Saturday"
+            },
+            {
+              "br": true
+            },
+            {
+              "tag": "People"
+            },
+            {
+              "s": "6",
+              "fix": "8"
+            },
+            {
+              "br": true
+            },
+            {
+              "tag": "Name"
+            },
+            {
+              "good": "Harlow"
+            }
+          ],
+          "notes": [
+            "*Friday* dan *six* disebut lebih dulu, tapi keduanya diralat. Jawaban yang benar adalah yang **terakhir dikonfirmasi**.",
+            "Nama dieja huruf per huruf. Tulis persis seperti ejaannya."
+          ]
+        },
+        {
+          "type": "h",
+          "text": "Ejaan, angka, dan tanggal"
+        },
+        {
+          "type": "list",
+          "items": [
+            "**Alfabet yang sering tertukar** oleh penutur Indonesia: **A** (dibaca “ei”), **E** (“ii”), **I** (“ai”); **G** (“dzhii”) dan **J** (“dzhei”); **Y** (“wai”).",
+            "**“Double”**: *double T* = TT, *double five* = 55.",
+            "**-teen atau -ty**: thir**TEEN** (tekanan di belakang) dan **THIR**ty (tekanan di depan).",
+            "**Nol** dalam nomor telepon sering dibaca “oh”.",
+            "**Tanggal** boleh ditulis *3 March* atau *March 3*, tapi ejaan bulan harus benar.",
+            "**Batas kata**: kalau instruksinya *NO MORE THAN TWO WORDS*, jawaban 3 kata dianggap salah walau isinya benar. Kata *the* juga dihitung."
+          ]
+        },
+        {
+          "type": "listen",
+          "title": "Dengarkan bedanya",
+          "lines": [
+            {
+              "who": "",
+              "text": "Fifteen. Fifty. Thirteen. Thirty."
+            },
+            {
+              "who": "",
+              "text": "The tour costs thirteen pounds, not thirty."
+            }
+          ]
+        },
+        {
+          "type": "note",
+          "title": "Tips",
+          "text": "Tulis jawaban sambil mendengar, tapi **tunggu kalimatnya selesai** sebelum yakin. Kalau ada kata *actually* atau *sorry*, siapkan pensil untuk mengganti jawaban."
+        }
       ],
       "quiz": {
         "questions": [
-          { "q": "Kamu mendengar: “The museum opens at nine. Well, it used to. Since May, it opens at half past nine.” Jam berapa museum sekarang buka?", "options": ["9.00", "9.30", "10.00", "Tidak disebut"], "answer": 1, "explain": "“*It used to*” menandakan jam 9 adalah info lama. Yang berlaku sekarang: *half past nine* = 9.30." },
-          { "q": "Kamu mendengar: “We were going to take the train, but the tickets were too expensive, so in the end we drove.” Bagaimana mereka bepergian?", "options": ["Naik kereta", "Naik mobil", "Naik bus"], "answer": 1, "explain": "*Train* adalah distractor. “*In the end we drove*” berarti mereka naik mobil." },
-          { "q": "Instruksi: NO MORE THAN TWO WORDS. Kamu mendengar “…at the city library.” Apa yang kamu tulis?", "options": ["at the city library", "the city library", "city library"], "answer": 2, "explain": "Hanya *city library* yang 2 kata. *The city library* sudah 3 kata karena *the* ikut dihitung." },
-          { "q": "Kamu mendengar: “My surname is Woods. W, double O, D, S.” Bagaimana menulisnya?", "options": ["Wods", "Woods", "Woodds"], "answer": 1, "explain": "*Double O* = OO, jadi W-O-O-D-S." },
-          { "q": "Kamu mendengar angka dengan tekanan di depan: “FIF-ty”. Angka berapa itu?", "options": ["15", "50"], "answer": 1, "explain": "Tekanan di depan (*FIFty*) berarti 50. Kalau 15, tekanannya di belakang (*fifTEEN*)." }
+          {
+            "q": "Kamu mendengar: “The museum opens at nine. Well, it used to. Since May, it opens at half past nine.” Jam berapa museum sekarang buka?",
+            "options": [
+              "9.00",
+              "9.30",
+              "10.00",
+              "Tidak disebut"
+            ],
+            "answer": 1,
+            "explain": "“*It used to*” menandakan jam 9 adalah info lama. Yang berlaku sekarang: *half past nine* = 9.30."
+          },
+          {
+            "q": "Kamu mendengar: “We were going to take the train, but the tickets were too expensive, so in the end we drove.” Bagaimana mereka bepergian?",
+            "options": [
+              "Naik kereta",
+              "Naik mobil",
+              "Naik bus"
+            ],
+            "answer": 1,
+            "explain": "*Train* adalah distractor. “*In the end we drove*” berarti mereka naik mobil."
+          },
+          {
+            "q": "Instruksi: NO MORE THAN TWO WORDS. Kamu mendengar “…at the city library.” Apa yang kamu tulis?",
+            "options": [
+              "at the city library",
+              "the city library",
+              "city library"
+            ],
+            "answer": 2,
+            "explain": "Hanya *city library* yang 2 kata. *The city library* sudah 3 kata karena *the* ikut dihitung."
+          },
+          {
+            "q": "Kamu mendengar: “My surname is Woods. W, double O, D, S.” Bagaimana menulisnya?",
+            "options": [
+              "Wods",
+              "Woods",
+              "Woodds"
+            ],
+            "answer": 1,
+            "explain": "*Double O* = OO, jadi W-O-O-D-S."
+          },
+          {
+            "q": "Kamu mendengar angka dengan tekanan di depan: “FIF-ty”. Angka berapa itu?",
+            "options": [
+              "15",
+              "50"
+            ],
+            "answer": 1,
+            "explain": "Tekanan di depan (*FIFty*) berarti 50. Kalau 15, tekanannya di belakang (*fifTEEN*)."
+          }
         ]
       },
       "practice": [
-        { "label": "Latihan Listening Test 1", "href": "listening.html?id=lt1" }
+        {
+          "label": "Latihan Listening Test 1",
+          "href": "listening.html?id=lt1"
+        }
+      ]
+    },
+    {
+      "id": "listening-peta",
+      "skill": "listening",
+      "title": "Soal peta dan denah",
+      "summary": "Kosakata arah dan posisi, cara membaca denah sebelum rekaman diputar, dan latihan menentukan lokasi.",
+      "minutes": 6,
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Soal peta atau denah (*map labelling*) biasanya muncul di **Part 2**. Pembicara menjelaskan sebuah tempat, misalnya museum, taman, atau kampus, dan kamu mencocokkan huruf di denah dengan nama tempatnya."
+        },
+        {
+          "type": "h",
+          "text": "Sebelum rekaman diputar"
+        },
+        {
+          "type": "list",
+          "ordered": true,
+          "items": [
+            "Temukan **titik awal**, misalnya *entrance* atau *You are here*. Penjelasan hampir selalu dimulai dari sana.",
+            "Perhatikan **arah mata angin** kalau ada (N/S/E/W), serta bangunan atau jalan yang sudah diberi nama.",
+            "Baca daftar tempat yang harus dicari, lalu tebak kira-kira letaknya.",
+            "Ingat: urutan soal mengikuti urutan penjelasan."
+          ]
+        },
+        {
+          "type": "h",
+          "text": "Kosakata posisi yang wajib dikenal"
+        },
+        {
+          "type": "table",
+          "head": [
+            "Ungkapan",
+            "Arti"
+          ],
+          "rows": [
+            [
+              "*opposite*",
+              "berseberangan, berhadapan"
+            ],
+            [
+              "*next to / beside*",
+              "di sebelah"
+            ],
+            [
+              "*between A and B*",
+              "di antara A dan B"
+            ],
+            [
+              "*in the corner*",
+              "di sudut"
+            ],
+            [
+              "*at the end of the corridor*",
+              "di ujung lorong"
+            ],
+            [
+              "*on your left / on your right*",
+              "di sebelah kiri / kananmu, sesuai arah kamu berjalan"
+            ],
+            [
+              "*just past*",
+              "sedikit melewati"
+            ],
+            [
+              "*in the north-east corner*",
+              "di sudut timur laut"
+            ],
+            [
+              "*go straight on / turn left*",
+              "jalan lurus / belok kiri"
+            ]
+          ]
+        },
+        {
+          "type": "note",
+          "title": "Hati-hati dengan kiri dan kanan",
+          "text": "*On your left* bergantung pada **arah kamu menghadap**, bukan posisi di kertas. Bayangkan dirimu berjalan di denah mengikuti arahan pembicara, dan putar kertas di kepalamu kalau perlu."
+        },
+        {
+          "type": "listen",
+          "title": "Dengarkan contoh arahan",
+          "lines": [
+            {
+              "who": "Guide",
+              "text": "As you come in through the main entrance, the ticket office is directly on your right. Go straight on past the gift shop, and you'll reach the café at the end of the corridor."
+            }
+          ]
+        }
+      ],
+      "quiz": {
+        "intro": "Kamu berdiri di pintu masuk (bawah, tengah), **menghadap utara**. Dengarkan penjelasan pemandu, lalu tentukan huruf tiap tempat.",
+        "blocks": [
+          {
+            "type": "plan",
+            "title": "Denah museum",
+            "cells": [
+              [
+                "A",
+                "B",
+                "C"
+              ],
+              [
+                "D",
+                "Corridor",
+                "E"
+              ],
+              [
+                "F",
+                "Entrance ↑",
+                "G"
+              ]
+            ]
+          },
+          {
+            "type": "listen",
+            "title": "Penjelasan pemandu",
+            "hideText": true,
+            "lines": [
+              {
+                "who": "Guide",
+                "text": "Welcome to the museum. You're standing at the main entrance, facing north. The ticket office is the room immediately on your right, and the cloakroom is opposite it, on your left. Walk straight up the corridor. The gift shop is the next room on your left, and the café is at the far end of the corridor, straight ahead. Finally, the children's gallery is in the north-east corner."
+              }
+            ]
+          }
+        ],
+        "questions": [
+          {
+            "q": "Ticket office",
+            "options": [
+              "E",
+              "F",
+              "G"
+            ],
+            "answer": 2,
+            "explain": "Menghadap utara, kanan = timur. Ruang tepat di kanan pintu masuk adalah G."
+          },
+          {
+            "q": "Cloakroom",
+            "options": [
+              "D",
+              "E",
+              "F"
+            ],
+            "answer": 2,
+            "explain": "*Opposite it, on your left*: berseberangan dengan ticket office, di sisi kiri pintu masuk, yaitu F."
+          },
+          {
+            "q": "Gift shop",
+            "options": [
+              "D",
+              "E",
+              "F"
+            ],
+            "answer": 0,
+            "explain": "Berjalan ke utara di lorong, ruang berikutnya di kiri adalah D."
+          },
+          {
+            "q": "Café",
+            "options": [
+              "A",
+              "B",
+              "C"
+            ],
+            "answer": 1,
+            "explain": "*At the far end of the corridor, straight ahead*: ujung lorong di tengah atas, yaitu B."
+          },
+          {
+            "q": "Children's gallery",
+            "options": [
+              "C",
+              "D",
+              "E"
+            ],
+            "answer": 0,
+            "explain": "*North-east corner* = sudut kanan atas (utara + timur), yaitu C. A dan E tidak dipakai, sama seperti pengecoh di tes asli."
+          }
+        ]
+      },
+      "practice": [
+        {
+          "label": "Latihan Listening",
+          "href": "listening.html"
+        }
+      ]
+    },
+    {
+      "id": "writing-kriteria",
+      "skill": "writing",
+      "title": "4 kriteria penilaian Writing",
+      "summary": "Apa yang sebenarnya dinilai examiner, dan gambaran beda tulisan band 6 dengan band 7.",
+      "minutes": 6,
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Examiner menilai tulisanmu dengan **4 kriteria** yang bobotnya sama, masing-masing 25%. Memahami keempatnya membantumu tahu persis apa yang harus diperbaiki, bukan sekadar “menulis lebih bagus”."
+        },
+        {
+          "type": "table",
+          "head": [
+            "Kriteria",
+            "Yang dinilai",
+            "Tanyakan pada dirimu"
+          ],
+          "rows": [
+            [
+              "**Task Response** (Task 2) / **Task Achievement** (Task 1)",
+              "Seberapa lengkap dan tepat kamu menjawab soal, posisimu jelas, dan ide dikembangkan dengan contoh.",
+              "Apakah aku menjawab *semua* bagian soal?"
+            ],
+            [
+              "**Coherence & Cohesion**",
+              "Alur ide, pembagian paragraf, serta kata penghubung dan kata rujukan (*this, these, it*).",
+              "Apakah tiap paragraf punya satu ide utama yang jelas?"
+            ],
+            [
+              "**Lexical Resource**",
+              "Ragam dan ketepatan kosakata, kolokasi, dan ejaan.",
+              "Apakah kata yang kupakai tepat, bukan sekadar sulit?"
+            ],
+            [
+              "**Grammatical Range & Accuracy**",
+              "Ragam struktur kalimat dan seberapa sedikit kesalahannya.",
+              "Apakah aku memakai kalimat kompleks, dan apakah sebagian besar bebas kesalahan?"
+            ]
+          ]
+        },
+        {
+          "type": "h",
+          "text": "Gambaran beda band 6 dan band 7"
+        },
+        {
+          "type": "table",
+          "head": [
+            "Kriteria",
+            "Band 6",
+            "Band 7"
+          ],
+          "rows": [
+            [
+              "Task Response",
+              "Posisi ada tapi kadang kurang jelas; beberapa ide kurang dikembangkan.",
+              "Posisi jelas dari awal sampai akhir; ide utama dikembangkan dan didukung."
+            ],
+            [
+              "Coherence",
+              "Paragraf tertata, tapi kata penghubung kadang dipaksakan atau berulang.",
+              "Alur logis; kata penghubung bervariasi dan tepat."
+            ],
+            [
+              "Lexical",
+              "Kosakata cukup; ada beberapa kesalahan pilihan kata atau ejaan.",
+              "Ada kosakata yang kurang umum dan kolokasi yang tepat; kesalahan jarang."
+            ],
+            [
+              "Grammar",
+              "Campuran kalimat sederhana dan kompleks; ada kesalahan, tapi makna tetap jelas.",
+              "Banyak kalimat kompleks; mayoritas kalimat bebas kesalahan."
+            ]
+          ]
+        },
+        {
+          "type": "note",
+          "title": "Catatan",
+          "text": "Tabel di atas adalah ringkasan bebas untuk memudahkan belajar, bukan teks resmi. Deskriptor resmi bisa dibaca di situs resmi IELTS."
+        },
+        {
+          "type": "h",
+          "text": "Kesalahan yang sering menurunkan nilai"
+        },
+        {
+          "type": "list",
+          "items": [
+            "**Kurang dari batas kata** (150 untuk Task 1, 250 untuk Task 2).",
+            "**Kalimat pembuka hafalan** yang tidak menjawab soal.",
+            "**Kata penghubung berlebihan**: *Firstly, Moreover, Furthermore* di hampir setiap kalimat terasa mekanis.",
+            "**Memaksakan kata sulit** yang tidak cocok dengan konteksnya.",
+            "**Satu paragraf berisi banyak ide**, atau esai tanpa pembagian paragraf yang jelas."
+          ]
+        },
+        {
+          "type": "marked",
+          "label": "Kata penghubung yang dipaksakan",
+          "parts": [
+            {
+              "wave": "Moreover,",
+              "ref": 1
+            },
+            " technology is useful. ",
+            {
+              "wave": "Furthermore,",
+              "ref": 1
+            },
+            " it helps students. ",
+            {
+              "wave": "In addition,",
+              "ref": 1
+            },
+            " online courses are cheap."
+          ],
+          "notes": [
+            "Tiga kalimat pendek berturut-turut diawali kata penghubung “tambahan”. Examiner menilainya mekanis, dan ini menurunkan Coherence & Cohesion."
+          ]
+        },
+        {
+          "type": "marked",
+          "label": "Versi yang lebih padu",
+          "parts": [
+            {
+              "good": "Technology also benefits students directly, since online courses are often far cheaper than classroom lessons."
+            }
+          ],
+          "notes": [
+            "Ide digabung menjadi satu kalimat kompleks dengan *since*. Lebih padu, dan sekaligus menunjukkan ragam grammar."
+          ]
+        }
+      ],
+      "quiz": {
+        "questions": [
+          {
+            "q": "Berapa bobot tiap kriteria penilaian Writing?",
+            "options": [
+              "Sama, masing-masing 25%",
+              "Grammar paling besar",
+              "Task Response 50%"
+            ],
+            "answer": 0,
+            "explain": "Keempat kriteria bobotnya sama."
+          },
+          {
+            "q": "Esai hanya menjawab separuh pertanyaan soal. Kriteria mana yang paling terpengaruh?",
+            "options": [
+              "Task Response",
+              "Lexical Resource",
+              "Grammar"
+            ],
+            "answer": 0,
+            "explain": "Task Response menilai seberapa lengkap kamu menjawab semua bagian soal."
+          },
+          {
+            "q": "*Firstly, Moreover, Furthermore* di hampir setiap kalimat paling berdampak pada…",
+            "options": [
+              "Coherence & Cohesion",
+              "Task Response",
+              "Tidak berdampak apa-apa"
+            ],
+            "answer": 0,
+            "explain": "Kata penghubung yang dipaksakan membuat alur terasa mekanis, dan itu dinilai di Coherence & Cohesion."
+          },
+          {
+            "q": "Strategi kosakata mana yang lebih baik?",
+            "options": [
+              "Memakai kata sesulit mungkin",
+              "Memakai kata yang tepat dan kolokasi yang benar"
+            ],
+            "answer": 1,
+            "explain": "Lexical Resource menilai ketepatan, bukan tingkat kesulitan. Kata sulit yang salah konteks justru mengurangi nilai."
+          },
+          {
+            "q": "Apa yang dibutuhkan untuk band 7 di Grammar?",
+            "options": [
+              "Hanya kalimat sederhana tanpa kesalahan",
+              "Banyak kalimat kompleks, dan mayoritas kalimat bebas kesalahan",
+              "Kalimat sepanjang mungkin"
+            ],
+            "answer": 1,
+            "explain": "Band 7 butuh ragam (kalimat kompleks) sekaligus ketepatan (sebagian besar kalimat bebas kesalahan)."
+          }
+        ]
+      },
+      "practice": [
+        {
+          "label": "Tulis esai Task 2",
+          "href": "writing.html?task=task2&id=t2-tech-education"
+        }
+      ]
+    },
+    {
+      "id": "writing-task1-overview",
+      "skill": "writing",
+      "title": "Writing Task 1: struktur dan overview",
+      "summary": "Kerangka laporan grafik 150 kata, pentingnya overview, dan kosakata tren naik-turun.",
+      "minutes": 7,
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Di Task 1 Academic kamu menjelaskan grafik, tabel, diagram proses, atau peta dalam **minimal 150 kata** dan sekitar **20 menit**. Ini laporan, bukan esai, jadi **tanpa opini**."
+        },
+        {
+          "type": "table",
+          "head": [
+            "Paragraf",
+            "Isi"
+          ],
+          "rows": [
+            [
+              "Pendahuluan",
+              "Parafrase judul grafik: apa yang ditunjukkan, di mana, dan kapan. Cukup 1 kalimat."
+            ],
+            [
+              "Overview",
+              "1–2 kalimat tentang **gambaran besar**: tren utama dan perbandingan paling mencolok. Tanpa angka detail."
+            ],
+            [
+              "Detail 1",
+              "Angka dan perbandingan untuk kelompok data pertama."
+            ],
+            [
+              "Detail 2",
+              "Angka dan perbandingan untuk kelompok data kedua."
+            ]
+          ]
+        },
+        {
+          "type": "note",
+          "title": "Overview itu wajib",
+          "text": "Tanpa overview yang jelas, nilai Task Achievement sulit naik melewati band 5. Overview menjawab satu pertanyaan: **apa hal paling penting dari grafik ini?**"
+        },
+        {
+          "type": "h",
+          "text": "Contoh overview"
+        },
+        {
+          "type": "p",
+          "text": "Grafik: *The line graph shows the percentage of households with internet access in three countries from 2000 to 2020.*"
+        },
+        {
+          "type": "marked",
+          "label": "Overview lemah",
+          "parts": [
+            {
+              "wave": "In 2000, Country A was 40%, Country B was 20% and Country C was 5%.",
+              "ref": 1
+            }
+          ],
+          "notes": [
+            "Ini detail angka, bukan overview. Overview tidak perlu angka sama sekali."
+          ]
+        },
+        {
+          "type": "marked",
+          "label": "Overview yang baik",
+          "parts": [
+            {
+              "good": "Overall, internet access rose sharply in all three countries over the period."
+            },
+            " ",
+            {
+              "good": "Country A had the highest rate throughout, while Country C, despite starting lowest, saw the most dramatic growth."
+            }
+          ],
+          "notes": [
+            "Tren umum (semua naik) ditambah perbandingan paling mencolok (tertinggi dan pertumbuhan tercepat)."
+          ]
+        },
+        {
+          "type": "h",
+          "text": "Kosakata tren"
+        },
+        {
+          "type": "table",
+          "head": [
+            "Arah",
+            "Kata kerja",
+            "Kata benda"
+          ],
+          "rows": [
+            [
+              "Naik",
+              "*rise, increase, grow, climb*",
+              "*a rise, an increase, growth*"
+            ],
+            [
+              "Turun",
+              "*fall, decrease, decline, drop*",
+              "*a fall, a decrease, a decline, a drop*"
+            ],
+            [
+              "Stabil",
+              "*remain stable, stay constant, level off*",
+              "*a period of stability*"
+            ],
+            [
+              "Puncak / terendah",
+              "*peak at, hit a low of*",
+              "*a peak, a low*"
+            ],
+            [
+              "Naik-turun",
+              "*fluctuate*",
+              "*a fluctuation*"
+            ]
+          ]
+        },
+        {
+          "type": "table",
+          "head": [
+            "Seberapa besar",
+            "Contoh"
+          ],
+          "rows": [
+            [
+              "Sangat besar",
+              "*rose dramatically / sharply / significantly*"
+            ],
+            [
+              "Sedang",
+              "*increased steadily / moderately*"
+            ],
+            [
+              "Kecil",
+              "*fell slightly / marginally*"
+            ]
+          ]
+        },
+        {
+          "type": "note",
+          "title": "Preposisi angka",
+          "text": "*rose **to** 60%* (titik akhir) · *rose **by** 20%* (selisih) · *stood **at** 40%* (nilai pada satu waktu) · *from 40% **to** 60%*."
+        }
+      ],
+      "quiz": {
+        "questions": [
+          {
+            "q": "Apa yang **tidak boleh** ada di Task 1 Academic?",
+            "options": [
+              "Opini pribadimu",
+              "Overview",
+              "Angka perbandingan"
+            ],
+            "answer": 0,
+            "explain": "Task 1 adalah laporan objektif. Opini justru mengurangi nilai."
+          },
+          {
+            "q": "Mana overview yang paling baik?",
+            "options": [
+              "In 2010, sales were 300 units.",
+              "Overall, sales of electric cars grew steadily, while petrol car sales declined.",
+              "I think electric cars are better."
+            ],
+            "answer": 1,
+            "explain": "Opsi kedua menyebut tren utama dan perbandingan, tanpa angka detail dan tanpa opini."
+          },
+          {
+            "q": "Harga naik dari $40 menjadi $60. Kalimat mana yang benar?",
+            "options": [
+              "The price rose to $60.",
+              "The price rose by $60.",
+              "The price rose at $60."
+            ],
+            "answer": 0,
+            "explain": "*To* untuk titik akhir. Kalau mau menyebut selisihnya, yang benar *rose by $20*."
+          },
+          {
+            "q": "Kata mana yang tepat untuk penurunan **kecil**?",
+            "options": [
+              "fell sharply",
+              "fell slightly",
+              "fell dramatically"
+            ],
+            "answer": 1,
+            "explain": "*Slightly* = sedikit. *Sharply* dan *dramatically* untuk perubahan besar."
+          },
+          {
+            "q": "Berapa jumlah kata minimal untuk Task 1?",
+            "options": [
+              "100",
+              "250",
+              "150"
+            ],
+            "answer": 2,
+            "explain": "Minimal 150 kata untuk Task 1, dan 250 kata untuk Task 2."
+          }
+        ]
+      },
+      "practice": [
+        {
+          "label": "Tulis laporan Task 1",
+          "href": "writing.html?task=task1&id=t1-electricity"
+        }
       ]
     },
     {
@@ -158,58 +1441,198 @@
       "summary": "Kerangka esai yang aman, cara menjawab tiap jenis soal, dan contoh pendahuluan yang dikoreksi.",
       "minutes": 7,
       "blocks": [
-        { "type": "p", "text": "Task 2 menyumbang **dua pertiga** nilai Writing. Struktur yang jelas langsung membantu dua kriteria penilaian: **Task Response** (menjawab soal) dan **Coherence & Cohesion** (alur dan keterpaduan)." },
-        { "type": "h", "text": "Kerangka 4 paragraf" },
-        { "type": "table", "head": ["Paragraf", "Isi", "Panjang"], "rows": [
-          ["Pendahuluan", "Parafrase soal, lalu nyatakan posisimu (*thesis statement*).", "2 kalimat · ±40–50 kata"],
-          ["Body 1", "Satu ide utama + penjelasan + contoh.", "±90–100 kata"],
-          ["Body 2", "Ide utama kedua (atau sisi lain) + penjelasan + contoh.", "±90–100 kata"],
-          ["Kesimpulan", "Ulangi posisimu dengan kata lain dan ringkas kedua ide. **Tanpa ide baru.**", "±30–40 kata"]
-        ] },
-        { "type": "note", "title": "Bagi waktu 40 menit", "text": "**5 menit** merencanakan ide, **30 menit** menulis, **5 menit** memeriksa grammar dan ejaan. Total sekitar 260–290 kata sudah cukup; lebih panjang tidak otomatis lebih tinggi nilainya." },
-        { "type": "h", "text": "Jawab pertanyaan yang benar-benar ditanyakan" },
-        { "type": "list", "items": [
-          "*To what extent do you agree or disagree?* Nyatakan seberapa setuju kamu, dan konsisten dari awal sampai akhir.",
-          "*Discuss both views and give your opinion.* Body 1 membahas pandangan pertama, Body 2 pandangan kedua. Opinimu ditulis jelas di pendahuluan dan kesimpulan.",
-          "*What are the advantages and disadvantages?* Satu body untuk keuntungan, satu body untuk kerugian.",
-          "*What are the causes, and what solutions can you suggest?* Satu body untuk penyebab, satu body untuk solusi.",
-          "**Dua pertanyaan sekaligus**: jawab keduanya, satu body untuk tiap pertanyaan."
-        ] },
-        { "type": "h", "text": "Contoh pendahuluan yang dikoreksi" },
-        { "type": "marked", "label": "Pendahuluan lemah", "prompt": "Some people believe that university education should be free for everyone. To what extent do you agree or disagree?", "parts": [
-          { "wave": "Nowadays, education is very important for everyone.", "ref": 1 }, " In this essay, I will ", { "s": "discuss about", "fix": "discuss" }, " ", { "wave": "free university", "ref": 2 }, "."
-        ], "notes": [
-          "Kalimat pembuka umum yang bisa dipakai untuk soal apa saja. Examiner tidak memberi nilai untuk kalimat seperti ini.",
-          "Posisimu tidak jelas: setuju atau tidak? Soal *to what extent* wajib dijawab sejak pendahuluan. Perhatikan juga: *discuss* tidak butuh *about*. Ini kesalahan umum karena terbawa kebiasaan “membahas tentang”."
-        ] },
-        { "type": "marked", "label": "Pendahuluan yang lebih baik", "parts": [
-          { "good": "It is often argued that higher education should be available to all students at no cost." }, " ",
-          { "good": "I largely agree with this view, as free tuition widens access to opportunity, although some limits are needed to control public spending." }
-        ], "notes": [
-          "Soal diparafrase dengan kata sendiri: *university education … free* menjadi *higher education … at no cost*.",
-          "Posisinya jelas (*largely agree*) dan sudah memberi gambaran dua ide yang akan dibahas di body."
-        ] },
-        { "type": "h", "text": "Rumus paragraf body: PEEL" },
-        { "type": "marked", "label": "Contoh Body 1", "parts": [
-          { "tag": "Point" }, "The main reason to support free university education is that it allows talented students from low-income families to study. ",
-          { "tag": "Explain" }, "When tuition fees are high, many capable young people choose to work instead, and their potential is wasted. ",
-          { "tag": "Example" }, "In Indonesia, for instance, government scholarships have already helped many students from poorer families to enter leading universities. ",
-          { "tag": "Link" }, "Making higher education free would extend this benefit to everyone, which is why I largely agree with the statement."
-        ], "notes": [
-          "**P**oint: satu kalimat topik berisi satu ide utama. **E**xplain: kenapa atau bagaimana. **E**xample: contoh konkret, boleh dari negaramu sendiri. **L**ink: kaitkan kembali ke posisimu."
-        ] }
+        {
+          "type": "p",
+          "text": "Task 2 menyumbang **dua pertiga** nilai Writing. Struktur yang jelas langsung membantu dua kriteria penilaian: **Task Response** (menjawab soal) dan **Coherence & Cohesion** (alur dan keterpaduan)."
+        },
+        {
+          "type": "h",
+          "text": "Kerangka 4 paragraf"
+        },
+        {
+          "type": "table",
+          "head": [
+            "Paragraf",
+            "Isi",
+            "Panjang"
+          ],
+          "rows": [
+            [
+              "Pendahuluan",
+              "Parafrase soal, lalu nyatakan posisimu (*thesis statement*).",
+              "2 kalimat · ±40–50 kata"
+            ],
+            [
+              "Body 1",
+              "Satu ide utama + penjelasan + contoh.",
+              "±90–100 kata"
+            ],
+            [
+              "Body 2",
+              "Ide utama kedua (atau sisi lain) + penjelasan + contoh.",
+              "±90–100 kata"
+            ],
+            [
+              "Kesimpulan",
+              "Ulangi posisimu dengan kata lain dan ringkas kedua ide. **Tanpa ide baru.**",
+              "±30–40 kata"
+            ]
+          ]
+        },
+        {
+          "type": "note",
+          "title": "Bagi waktu 40 menit",
+          "text": "**5 menit** merencanakan ide, **30 menit** menulis, **5 menit** memeriksa grammar dan ejaan. Total sekitar 260–290 kata sudah cukup; lebih panjang tidak otomatis lebih tinggi nilainya."
+        },
+        {
+          "type": "h",
+          "text": "Jawab pertanyaan yang benar-benar ditanyakan"
+        },
+        {
+          "type": "list",
+          "items": [
+            "*To what extent do you agree or disagree?* Nyatakan seberapa setuju kamu, dan konsisten dari awal sampai akhir.",
+            "*Discuss both views and give your opinion.* Body 1 membahas pandangan pertama, Body 2 pandangan kedua. Opinimu ditulis jelas di pendahuluan dan kesimpulan.",
+            "*What are the advantages and disadvantages?* Satu body untuk keuntungan, satu body untuk kerugian.",
+            "*What are the causes, and what solutions can you suggest?* Satu body untuk penyebab, satu body untuk solusi.",
+            "**Dua pertanyaan sekaligus**: jawab keduanya, satu body untuk tiap pertanyaan."
+          ]
+        },
+        {
+          "type": "h",
+          "text": "Contoh pendahuluan yang dikoreksi"
+        },
+        {
+          "type": "marked",
+          "label": "Pendahuluan lemah",
+          "prompt": "Some people believe that university education should be free for everyone. To what extent do you agree or disagree?",
+          "parts": [
+            {
+              "wave": "Nowadays, education is very important for everyone.",
+              "ref": 1
+            },
+            " In this essay, I will ",
+            {
+              "s": "discuss about",
+              "fix": "discuss"
+            },
+            " ",
+            {
+              "wave": "free university",
+              "ref": 2
+            },
+            "."
+          ],
+          "notes": [
+            "Kalimat pembuka umum yang bisa dipakai untuk soal apa saja. Examiner tidak memberi nilai untuk kalimat seperti ini.",
+            "Posisimu tidak jelas: setuju atau tidak? Soal *to what extent* wajib dijawab sejak pendahuluan. Perhatikan juga: *discuss* tidak butuh *about*. Ini kesalahan umum karena terbawa kebiasaan “membahas tentang”."
+          ]
+        },
+        {
+          "type": "marked",
+          "label": "Pendahuluan yang lebih baik",
+          "parts": [
+            {
+              "good": "It is often argued that higher education should be available to all students at no cost."
+            },
+            " ",
+            {
+              "good": "I largely agree with this view, as free tuition widens access to opportunity, although some limits are needed to control public spending."
+            }
+          ],
+          "notes": [
+            "Soal diparafrase dengan kata sendiri: *university education … free* menjadi *higher education … at no cost*.",
+            "Posisinya jelas (*largely agree*) dan sudah memberi gambaran dua ide yang akan dibahas di body."
+          ]
+        },
+        {
+          "type": "h",
+          "text": "Rumus paragraf body: PEEL"
+        },
+        {
+          "type": "marked",
+          "label": "Contoh Body 1",
+          "parts": [
+            {
+              "tag": "Point"
+            },
+            "The main reason to support free university education is that it allows talented students from low-income families to study. ",
+            {
+              "tag": "Explain"
+            },
+            "When tuition fees are high, many capable young people choose to work instead, and their potential is wasted. ",
+            {
+              "tag": "Example"
+            },
+            "In Indonesia, for instance, government scholarships have already helped many students from poorer families to enter leading universities. ",
+            {
+              "tag": "Link"
+            },
+            "Making higher education free would extend this benefit to everyone, which is why I largely agree with the statement."
+          ],
+          "notes": [
+            "**P**oint: satu kalimat topik berisi satu ide utama. **E**xplain: kenapa atau bagaimana. **E**xample: contoh konkret, boleh dari negaramu sendiri. **L**ink: kaitkan kembali ke posisimu."
+          ]
+        }
       ],
       "quiz": {
         "questions": [
-          { "q": "Di bagian mana posisimu harus dinyatakan pertama kali?", "options": ["Pendahuluan", "Body 1", "Kesimpulan saja"], "answer": 0, "explain": "Posisi (*thesis*) ditulis sejak pendahuluan, lalu dijaga konsisten sampai kesimpulan." },
-          { "q": "Soal: “To what extent do you agree or disagree?” Thesis statement mana yang paling jelas?", "options": ["This essay will discuss this topic.", "There are many advantages and disadvantages.", "I completely disagree, because free tuition would overload public budgets and lower teaching quality."], "answer": 2, "explain": "Hanya opsi ketiga yang menjawab seberapa setuju, sekaligus memberi gambaran dua alasan." },
-          { "q": "Apa isi kesimpulan yang baik?", "options": ["Ide baru yang paling kuat", "Ulangan posisi dan ringkasan ide utama", "Contoh baru yang lebih detail"], "answer": 1, "explain": "Kesimpulan menegaskan ulang posisimu dan merangkum. Ide baru di kesimpulan justru mengurangi nilai Coherence." },
-          { "q": "Kalimat mana yang benar?", "options": ["We will discuss about this problem.", "We will discuss this problem."], "answer": 1, "explain": "*Discuss* langsung diikuti objek, tanpa *about*." },
-          { "q": "Soal: “Discuss both views and give your opinion.” Struktur body mana yang tepat?", "options": ["Kedua body mendukung opinimu", "Body 1 pandangan pertama, Body 2 pandangan kedua", "Tidak perlu memberi opini"], "answer": 1, "explain": "Kedua pandangan harus dibahas, dan opinimu tetap wajib ditulis jelas." }
+          {
+            "q": "Di bagian mana posisimu harus dinyatakan pertama kali?",
+            "options": [
+              "Pendahuluan",
+              "Body 1",
+              "Kesimpulan saja"
+            ],
+            "answer": 0,
+            "explain": "Posisi (*thesis*) ditulis sejak pendahuluan, lalu dijaga konsisten sampai kesimpulan."
+          },
+          {
+            "q": "Soal: “To what extent do you agree or disagree?” Thesis statement mana yang paling jelas?",
+            "options": [
+              "This essay will discuss this topic.",
+              "There are many advantages and disadvantages.",
+              "I completely disagree, because free tuition would overload public budgets and lower teaching quality."
+            ],
+            "answer": 2,
+            "explain": "Hanya opsi ketiga yang menjawab seberapa setuju, sekaligus memberi gambaran dua alasan."
+          },
+          {
+            "q": "Apa isi kesimpulan yang baik?",
+            "options": [
+              "Ide baru yang paling kuat",
+              "Ulangan posisi dan ringkasan ide utama",
+              "Contoh baru yang lebih detail"
+            ],
+            "answer": 1,
+            "explain": "Kesimpulan menegaskan ulang posisimu dan merangkum. Ide baru di kesimpulan justru mengurangi nilai Coherence."
+          },
+          {
+            "q": "Kalimat mana yang benar?",
+            "options": [
+              "We will discuss about this problem.",
+              "We will discuss this problem."
+            ],
+            "answer": 1,
+            "explain": "*Discuss* langsung diikuti objek, tanpa *about*."
+          },
+          {
+            "q": "Soal: “Discuss both views and give your opinion.” Struktur body mana yang tepat?",
+            "options": [
+              "Kedua body mendukung opinimu",
+              "Body 1 pandangan pertama, Body 2 pandangan kedua",
+              "Tidak perlu memberi opini"
+            ],
+            "answer": 1,
+            "explain": "Kedua pandangan harus dibahas, dan opinimu tetap wajib ditulis jelas."
+          }
         ]
       },
       "practice": [
-        { "label": "Tulis esai Task 2", "href": "writing.html?task=task2&id=t2-tech-education" }
+        {
+          "label": "Tulis esai Task 2",
+          "href": "writing.html?task=task2&id=t2-tech-education"
+        }
       ]
     },
     {
@@ -219,55 +1642,579 @@
       "summary": "Rumus jawaban Part 1 dan Part 3, frasa untuk mengulur waktu dengan wajar, dan contoh yang bisa didengar.",
       "minutes": 6,
       "blocks": [
-        { "type": "p", "text": "Kesalahan paling umum: jawaban **terlalu pendek**. “Yes, I do.” tidak memberi examiner bahan untuk menilai kelancaran, kosakata, dan grammar-mu. Tujuannya bukan bicara selama mungkin, tapi memberi jawaban yang **berkembang secara alami**." },
-        { "type": "h", "text": "Part 1: jawab, beri alasan, tambah detail" },
-        { "type": "p", "text": "Pertanyaan Part 1 bersifat pribadi dan ringan. Cukup **2–3 kalimat** per jawaban." },
-        { "type": "marked", "label": "Contoh Part 1", "prompt": "Do you like cooking?", "parts": [
-          { "s": "Yes, I do.", "fix": "" }, { "br": true },
-          { "tag": "Jawab" }, { "good": "Yes, I do, especially at the weekend." }, " ",
-          { "tag": "Alasan" }, { "good": "It helps me relax after a busy week," }, " ",
-          { "tag": "Detail" }, { "good": "and lately I've been trying to cook rendang the way my mother makes it." }
-        ], "notes": [
-          "Jawaban pertama benar, tapi terlalu pendek. Versi kedua menambah alasan dan detail pribadi, dan tetap terdengar natural."
-        ] },
-        { "type": "listen", "title": "Dengarkan jawaban yang lebih panjang", "lines": [
-          { "who": "", "text": "Yes, I do, especially at the weekend. It helps me relax after a busy week, and lately I've been trying to cook rendang the way my mother makes it." }
-        ] },
-        { "type": "h", "text": "Part 3: opini, alasan, contoh, lalu sisi lain" },
-        { "type": "p", "text": "Pertanyaan Part 3 lebih abstrak dan menyangkut masyarakat. Jawaban yang baik sekitar **4–6 kalimat**." },
-        { "type": "marked", "label": "Contoh Part 3", "prompt": "Why do some people prefer eating at restaurants to cooking at home?", "parts": [
-          { "tag": "Opini" }, "I'd say the main reason is convenience. ",
-          { "tag": "Alasan" }, "Many people in big cities work long hours, so they simply don't have the energy to cook when they get home. ",
-          { "tag": "Contoh" }, "In Jakarta, for example, lots of office workers order food through apps almost every day. ",
-          { "tag": "Sisi lain" }, "That said, older people often see home cooking as healthier and cheaper, so it really depends on lifestyle."
-        ], "notes": [
-          "Sisi lain (*that said, on the other hand*) menunjukkan kamu bisa menimbang pendapat. Itu yang dicari di Part 3."
-        ] },
-        { "type": "listen", "title": "Dengarkan jawaban Part 3", "lines": [
-          { "who": "", "text": "I'd say the main reason is convenience. Many people in big cities work long hours, so they simply don't have the energy to cook when they get home. In Jakarta, for example, lots of office workers order food through apps almost every day. That said, older people often see home cooking as healthier and cheaper, so it really depends on lifestyle." }
-        ] },
-        { "type": "h", "text": "Frasa untuk mengulur waktu dengan wajar" },
-        { "type": "table", "head": ["Situasi", "Frasa"], "rows": [
-          ["Butuh waktu berpikir", "*That's an interesting question. Let me think…*"],
-          ["Belum pernah memikirkannya", "*I've never really thought about that, but I suppose…*"],
-          ["Tidak yakin", "*I'm not entirely sure, but I'd guess…*"],
-          ["Memberi contoh", "*For instance… / Take … for example.*"],
-          ["Menyampaikan sisi lain", "*On the other hand… / That said…*"]
-        ] },
-        { "type": "note", "title": "Hindari", "text": "“Eee…” yang panjang, berpindah ke bahasa Indonesia, dan **jawaban hafalan**. Examiner terlatih mengenali jawaban yang dihafal, dan jawaban seperti itu tidak menunjukkan kemampuanmu yang sebenarnya. Latih **pola**-nya, bukan kalimatnya." }
+        {
+          "type": "p",
+          "text": "Kesalahan paling umum: jawaban **terlalu pendek**. “Yes, I do.” tidak memberi examiner bahan untuk menilai kelancaran, kosakata, dan grammar-mu. Tujuannya bukan bicara selama mungkin, tapi memberi jawaban yang **berkembang secara alami**."
+        },
+        {
+          "type": "h",
+          "text": "Part 1: jawab, beri alasan, tambah detail"
+        },
+        {
+          "type": "p",
+          "text": "Pertanyaan Part 1 bersifat pribadi dan ringan. Cukup **2–3 kalimat** per jawaban."
+        },
+        {
+          "type": "marked",
+          "label": "Contoh Part 1",
+          "prompt": "Do you like cooking?",
+          "parts": [
+            {
+              "s": "Yes, I do.",
+              "fix": ""
+            },
+            {
+              "br": true
+            },
+            {
+              "tag": "Jawab"
+            },
+            {
+              "good": "Yes, I do, especially at the weekend."
+            },
+            " ",
+            {
+              "tag": "Alasan"
+            },
+            {
+              "good": "It helps me relax after a busy week,"
+            },
+            " ",
+            {
+              "tag": "Detail"
+            },
+            {
+              "good": "and lately I've been trying to cook rendang the way my mother makes it."
+            }
+          ],
+          "notes": [
+            "Jawaban pertama benar, tapi terlalu pendek. Versi kedua menambah alasan dan detail pribadi, dan tetap terdengar natural."
+          ]
+        },
+        {
+          "type": "listen",
+          "title": "Dengarkan jawaban yang lebih panjang",
+          "lines": [
+            {
+              "who": "",
+              "text": "Yes, I do, especially at the weekend. It helps me relax after a busy week, and lately I've been trying to cook rendang the way my mother makes it."
+            }
+          ]
+        },
+        {
+          "type": "h",
+          "text": "Part 3: opini, alasan, contoh, lalu sisi lain"
+        },
+        {
+          "type": "p",
+          "text": "Pertanyaan Part 3 lebih abstrak dan menyangkut masyarakat. Jawaban yang baik sekitar **4–6 kalimat**."
+        },
+        {
+          "type": "marked",
+          "label": "Contoh Part 3",
+          "prompt": "Why do some people prefer eating at restaurants to cooking at home?",
+          "parts": [
+            {
+              "tag": "Opini"
+            },
+            "I'd say the main reason is convenience. ",
+            {
+              "tag": "Alasan"
+            },
+            "Many people in big cities work long hours, so they simply don't have the energy to cook when they get home. ",
+            {
+              "tag": "Contoh"
+            },
+            "In Jakarta, for example, lots of office workers order food through apps almost every day. ",
+            {
+              "tag": "Sisi lain"
+            },
+            "That said, older people often see home cooking as healthier and cheaper, so it really depends on lifestyle."
+          ],
+          "notes": [
+            "Sisi lain (*that said, on the other hand*) menunjukkan kamu bisa menimbang pendapat. Itu yang dicari di Part 3."
+          ]
+        },
+        {
+          "type": "listen",
+          "title": "Dengarkan jawaban Part 3",
+          "lines": [
+            {
+              "who": "",
+              "text": "I'd say the main reason is convenience. Many people in big cities work long hours, so they simply don't have the energy to cook when they get home. In Jakarta, for example, lots of office workers order food through apps almost every day. That said, older people often see home cooking as healthier and cheaper, so it really depends on lifestyle."
+            }
+          ]
+        },
+        {
+          "type": "h",
+          "text": "Frasa untuk mengulur waktu dengan wajar"
+        },
+        {
+          "type": "table",
+          "head": [
+            "Situasi",
+            "Frasa"
+          ],
+          "rows": [
+            [
+              "Butuh waktu berpikir",
+              "*That's an interesting question. Let me think…*"
+            ],
+            [
+              "Belum pernah memikirkannya",
+              "*I've never really thought about that, but I suppose…*"
+            ],
+            [
+              "Tidak yakin",
+              "*I'm not entirely sure, but I'd guess…*"
+            ],
+            [
+              "Memberi contoh",
+              "*For instance… / Take … for example.*"
+            ],
+            [
+              "Menyampaikan sisi lain",
+              "*On the other hand… / That said…*"
+            ]
+          ]
+        },
+        {
+          "type": "note",
+          "title": "Hindari",
+          "text": "“Eee…” yang panjang, berpindah ke bahasa Indonesia, dan **jawaban hafalan**. Examiner terlatih mengenali jawaban yang dihafal, dan jawaban seperti itu tidak menunjukkan kemampuanmu yang sebenarnya. Latih **pola**-nya, bukan kalimatnya."
+        }
       ],
       "quiz": {
         "questions": [
-          { "q": "“Do you enjoy reading?” Jawaban mana yang terbaik untuk Part 1?", "options": ["Yes.", "Yes, I do. I like it.", "Yes, mostly novels. Reading before bed helps me switch off from my phone, and I've just finished a mystery by a local author."], "answer": 2, "explain": "Jawaban ketiga mengikuti pola Jawab + Alasan + Detail, dan tetap terdengar natural." },
-          { "q": "Berapa panjang ideal jawaban Part 1?", "options": ["Satu kata", "2–3 kalimat", "Sekitar 2 menit"], "answer": 1, "explain": "Part 1 cukup 2–3 kalimat. Bicara panjang (1–2 menit) itu untuk Part 2." },
-          { "q": "Frasa mana yang wajar untuk mengulur waktu?", "options": ["“Eee… eee…”", "“That's an interesting question. Let me think…”", "“Sorry, next question please.”"], "answer": 1, "explain": "Frasa ini memberimu beberapa detik untuk berpikir sambil tetap berbicara dalam bahasa Inggris." },
-          { "q": "Urutan rumus jawaban Part 3 yang dibahas di materi ini?", "options": ["Opini → Alasan → Contoh → Sisi lain", "Contoh → Opini", "Alasan saja"], "answer": 0, "explain": "Opini, alasan, contoh, lalu sisi lain. Pola ini membuat jawabanmu berkembang dan seimbang." },
-          { "q": "Bagaimana sebaiknya menyiapkan jawaban sebelum tes?", "options": ["Menghafal jawaban lengkap untuk banyak topik", "Melatih pola jawaban dan kosakata per topik"], "answer": 1, "explain": "Jawaban hafalan mudah dikenali examiner dan tidak menunjukkan kemampuan aslimu. Latih polanya." }
+          {
+            "q": "“Do you enjoy reading?” Jawaban mana yang terbaik untuk Part 1?",
+            "options": [
+              "Yes.",
+              "Yes, I do. I like it.",
+              "Yes, mostly novels. Reading before bed helps me switch off from my phone, and I've just finished a mystery by a local author."
+            ],
+            "answer": 2,
+            "explain": "Jawaban ketiga mengikuti pola Jawab + Alasan + Detail, dan tetap terdengar natural."
+          },
+          {
+            "q": "Berapa panjang ideal jawaban Part 1?",
+            "options": [
+              "Satu kata",
+              "2–3 kalimat",
+              "Sekitar 2 menit"
+            ],
+            "answer": 1,
+            "explain": "Part 1 cukup 2–3 kalimat. Bicara panjang (1–2 menit) itu untuk Part 2."
+          },
+          {
+            "q": "Frasa mana yang wajar untuk mengulur waktu?",
+            "options": [
+              "“Eee… eee…”",
+              "“That's an interesting question. Let me think…”",
+              "“Sorry, next question please.”"
+            ],
+            "answer": 1,
+            "explain": "Frasa ini memberimu beberapa detik untuk berpikir sambil tetap berbicara dalam bahasa Inggris."
+          },
+          {
+            "q": "Urutan rumus jawaban Part 3 yang dibahas di materi ini?",
+            "options": [
+              "Opini → Alasan → Contoh → Sisi lain",
+              "Contoh → Opini",
+              "Alasan saja"
+            ],
+            "answer": 0,
+            "explain": "Opini, alasan, contoh, lalu sisi lain. Pola ini membuat jawabanmu berkembang dan seimbang."
+          },
+          {
+            "q": "Bagaimana sebaiknya menyiapkan jawaban sebelum tes?",
+            "options": [
+              "Menghafal jawaban lengkap untuk banyak topik",
+              "Melatih pola jawaban dan kosakata per topik"
+            ],
+            "answer": 1,
+            "explain": "Jawaban hafalan mudah dikenali examiner dan tidak menunjukkan kemampuan aslimu. Latih polanya."
+          }
         ]
       },
       "practice": [
-        { "label": "Rekam jawaban Speaking", "href": "speaking.html" },
-        { "label": "Ngobrol dengan AI", "href": "ai-speaking.html" }
+        {
+          "label": "Rekam jawaban Speaking",
+          "href": "speaking.html"
+        },
+        {
+          "label": "Ngobrol dengan AI",
+          "href": "ai-speaking.html"
+        }
+      ]
+    },
+    {
+      "id": "speaking-part2",
+      "skill": "speaking",
+      "title": "Speaking Part 2: memanfaatkan 1 menit persiapan",
+      "summary": "Cara membuat catatan cepat dari cue card, struktur bicara 2 menit, dan yang dilakukan kalau kehabisan ide.",
+      "minutes": 6,
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Di Part 2 kamu menerima **cue card** berisi topik dan 3–4 poin. Kamu punya **1 menit** untuk bersiap dan boleh mencatat, lalu bicara **1–2 menit** tanpa disela. Examiner akan menghentikanmu saat waktunya habis."
+        },
+        {
+          "type": "h",
+          "text": "Catatan 1 menit: kata kunci, bukan kalimat"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Tulis **satu atau dua kata** untuk tiap poin cue card. Kalimat lengkap menghabiskan waktu.",
+            "Tambahkan **satu detail konkret** per poin: nama, tempat, angka, atau perasaan.",
+            "Putuskan cepat. Pilih cerita yang benar-benar kamu ingat, bukan yang terdengar paling hebat.",
+            "Pakai urutan poin di cue card sebagai **urutan bicara**."
+          ]
+        },
+        {
+          "type": "marked",
+          "label": "Contoh catatan 1 menit",
+          "prompt": "Describe a skill you would like to learn. You should say: what the skill is, why you want to learn it, how you would learn it, and explain how it would benefit you.",
+          "parts": [
+            {
+              "tag": "What"
+            },
+            "swimming",
+            {
+              "br": true
+            },
+            {
+              "tag": "Why"
+            },
+            "can't swim · beach trip Lombok · felt left out",
+            {
+              "br": true
+            },
+            {
+              "tag": "How"
+            },
+            "weekend lessons · pool near campus · YouTube",
+            {
+              "br": true
+            },
+            {
+              "tag": "Benefit"
+            },
+            "safety · exercise · confidence"
+          ],
+          "notes": [
+            "Hanya kata kunci, tapi tiap poin sudah punya detail pribadi (Lombok, kolam dekat kampus). Detail seperti inilah yang membuat bicara 2 menit terasa mudah."
+          ]
+        },
+        {
+          "type": "h",
+          "text": "Struktur bicara 2 menit"
+        },
+        {
+          "type": "table",
+          "head": [
+            "Bagian",
+            "Isi",
+            "Kira-kira"
+          ],
+          "rows": [
+            [
+              "Pembuka",
+              "Perkenalkan topikmu dalam 1–2 kalimat.",
+              "10 detik"
+            ],
+            [
+              "Poin-poin awal",
+              "Bahas tiap poin cue card dengan detail dan contoh.",
+              "75 detik"
+            ],
+            [
+              "Poin terakhir (*explain*)",
+              "Alasan dan perasaan. Bagian ini paling banyak menunjukkan kemampuanmu.",
+              "30 detik"
+            ],
+            [
+              "Penutup",
+              "Satu kalimat yang merangkum.",
+              "5 detik"
+            ]
+          ]
+        },
+        {
+          "type": "listen",
+          "title": "Dengarkan contoh pembukaan",
+          "lines": [
+            {
+              "who": "",
+              "text": "I'd like to talk about a skill I've wanted to learn for years, which is swimming. The main reason is a bit embarrassing, actually. Last year my friends and I went to a beach in Lombok, and while everyone else was swimming, I just sat on the sand. As for how I'd learn it, I'm planning to take weekend lessons at a pool near my campus."
+            }
+          ]
+        },
+        {
+          "type": "note",
+          "title": "Kehabisan ide sebelum 2 menit?",
+          "text": "Jangan diam. Tambahkan **perasaan** (*how it made me feel*), **perbandingan** (*compared to…*), atau **rencana ke depan** (*in the future, I hope…*). Teruslah bicara sampai examiner memintamu berhenti."
+        }
+      ],
+      "quiz": {
+        "questions": [
+          {
+            "q": "Berapa lama waktu persiapan Part 2?",
+            "options": [
+              "30 detik",
+              "1 menit",
+              "2 menit"
+            ],
+            "answer": 1,
+            "explain": "Kamu mendapat 1 menit untuk bersiap dan boleh membuat catatan."
+          },
+          {
+            "q": "Catatan persiapan yang paling efektif berisi…",
+            "options": [
+              "Kalimat lengkap untuk dibacakan",
+              "Kata kunci dan satu detail per poin",
+              "Tidak perlu mencatat apa pun"
+            ],
+            "answer": 1,
+            "explain": "Kata kunci cepat ditulis dan cukup untuk mengingatkanmu urutan cerita."
+          },
+          {
+            "q": "Ceritamu sudah habis padahal baru 1 menit. Sebaiknya…",
+            "options": [
+              "Berhenti dan menunggu examiner",
+              "Menambah perasaan, perbandingan, atau rencana ke depan",
+              "Mengulang cerita dari awal"
+            ],
+            "answer": 1,
+            "explain": "Kembangkan ceritamu dengan perasaan, perbandingan, atau rencana. Diam terlalu lama merugikan nilai Fluency."
+          },
+          {
+            "q": "Bagian cue card mana yang paling banyak menunjukkan kemampuanmu?",
+            "options": [
+              "Poin terakhir: explain why/how",
+              "Kalimat pembuka",
+              "Judul topik"
+            ],
+            "answer": 0,
+            "explain": "Menjelaskan alasan dan perasaan menuntut kosakata dan grammar yang lebih beragam."
+          },
+          {
+            "q": "Berapa lama idealnya kamu bicara di Part 2?",
+            "options": [
+              "Sekitar 30 detik",
+              "Sampai examiner menghentikanmu, sekitar 2 menit",
+              "5 menit"
+            ],
+            "answer": 1,
+            "explain": "Targetkan bicara sampai sekitar 2 menit. Examiner yang akan menghentikanmu."
+          }
+        ]
+      },
+      "practice": [
+        {
+          "label": "Latihan Part 2: Describe a skill",
+          "href": "speaking.html?part=part2&id=p2-skill"
+        },
+        {
+          "label": "Simulasi dengan examiner AI",
+          "href": "ai-speaking.html"
+        }
+      ]
+    },
+    {
+      "id": "grammar-kesalahan-umum",
+      "skill": "grammar",
+      "title": "8 kesalahan grammar khas penutur Indonesia",
+      "summary": "Kesalahan yang sering muncul karena terbawa bahasa Indonesia, dari tenses sampai artikel, beserta cara memperbaikinya.",
+      "minutes": 7,
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Banyak kesalahan grammar pelajar Indonesia berasal dari **struktur bahasa Indonesia**: tidak ada perubahan bentuk kata kerja berdasarkan waktu, tidak ada penanda jamak yang wajib, dan tidak ada artikel *a/an/the*. Kesalahan ini menurunkan nilai Grammar di Writing dan Speaking, padahal mudah diperbaiki setelah kamu menyadarinya."
+        },
+        {
+          "type": "marked",
+          "label": "8 kesalahan dan perbaikannya",
+          "parts": [
+            {
+              "tag": "1"
+            },
+            "Yesterday I ",
+            {
+              "s": "go",
+              "fix": "went"
+            },
+            " to the library.",
+            {
+              "br": true
+            },
+            {
+              "tag": "2"
+            },
+            "She ",
+            {
+              "s": "have",
+              "fix": "has"
+            },
+            " two brothers.",
+            {
+              "br": true
+            },
+            {
+              "tag": "3"
+            },
+            "There are many ",
+            {
+              "s": "student",
+              "fix": "students"
+            },
+            " in my class.",
+            {
+              "br": true
+            },
+            {
+              "tag": "4"
+            },
+            "I ",
+            {
+              "s": "very like",
+              "fix": "really like"
+            },
+            " this city.",
+            {
+              "br": true
+            },
+            {
+              "tag": "5"
+            },
+            "My brother ",
+            {
+              "s": "is work",
+              "fix": "works"
+            },
+            " in a bank.",
+            {
+              "br": true
+            },
+            {
+              "tag": "6"
+            },
+            "We need more ",
+            {
+              "s": "informations",
+              "fix": "information"
+            },
+            ".",
+            {
+              "br": true
+            },
+            {
+              "tag": "7"
+            },
+            "This essay will ",
+            {
+              "s": "discuss about",
+              "fix": "discuss"
+            },
+            " pollution.",
+            {
+              "br": true
+            },
+            {
+              "tag": "8"
+            },
+            "I want to be ",
+            {
+              "s": "teacher",
+              "fix": "a teacher"
+            },
+            "."
+          ],
+          "notes": [
+            "**Tenses**: kejadian lampau memakai bentuk lampau (*go → went*). Kata *yesterday* saja tidak cukup.",
+            "**Orang ketiga tunggal** (*he, she, it*) di present tense: *has, goes, works*.",
+            "**Jamak**: setelah *many, two, several*, kata benda yang bisa dihitung ditambah *-s*.",
+            "*Very* tidak dipakai langsung sebelum kata kerja. Pakai *really like* atau *like … very much*.",
+            "**To be + kata kerja dasar** tidak ada dalam bahasa Inggris. Pilih *works* atau *is working*.",
+            "**Uncountable noun** tidak diberi *-s*: *information, advice, equipment, research*.",
+            "Beberapa kata kerja langsung diikuti objek: *discuss, mention, emphasise* (bukan *discuss about*).",
+            "**Artikel** *a/an* wajib untuk satu orang atau benda yang bisa dihitung, termasuk profesi."
+          ]
+        },
+        {
+          "type": "note",
+          "title": "Cara memakai materi ini",
+          "text": "Setelah menulis esai atau merekam jawaban Speaking, periksa ulang **khusus** 8 kesalahan ini satu per satu. Kebiasaan ini biasanya lebih cepat menaikkan nilai Grammar daripada menghafal struktur yang rumit."
+        },
+        {
+          "type": "h",
+          "text": "Uncountable noun yang sering muncul di IELTS"
+        },
+        {
+          "type": "p",
+          "text": "*information, advice, research, evidence, equipment, knowledge, traffic, pollution, homework, furniture, accommodation, transport*. Untuk menyatakan jumlah, pakai ungkapan seperti *a piece of advice*, *much information*, atau *a lot of research*."
+        }
+      ],
+      "quiz": {
+        "questions": [
+          {
+            "q": "Kalimat mana yang benar?",
+            "options": [
+              "He go to campus by bus.",
+              "He goes to campus by bus.",
+              "He is go to campus by bus."
+            ],
+            "answer": 1,
+            "explain": "Subjek *he* di present tense: kata kerja ditambah *-s* (*goes*), tanpa *is*."
+          },
+          {
+            "q": "Pilih yang benar:",
+            "options": [
+              "She gave me some useful advice.",
+              "She gave me some useful advices."
+            ],
+            "answer": 0,
+            "explain": "*Advice* adalah uncountable noun, jadi tidak bisa diberi *-s*."
+          },
+          {
+            "q": "Kalimat mana yang benar?",
+            "options": [
+              "Last year, my family moved to Surabaya.",
+              "Last year, my family move to Surabaya."
+            ],
+            "answer": 0,
+            "explain": "*Last year* = lampau, jadi kata kerjanya *moved*."
+          },
+          {
+            "q": "Pilih yang benar:",
+            "options": [
+              "My father is an engineer.",
+              "My father is engineer."
+            ],
+            "answer": 0,
+            "explain": "Profesi tunggal butuh artikel: *an engineer*."
+          },
+          {
+            "q": "Pilih yang benar:",
+            "options": [
+              "The report mentions about the risks.",
+              "The report mentions the risks."
+            ],
+            "answer": 1,
+            "explain": "*Mention* langsung diikuti objek, tanpa *about*."
+          }
+        ]
+      },
+      "practice": [
+        {
+          "label": "Latihan Writing",
+          "href": "writing.html"
+        },
+        {
+          "label": "Latihan Speaking",
+          "href": "speaking.html"
+        }
       ]
     }
   ]

@@ -27,15 +27,14 @@
     } catch (e) { /* biarkan sapaan default */ }
   })();
 
-  // Kartu "Materi belajar": progres per perangkat (lihat materi.js) + materi berikutnya.
+  // Kartu "Materi belajar": progres (lesson-progress.js) + materi berikutnya.
   (async function renderLessons() {
     const text = document.getElementById('home-lessons-text');
     const btn = document.getElementById('home-lessons-btn');
-    if (!text || !btn) return;
+    if (!text || !btn || !window.LessonProgress) return;
     try {
       const { lessons } = await (await fetch('data/lessons.json')).json();
-      let progress = {};
-      try { progress = JSON.parse(localStorage.getItem('ielts-lessons-progress') || '{}') || {}; } catch (_) { /* kosong */ }
+      const progress = await LessonProgress.load();
       const done = lessons.filter((l) => progress[l.id]).length;
       const next = lessons.find((l) => !progress[l.id]);
       if (!done) return; // belum mulai: biarkan teks ajakan default

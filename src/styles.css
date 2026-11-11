@@ -486,6 +486,16 @@ main {
 .plan-week:hover { border-color: var(--primary); }
 .plan-week .week-title { font-weight: 700; color: var(--accent); }
 .plan-week .week-focus { font-size: 13px; color: var(--text-muted); margin-top: 4px; }
+.week-lessons { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 8px; margin-top: 10px; font-size: 13px; }
+.week-lessons:empty { display: none; }
+.week-lessons span { color: var(--text-muted); }
+.week-lessons a {
+  padding: 3px 10px; border: 1px solid var(--border); border-radius: 999px;
+  background: var(--surface); color: var(--text); text-decoration: none;
+}
+.week-lessons a:hover { border-color: var(--accent); }
+.week-lessons a.done { border-color: var(--success); }
+.week-lessons a.done::before { content: "✓ "; color: var(--success); font-weight: 700; }
 
 /* ---- Writing module ------------------------------------------------------ */
 .writing-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
@@ -765,7 +775,24 @@ main {
 .ls-note { margin: 16px 0; padding: 12px 16px; background: var(--accent-soft); border-left: 3px solid var(--accent); border-radius: 0 var(--radius-sm) var(--radius-sm) 0; }
 .ls-note-title { font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); }
 .ls-note p { margin: 4px 0 0; }
-.ls-compare { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; margin: 14px 0; }
+.ls-compare { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 10px; margin: 14px 0; }
+.ls-group { font-size: 12px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); margin: 12px 0 -2px; }
+.ls-group:first-child { margin-top: 0; }
+.ls-plan { margin: 14px 0; max-width: 420px; }
+.ls-plan figcaption { display: flex; justify-content: space-between; font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); }
+.ls-plan-north { color: var(--accent); letter-spacing: 0; }
+.ls-plan-grid { display: grid; gap: 6px; margin-top: 8px; }
+.ls-plan-cell {
+  min-height: 64px; display: grid; place-items: center; padding: 6px; text-align: center;
+  font-size: 13px; color: var(--text-muted); background: var(--surface-2); border-radius: 4px;
+}
+.ls-plan-cell.spot { background: var(--surface); border: 1.5px solid var(--border); }
+.ls-plan-cell.spot span {
+  width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center;
+  border: 1.5px solid var(--accent); color: var(--accent); font-family: var(--serif); font-style: italic; font-size: 18px;
+}
+.ls-transcript { margin-top: 8px; }
+.ls-transcript summary { cursor: pointer; font-size: 14px; color: var(--text-muted); }
 .ls-compare-item { padding: 12px 14px; background: var(--surface); border: 1px solid var(--border); border-top: 3px solid var(--tone); border-radius: var(--radius-sm); }
 .ls-compare-title { font-weight: 800; letter-spacing: 0.04em; color: var(--tone); }
 .ls-compare-item p { margin: 4px 0 0; font-size: 14.5px; line-height: 1.55; }
@@ -839,7 +866,6 @@ main {
 .home-lessons { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
 .home-lessons p { margin: 4px 0 0; }
 @media (max-width: 600px) {
-  .ls-compare { grid-template-columns: 1fr; }
   .ls-item { align-items: flex-start; padding: 14px; gap: 12px; }
   .ls-num { width: 34px; height: 34px; font-size: 17px; }
   .ls-item-status { display: none; }

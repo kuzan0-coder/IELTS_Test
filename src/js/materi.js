@@ -6,13 +6,12 @@
                              contoh audio (suara browser), kuis mini, latihan
 
    Isi materi ada di data/lessons.json (lihat "_howto" di sana untuk tipe
-   block). Progres kuis disimpan di perangkat (localStorage).
+   block). Progres kuis lewat lesson-progress.js (perangkat + akun).
    ========================================================================= */
 (function () {
   const main = document.getElementById('main-content');
-  const PROGRESS_KEY = 'ielts-lessons-progress';
-  const SKILL_LABEL = { dasar: 'Dasar', reading: 'Reading', listening: 'Listening', writing: 'Writing', speaking: 'Speaking' };
-  const ANSWER_TONE = { TRUE: 'teal', FALSE: 'pen', 'NOT GIVEN': 'navy' };
+  const SKILL_LABEL = { dasar: 'Dasar', reading: 'Reading', listening: 'Listening', writing: 'Writing', speaking: 'Speaking', grammar: 'Grammar' };
+  const ANSWER_TONE = { TRUE: 'teal', FALSE: 'pen', 'NOT GIVEN': 'navy', TEPAT: 'teal', PENGECOH: 'pen' };
   const canSpeak = 'speechSynthesis' in window && 'SpeechSynthesisUtterance' in window;
   let lessons = [];
 
@@ -31,24 +30,12 @@
     else renderList();
   }
 
-  // --- Progres (per perangkat) ---------------------------------------------------
-
-  function readProgress() {
-    try { return JSON.parse(localStorage.getItem(PROGRESS_KEY) || '{}') || {}; } catch (_) { return {}; }
-  }
-
-  function saveProgress(id, score, total) {
-    const all = readProgress();
-    const prev = all[id];
-    all[id] = { score: Math.max(score, prev ? prev.score : 0), total, date: new Date().toISOString() };
-    try { localStorage.setItem(PROGRESS_KEY, JSON.stringify(all)); } catch (_) { /* penyimpanan diblokir */ }
-  }
-
   // --- Daftar materi ---------------------------------------------------------------
 
-  function renderList() {
-    const progress = readProgress();
+  async function renderList() {
+    const progress = await LessonProgress.load();
     const done = lessons.filter((l) => progress[l.id]).length;
+    let lastSkill = null;
     main.innerHTML = `
       <div class="page-header">
         <h2>Materi Belajar</h2>
@@ -64,7 +51,10 @@
         <ol class="ls-list">
           ${lessons.map((l, i) => {
             const p = progress[l.id];
-            return `<li>
+            // Judul grup tiap kali skill berganti, supaya daftar panjang mudah dipindai.
+            const group = l.skill !== lastSkill ? `<li class="ls-group" aria-hidden="true">${SKILL_LABEL[l.skill] || l.skill}</li>` : '';
+            lastSkill = l.skill;
+            return `${group}<li>
               <a class="ls-item${p ? ' done' : ''}" href="materi.html?id=${encodeURIComponent(l.id)}">
                 <span class="ls-num">${i + 1}</span>
                 <span class="ls-item-body">
@@ -77,7 +67,7 @@
             </li>`;
           }).join('')}
         </ol>
-        <p class="small-note">Progres tersimpan di perangkat ini. Materi baru akan terus ditambahkan.</p>
+        <p class="small-note">Progres tersimpan di perangkat ini, dan ikut akunmu kalau kamu login. Materi baru akan terus ditambahkan.</p>
       </div>`;
   }
 
@@ -102,6 +92,7 @@
             <h3 id="ls-quiz-title">Kuis mini</h3>
             ${l.quiz.intro ? `<p>${inline(l.quiz.intro)}</p>` : ''}
             ${l.quiz.passage ? passageHtml(l.quiz.passage) : ''}
+            ${(l.quiz.blocks || []).map(renderBlock).join('')}
             ${l.quiz.questions.map(questionHtml).join('')}
             <div class="ls-quiz-actions">
               <button class="btn" id="ls-check">Periksa jawaban</button>
@@ -157,8 +148,21 @@
           </li>`).join('')}</ol>`;
       case 'marked': return markedHtml(b);
       case 'listen': return listenHtml(b);
+      case 'plan': return planHtml(b);
       default: return '';
     }
+  }
+
+  /** Denah sederhana: sel berisi satu huruf = lokasi yang ditanyakan. */
+  function planHtml(b) {
+    const cols = Math.max(...b.cells.map((r) => r.length));
+    const cells = b.cells.flat().map((c) => (/^[A-Z]$/.test(c)
+      ? `<div class="ls-plan-cell spot"><span>${c}</span></div>`
+      : `<div class="ls-plan-cell">${esc(c)}</div>`)).join('');
+    return `<figure class="ls-plan">
+      <figcaption>${esc(b.title || 'Denah')} <span class="ls-plan-north" aria-label="Utara di atas">N ↑</span></figcaption>
+      <div class="ls-plan-grid" style="grid-template-columns:repeat(${cols},1fr)">${cells}</div>
+    </figure>`;
   }
 
   function passageHtml(p) {
@@ -176,7 +180,9 @@
       if ('s' in part) {
         return `<del class="ls-strike">${esc(part.s)}</del>${part.fix ? ` <ins class="ls-fix">${esc(part.fix)}</ins>` : ''}`;
       }
-      if ('good' in part) return `<span class="ls-good">${esc(part.good)}</span><span class="ls-tick" aria-hidden="true">✓</span>`;
+      if ('good' in part) {
+        return `<span class="ls-good">${esc(part.good)}</span><span class="ls-tick" aria-hidden="true">✓</span>${part.ref ? `<sup class="ls-ref">${part.ref}</sup>` : ''}`;
+      }
       if ('wave' in part) return `<span class="ls-wave">${esc(part.wave)}</span>${part.ref ? `<sup class="ls-ref">${part.ref}</sup>` : ''}`;
       if ('tag' in part) return `<span class="ls-tag">${esc(part.tag)}</span>${part.text ? esc(part.text) : ''}`;
       return '';
@@ -194,12 +200,16 @@
   function listenHtml(b) {
     const lines = b.lines.map((ln) => `<p>${ln.who ? `<span class="ls-who">${esc(ln.who)}</span>` : ''}${esc(ln.text)}</p>`).join('');
     const payload = esc(JSON.stringify(b.lines.map((ln) => ln.text)));
+    // hideText: untuk latihan mendengar, teks disembunyikan (kecuali browser tak bisa bersuara).
+    const body = b.hideText && canSpeak
+      ? `<details class="ls-transcript"><summary>Lihat teks</summary><div class="ls-lines">${lines}</div></details>`
+      : `<div class="ls-lines">${lines}</div>`;
     return `<figure class="ls-listen">
       <div class="ls-listen-head">
         <figcaption>${esc(b.title || 'Dengarkan')}</figcaption>
         ${canSpeak ? `<button class="btn secondary ls-play" data-lines="${payload}" aria-pressed="false">▶ Dengarkan</button>` : ''}
       </div>
-      <div class="ls-lines">${lines}</div>
+      ${body}
     </figure>`;
   }
 
@@ -283,7 +293,7 @@
         ex.hidden = false;
       });
       const total = l.quiz.questions.length;
-      saveProgress(l.id, score, total);
+      LessonProgress.save(l.id, score, total);
       const result = document.getElementById('ls-quiz-result');
       const msg = score === total ? 'Sempurna! Kamu sudah paham materi ini.'
         : score >= total - 1 ? 'Bagus! Baca lagi penjelasan soal yang terlewat.'
