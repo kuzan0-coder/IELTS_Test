@@ -10,7 +10,7 @@
 // Sambung   : body { ticket } -> token baru untuk sesi yang sama, tanpa kuota.
 //             Tiket ditandatangani server dan berlaku selama jendela sesinya.
 const crypto = require('crypto');
-const { verifyUser, hasLicense, consumeQuota } = require('./feedback');
+const { verifyUser, licenseRequired, hasLicense, consumeQuota } = require('./feedback');
 const cards = require('../../src/data/speaking-cards.json');
 
 const LIVE_MODEL = process.env.LIVE_MODEL || 'gemini-3.8-live';
@@ -75,7 +75,7 @@ module.exports = async (req, res) => {
     return;
   }
 
-  if ((process.env.REQUIRE_PAID_LICENSE || '').toLowerCase() === 'true') {
+  if (licenseRequired()) {
     const paid = await hasLicense(user.id);
     if (!paid) {
       res.status(403).json({ ok: false, error: 'Ngobrol AI adalah fitur berbayar. Upgrade dulu untuk membukanya.' });

@@ -346,6 +346,16 @@ async function handleAIExplain(num, results, btn) {
   if (!r) return;
 
   const box = document.getElementById(`ai-${num}`);
+
+  // Penjelasan AI termasuk Akses Penuh — server juga menolak akun tanpa lisensi.
+  if (!(window.License ? await License.isPaid() : false)) {
+    box.style.display = 'block';
+    box.className = 'ai-box';
+    box.innerHTML = 'Penjelasan AI termasuk <strong>Akses Penuh</strong>. '
+      + 'Pembahasan singkat di atas tetap bisa kamu pakai. <a href="upgrade.html">Buka akses →</a>';
+    return;
+  }
+
   box.style.display = 'block';
   box.className = 'ai-box loading';
   box.textContent = 'AI sedang menjelaskan...';

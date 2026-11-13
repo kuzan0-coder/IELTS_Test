@@ -1,17 +1,39 @@
-// Tipe yang dihitung terhadap kuota bulanan (panggilan AI termahal: 3000 token).
-// Reading explain/tip lebih murah & cuma butuh login + batas input.
-const METERED_TYPES = new Set(['writing-score', 'speaking-feedback']);
-
-// Batas panjang input (karakter) supaya satu panggilan tidak membengkak biayanya.
-const INPUT_LIMITS = {
-  essay: 8000,
-  transcript: 8000,
-  prompt: 3000,
-  question: 2000,
-  context: 4000,
-  userAnswer: 600,
-  correctAnswer: 600,
-  questionType: 120
+// Jenis permintaan yang dipakai aplikasi web. Jenis lain DITOLAK, dan hanya field
+// yang terdaftar di sini yang diteruskan ke LLM. Setiap field dicek tipe dan
+// panjangnya supaya satu panggilan tidak bisa membengkak biayanya:
+//   kind 'text'   -> string, maksimal `max` karakter.
+//   kind 'number' -> angka (jumlah kata, durasi dalam detik).
+//   required      -> true, atau pesan untuk user kalau field itu kosong.
+//   metered       -> memakai 1 kuota AI bulanan (panggilan termahal: 3000 token).
+const REQUEST_TYPES = {
+  'writing-score': {
+    metered: true,
+    fields: {
+      task: { kind: 'text', max: 20 },
+      prompt: { kind: 'text', max: 3000 },
+      essay: { kind: 'text', max: 8000, required: 'Esai masih kosong.' },
+      wordCount: { kind: 'number' }
+    }
+  },
+  'speaking-feedback': {
+    metered: true,
+    fields: {
+      part: { kind: 'text', max: 60 },
+      question: { kind: 'text', max: 2000 },
+      transcript: { kind: 'text', max: 8000, required: 'Belum ada jawaban yang bisa dinilai.' },
+      duration: { kind: 'number' }
+    }
+  },
+  'reading-explain': {
+    metered: false,
+    contextMax: 4000, // paragraf passage yang relevan (field `context` di body)
+    fields: {
+      question: { kind: 'text', max: 2000, required: true },
+      questionType: { kind: 'text', max: 120 },
+      userAnswer: { kind: 'text', max: 600 },
+      correctAnswer: { kind: 'text', max: 600, required: true }
+    }
+  }
 };
 
 module.exports = async (req, res) => {
@@ -20,22 +42,24 @@ module.exports = async (req, res) => {
     return;
   }
 
-  const { type, content, context } = req.body || {};
-  if (!type || !content) {
-    res.status(400).json({ ok: false, error: 'Request tidak valid: type dan content wajib diisi.' });
+  // 1) VALIDASI — jenis + isi request dicek dulu, sebelum menyentuh database
+  //    atau LLM. Yang lolos hanya field terdaftar dengan tipe & panjang yang benar.
+  const request = parseRequest(req.body);
+  if (request.error) {
+    res.status(request.status).json({ ok: false, error: request.error });
     return;
   }
+  const { type, spec, content, context } = request;
 
-  // 1) WAJIB LOGIN — verifikasi token Supabase. Tanpa user terverifikasi, tolak.
+  // 2) WAJIB LOGIN — verifikasi token Supabase. Tanpa user terverifikasi, tolak.
   const user = await verifyUser(req);
   if (!user) {
     res.status(401).json({ ok: false, error: 'Silakan login dulu untuk memakai fitur AI.' });
     return;
   }
 
-  // 1b) WAJIB BERBAYAR — fitur AI premium. Aktifkan dengan REQUIRE_PAID_LICENSE=true
-  //     di Vercel setelah sistem pembayaran siap (default off agar testing lancar).
-  if ((process.env.REQUIRE_PAID_LICENSE || '').toLowerCase() === 'true') {
+  // 3) WAJIB BERLISENSI — aktif secara default, lihat licenseRequired().
+  if (licenseRequired()) {
     const paid = await hasLicense(user.id);
     if (!paid) {
       res.status(403).json({ ok: false, error: 'Penilaian AI adalah fitur berbayar. Upgrade dulu untuk membukanya.' });
@@ -43,16 +67,9 @@ module.exports = async (req, res) => {
     }
   }
 
-  // 2) BATAS PANJANG INPUT — cegah payload raksasa yang mahal.
-  const oversize = checkInputSize(content, context);
-  if (oversize) {
-    res.status(413).json({ ok: false, error: oversize });
-    return;
-  }
-
-  // 3) KUOTA BULANAN — hanya untuk scoring berat (Writing/Speaking).
+  // 4) KUOTA BULANAN — hanya untuk scoring berat (Writing/Speaking).
   let quotaInfo = null;
-  if (METERED_TYPES.has(type)) {
+  if (spec.metered) {
     const limit = parseInt(process.env.AI_MONTHLY_LIMIT || '60', 10);
     const quota = await consumeQuota(user.id, limit);
     if (!quota.ok) {
@@ -71,13 +88,13 @@ module.exports = async (req, res) => {
     quotaInfo = { used: quota.used, limit: quota.limit };
   }
 
-  // 4) Panggil LLM.
+  // 5) Panggil LLM.
   const provider = (process.env.AI_PROVIDER || 'claude').toLowerCase();
-  const systemPrompt = buildSystemPrompt(type);
-  const userPrompt = buildUserPrompt(type, content, context);
-  const maxTokens = METERED_TYPES.has(type) ? 3000 : 1500;
+  const maxTokens = spec.metered ? 3000 : 1500;
 
   try {
+    const systemPrompt = buildSystemPrompt(type);
+    const userPrompt = buildUserPrompt(type, content, context);
     const result = provider === 'gemini'
       ? await callGemini({ systemPrompt, userPrompt, maxTokens })
       : await callClaude({ systemPrompt, userPrompt, maxTokens });
@@ -88,9 +105,10 @@ module.exports = async (req, res) => {
   }
 };
 
-// Dipakai ulang oleh api/ai/live-token.js (AI Examiner) supaya aturan login,
+// Dipakai ulang oleh api/ai/live-token.js (Ngobrol AI) supaya aturan login,
 // lisensi, dan kuota tetap satu sumber.
 module.exports.verifyUser = verifyUser;
+module.exports.licenseRequired = licenseRequired;
 module.exports.hasLicense = hasLicense;
 module.exports.consumeQuota = consumeQuota;
 
@@ -136,17 +154,69 @@ async function hasLicense(userId) {
   }
 }
 
-/** Pastikan field teks tidak melebihi batas. Mengembalikan pesan error / null. */
-function checkInputSize(content, context) {
-  const fields = { ...(content || {}) };
-  if (typeof context === 'string') fields.context = context;
-  for (const [key, max] of Object.entries(INPUT_LIMITS)) {
-    const val = fields[key];
-    if (typeof val === 'string' && val.length > max) {
-      return `Input "${key}" terlalu panjang (${val.length} karakter, maksimal ${max}).`;
-    }
+/**
+ * Fitur AI hanya untuk akun berlisensi. AKTIF secara default (fail-closed):
+ * hanya REQUIRE_PAID_LICENSE=false yang mematikannya, dan itu khusus untuk
+ * development lokal — jangan pernah di Vercel production.
+ */
+function licenseRequired() {
+  return (process.env.REQUIRE_PAID_LICENSE || '').trim().toLowerCase() !== 'false';
+}
+
+/**
+ * Cek jenis + isi request terhadap REQUEST_TYPES. Mengembalikan
+ * { type, spec, content, context } yang HANYA berisi field terdaftar, atau
+ * { status, error } kalau ditolak. Pesan error sengaja tidak mengulang isi
+ * kiriman user.
+ */
+function parseRequest(body) {
+  const { type, content, context } = body || {};
+  const spec = typeof type === 'string' && Object.prototype.hasOwnProperty.call(REQUEST_TYPES, type)
+    ? REQUEST_TYPES[type]
+    : null;
+  if (!spec) return { status: 400, error: 'Request tidak valid: jenis permintaan tidak dikenal.' };
+  if (!content || typeof content !== 'object' || Array.isArray(content)) {
+    return { status: 400, error: 'Request tidak valid: content harus berupa objek.' };
   }
-  return null;
+
+  const clean = {};
+  for (const [name, rule] of Object.entries(spec.fields)) {
+    const val = content[name];
+    if (val === undefined || val === null || (typeof val === 'string' && !val.trim())) {
+      if (rule.required) {
+        const msg = typeof rule.required === 'string' ? rule.required : `Request tidak valid: "${name}" wajib diisi.`;
+        return { status: 400, error: msg };
+      }
+      continue;
+    }
+    if (rule.kind === 'number') {
+      if (typeof val !== 'number' || !Number.isFinite(val)) {
+        return { status: 400, error: `Request tidak valid: "${name}" harus berupa angka.` };
+      }
+      clean[name] = Math.round(val);
+      continue;
+    }
+    if (typeof val !== 'string') {
+      return { status: 400, error: `Request tidak valid: "${name}" harus berupa teks.` };
+    }
+    if (val.length > rule.max) {
+      return { status: 413, error: `Input "${name}" terlalu panjang (${val.length} karakter, maksimal ${rule.max}).` };
+    }
+    clean[name] = val;
+  }
+
+  let cleanContext = '';
+  if (spec.contextMax && context !== undefined && context !== null) {
+    if (typeof context !== 'string') {
+      return { status: 400, error: 'Request tidak valid: "context" harus berupa teks.' };
+    }
+    if (context.length > spec.contextMax) {
+      return { status: 413, error: `Input "context" terlalu panjang (${context.length} karakter, maksimal ${spec.contextMax}).` };
+    }
+    cleanContext = context;
+  }
+
+  return { type, spec, content: clean, context: cleanContext };
 }
 
 /**
@@ -257,9 +327,6 @@ function buildSystemPrompt(type) {
   if (type === 'reading-explain') {
     return 'You are an experienced IELTS examiner and tutor. Explain answers clearly in Bahasa Indonesia, using simple language. Keep explanations short (max 3 sentences per question). Focus on the strategy: which keywords to look for, why distractors are wrong.';
   }
-  if (type === 'reading-tip') {
-    return 'You are an IELTS reading coach. Give one specific, actionable tip in Bahasa Indonesia based on the question type. Max 4 sentences.';
-  }
   if (type === 'writing-score') {
     return `You are an experienced IELTS Writing examiner. Score essays strictly using the official IELTS band descriptors. Reply in Bahasa Indonesia.
 
@@ -316,18 +383,18 @@ Catatan: Untuk feedback pronunciation, latihan dengan native speaker (italki/Tan
 
 Be honest. Indicators of low fluency: short answers, repetition, basic vocabulary, simple sentences. Band 6.5+ needs: extended answers, range of vocabulary including some less common, complex grammar with mostly accurate use.`;
   }
-  return 'You are a helpful IELTS tutor. Reply in Bahasa Indonesia.';
+  // Tidak bisa terjadi: parseRequest() sudah menolak jenis lain.
+  throw new Error('Jenis permintaan tidak dikenal.');
 }
 
+// `content` sudah dibersihkan parseRequest(). Field opsional bisa tidak ada, jadi
+// beri nilai pengganti supaya prompt tidak berisi "undefined".
 function buildUserPrompt(type, content, context) {
   if (type === 'reading-explain') {
-    return `Jelaskan jawaban yang benar untuk soal IELTS Reading berikut. Jawaban user: "${content.userAnswer}". Jawaban benar: "${content.correctAnswer}". Tipe soal: ${content.questionType}. Pertanyaan: "${content.question}". Kalimat relevan dari passage: "${context || '(tidak disediakan)'}". Jelaskan kenapa jawaban benar adalah "${content.correctAnswer}" dan strategi menemukannya.`;
-  }
-  if (type === 'reading-tip') {
-    return `Saya kesulitan dengan tipe soal "${content.questionType}" di IELTS Reading. Kasih satu tip strategi yang spesifik.`;
+    return `Jelaskan jawaban yang benar untuk soal IELTS Reading berikut. Jawaban user: "${content.userAnswer || '(kosong)'}". Jawaban benar: "${content.correctAnswer}". Tipe soal: ${content.questionType || '-'}. Pertanyaan: "${content.question}". Kalimat relevan dari passage: "${context || '(tidak disediakan)'}". Jelaskan kenapa jawaban benar adalah "${content.correctAnswer}" dan strategi menemukannya.`;
   }
   if (type === 'writing-score') {
-    return `Nilai esai IELTS ${content.task} berikut. Prompt: "${content.prompt}". Word count: ${content.wordCount}.
+    return `Nilai esai IELTS ${content.task || 'Writing'} berikut. Prompt: "${content.prompt || '(tidak disediakan)'}". Word count: ${content.wordCount ?? '(tidak diketahui)'}.
 
 Esai:
 """
@@ -337,14 +404,18 @@ ${content.essay}
 Berikan band score detail per kriteria sesuai format yang diminta di system prompt.`;
   }
   if (type === 'speaking-feedback') {
-    return `Nilai transkrip IELTS Speaking ${content.part} berikut. Pertanyaan/cue card: "${content.question}".
+    const part = content.part ? ` ${content.part}` : '';
+    const duration = content.duration !== undefined ? `${content.duration} detik` : 'tidak diketahui';
+    return `Nilai transkrip IELTS Speaking${part} berikut. Pertanyaan/cue card: "${content.question || '(tidak disediakan)'}".
 
 Transkrip jawaban user:
 """
 ${content.transcript}
 """
 
-Durasi: ${content.duration} detik. Berikan feedback band score sesuai format yang diminta.`;
+Durasi: ${duration}. Berikan feedback band score sesuai format yang diminta.`;
   }
-  return content;
+  // Tidak bisa terjadi: parseRequest() sudah menolak jenis lain. Jangan pernah
+  // meneruskan isi mentah dari user ke LLM.
+  throw new Error('Jenis permintaan tidak dikenal.');
 }
